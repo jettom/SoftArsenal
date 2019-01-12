@@ -11,18 +11,18 @@ print("index: ", S.index)  #默认创建索引，注意是从0开始
 print("values: ", S.values)
 
 np.random.seed(2)
-s=Series(np.random.randn(5),index=['a','b','c','d','e'])
+s=pd.Series(np.random.randn(5),index=['a','b','c','d','e'])
 print (s)
 s.index
 
 #通过字典（dict）来创建Series。
 stocks={'中国平安':'601318','格力电器':'000651','招商银行':'600036',
         '中信证券':'600030','贵州茅台':'600519'}
-Series_stocks = Series(stocks)
+Series_stocks = pd.Series(stocks)
 print (s)
 
 #使用字典创建Series时指定index的情形（index长度不必和字典相同）。
-Series(stocks, index=['中国平安', '格力电器', '招商银行', '中信证券',
+pd.Series(stocks, index=['中国平安', '格力电器', '招商银行', '中信证券',
                        '工业富联'])
 #注意，在原来的stocks（dict）里没有‘工业富联’，因此值为‘NaN’
 
@@ -35,7 +35,7 @@ print(Series_stocks)
 #Series对象的下标运算同时支持位置和标签两种方式
 np.random.seed(3)
 data=np.random.randn(5)
-s = Series(data,index=['a', 'b', 'c', 'd', 'e'])
+s = pd.Series(data,index=['a', 'b', 'c', 'd', 'e'])
 s
 
 s[:2]   #取出第0、1行数据
@@ -47,7 +47,7 @@ s[['e', 'a']] #取出‘e’、‘a’对应数据
 #1.3 Series排序函数
 np.random.seed(3)
 data=np.random.randn(10)
-s = Series(data,index=['j','a', 'c','b', 'd', 'e','h','f','g','i'])
+s = pd.Series(data,index=['j','a', 'c','b', 'd', 'e','h','f','g','i'])
 s
 
 #排序
@@ -82,13 +82,13 @@ print ("DataFrame values:\n",df.values)
 
 #DataFrame也可以从值是数组的字典创建，但是各个数组的长度需要相同：
 d = {'one': [1., 2., 3., 4.], 'two': [4., 3., 2., 1.]}
-df = DataFrame(d, index=['a', 'b', 'c', 'd'])
-print df
+df = pd.DataFrame(d, index=['a', 'b', 'c', 'd'])
+print (df)
 
 #值非数组时，没有这一限制，并且缺失值补成NaN
 d= [{'a': 1.6, 'b': 2}, {'a': 3, 'b': 6, 'c': 9}]
-df = DataFrame(d)
-print df
+df = pd.DataFrame(d)
+print (df)
 
 #在实际处理数据时，有时需要创建一个空的DataFrame，可以这么做
 df = DataFrame()
@@ -96,16 +96,17 @@ print (df)
 
 #另一种创建DataFrame的方法十分有用，那就是使用concat函数基于Series
 #或者DataFrame创建一个DataFrame
-a = Series(range(5))   #range(5)产生0到4
-b = Series(np.linspace(4, 20, 5)) #linspace(a,b,c)
+a = pd.Series(range(5))   #range(5)产生0到4
+b = pd.Series(np.linspace(4, 20, 5)) #linspace(a,b,c)
 df = pd.concat([a, b], axis=1)
 print (df)
 
+#データ分析ライブラリからSeriesとDataFrameをインポート
+from pandas import Series, DataFrame
 #其中的axis=1表示按列进行合并，axis=0表示按行合并，
 #并且，Series都处理成一列，所以这里如果选axis=0的话，
 #将得到一个10×1的DataFrame。下面这个例子展示了如何按行合并
 #DataFrame成一个大的DataFrame：
-
 df = DataFrame()
 index = ['alpha', 'beta', 'gamma', 'delta', 'eta']
 for i in range(5):
@@ -158,10 +159,9 @@ print(df)
 print (df.iat[2, 3])  #相当于第3行第4列
 print (df.at['gamma', 'd'])
 
-2.3创建时间序列
+#2.3创建时间序列
 #pandas.date_range(start=None, end=None, periods=None, freq='D',
 #   tz=None, normalize=False, name=None, closed=None, **kwargs)
-
 dates=pd.date_range('20180101',periods=12,freq='m')
 print (dates)
 
