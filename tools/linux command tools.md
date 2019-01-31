@@ -1,19 +1,24 @@
 # 18个堪称神器的命令行工具，高效运维必备
 
 1. thefuck
+
 命令行打错了以后，打一个fuck就会自动纠正。
 [GitHub：](https://github.com/nvbn/thefuck)
 1. ag
+
 比 grep、ack 更快的递归搜索文件内容
 [官网：](https://geoff.greer.fm/ag/)
 [GitHub：](https://github.com/ggreer/the_silver_searcher)
 1. pm
+
 在 bash / zsh 中迅速切换项目目录
 [GitHub：](https://github.com/Angelmmiguel/pm)
 1. tig
+
 字符模式下交互查看 git 项目，可以替代 git 命令。
 [GitHub：](https://github.com/jonas/tig)
 1. ncdu
+
 可视化的空间分析程序。
 [官网：](https://dev.yorhel.nl/ncdu)
 1. mycli
@@ -52,6 +57,7 @@ Google 开发的 Python 代码格式规范化工具，支持 pep8。
 1. ccache
 高速C/C++编译缓存工具，反复编译内核非常有用。使用起来也非常方便.
 [官网：](https://ccache.samba.org/)
-1. you-get    🌟🌟🌟🌟🌟
+1. you-get    🌟🌟🌟🌟🌟    cloned
+
 非常强大的媒体下载工具。
 [官网：](https://you-get.org/)
