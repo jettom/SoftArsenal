@@ -46,12 +46,12 @@ GitHub：https://github.com/axel-download-accelerator/axel
 1. sz/rz
 交互式文件传输，在多重跳板机下传输文件非常好用，不用一级一级传输。
 GitHub：https://github.com/mmastrac/iterm2-zmodem
-1. cloc
+1. cloc　　　　cloned
 代码统计工具，能够统计代码的空行数、注释行、编程语言。
 GitHub：https://github.com/AlDanial/cloc
 1. ccache
 高速C/C++编译缓存工具，反复编译内核非常有用。使用起来也非常方便.
 官网：https://ccache.samba.org/
-1. you-get
+1. you-get    🌟🌟🌟🌟🌟
 非常强大的媒体下载工具。
-官网：https://you-get.org/
+[官网：](https://you-get.org/)https://you-get.org/
