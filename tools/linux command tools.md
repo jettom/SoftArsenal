@@ -5,8 +5,7 @@
 命令行打错了以后，打一个fuck就会自动纠正。
 [GitHub：](https://github.com/nvbn/thefuck)
 1. ag
-
-比 grep、ack 更快的递归搜索文件内容
+    比 grep、ack 更快的递归搜索文件内容
 [官网：](https://geoff.greer.fm/ag/)
 [GitHub：](https://github.com/ggreer/the_silver_searcher)
 1. pm
