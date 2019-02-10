@@ -1,0 +1,6 @@
+for news in soup.select('.news-item'):
+    if(len(news.select('h2'))>0):
+        h2=new.select('h2')[0].text
+        time=new.select('.time')[0].text
+        a=new.select('a')[0]['href']
+        print(time,h2,a)
