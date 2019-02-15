@@ -8,17 +8,3 @@ for news in soup.select('.news-item'):
 test
 
 To complete your real good customer experience, DMCI Homes has created a new system that allows you to easily update your personal information and view your latest Statement of Account (SOA).
-
-
-
-FOR YOUR CONVENIENCE, WE HAVE PRE-REGISTERED YOUR ACCOUNT.
-
-Kindly prepare your TIN and birthdate when activating your account.
-
-
-
-
-
-HERE ARE YOUR ACCOUNT LOGIN DETAILS:
-
-Username: jiangdocomo@gmail.com
