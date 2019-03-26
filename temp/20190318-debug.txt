@@ -1,0 +1,138 @@
+TounoMacBook-puro:Desktop toukyou$ you-get --debug "http://v.youku.com/v_show/id_XMzMzMjQwNDE2OA==.html"
+[DEBUG] get_content: https://ups.youku.com/ups/get.json?vid=XMzMzMjQwNDE2OA==&ccode=0590&client_ip=192.168.1.1&utid=OTEWFcBmNmMCAdzQU5KkyQaL&client_ts=1552892732&ckey=DIl58SLFxFNndSV1GFNnMQVYkx1PP5tKe1siZu/86PR1u/Wh1Ptd%2BWOZsHHWxysSfAOhNJpdVWsdVJNsfJ8Sxd8WKVvNfAS8aS8fAOzYARzPyPc3JvtnPHjTdKfESTdnuTW6ZPvk2pNDh4uFzotgdMEFkzQ5wZVXl2Pf1/Y6hLK0OnCNxBj3%2Bnb0v72gZ6b0td%2BWOZsHHWxysSo/0y9D2K42SaB8Y/%2BaD2K42SaB8Y/%2BahU%2BWOZsHcrxysooUeND
+site:                优酷 (Youku)
+title:               布林带使用技巧
+stream:
+    - format:        3gphd
+      container:     mp4
+      video-profile: 渣清
+      size:          33.0 MiB (34643983 bytes)
+      m3u8_url:      http://pl-ali.youku.com/playlist/m3u8?vid=XMzMzMjQwNDE2OA&type=mp4&ups_client_netip=dcd05392&utid=OTEWFcBmNmMCAdzQU5KkyQaL&ccode=0590&psid=5e93cfc73b16a5b6532890fc2c0cc402&duration=3570&expire=18000&drm_type=1&drm_device=10&ups_ts=1552892733&onOff=0&encr=0&ups_key=e6677ab1b1c1a6fadcd0c7a6c2703dee
+    # download-with: you-get --format=3gphd [URL]
+
+Downloading 布林带使用技巧.mp4 ...
+ 100% ( 33.0/ 33.0MB) ├████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████┤[9/9]   73 MB/syou-get: version 0.4.1205, a tiny downloader that scrapes the web.
+you-get: Namespace(URL=['http://v.youku.com/v_show/id_XMzMzMjQwNDE2OA==.html'], auto_rename=False, cookies=None, debug=True, extractor_proxy=None, force=False, format=None, help=False, http_proxy=None, info=False, input_file=None, itag=None, json=False, no_caption=False, no_merge=False, no_proxy=False, output_dir='.', output_filename=None, password=None, player=None, playlist=False, socks_proxy=None, stream=None, timeout=600, url=False, version=False)
+
+Merging video parts...
+./布林带使用技巧[00].mp4
+./布林带使用技巧[01].mp4
+./布林带使用技巧[02].mp4
+./布林带使用技巧[03].mp4
+./布林带使用技巧[04].mp4
+./布林带使用技巧[05].mp4
+./布林带使用技巧[06].mp4
+./布林带使用技巧[07].mp4
+./布林带使用技巧[08].mp4
+Traceback (most recent call last):
+  File "/Users/toukyou/anaconda3/bin/you-get", line 11, in <module>
+    sys.exit(main())
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/__main__.py", line 92, in main
+    main(**kwargs)
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/common.py", line 1653, in main
+    script_main(any_download, any_download_playlist, **kwargs)
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/common.py", line 1541, in script_main
+    **extra
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/common.py", line 1276, in download_main
+    download(url, **kwargs)
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/common.py", line 1644, in any_download
+    m.download(url, **kwargs)
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/extractors/youku.py", line 309, in youku_download_by_url
+    Youku().download_by_url(url, **kwargs)
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/extractor.py", line 59, in download_by_url
+    self.download(**kwargs)
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/extractor.py", line 228, in download
+    av=stream_id in self.dash_streams)
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/common.py", line 1011, in download_urls
+    concat_mp4(parts, output_filepath)
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/processor/join_mp4.py", line 914, in concat_mp4
+    merge_mp4s(mp4s, output)
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/processor/join_mp4.py", line 879, in merge_mp4s
+    moov = merge_moov(moovs, mdats)
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/processor/join_mp4.py", line 823, in merge_moov
+    ctts = sum((x.get(b'mdia', b'minf', b'stbl', b'ctts').body[1] for x in trak0s), [])
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/processor/join_mp4.py", line 823, in <genexpr>
+    ctts = sum((x.get(b'mdia', b'minf', b'stbl', b'ctts').body[1] for x in trak0s), [])
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/processor/join_mp4.py", line 91, in get
+    atom = atom.get1(k)
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/processor/join_mp4.py", line 87, in get1
+    raise Exception('atom not found: ' + k)
+TypeError: can only concatenate str (not "bytes") to str
+
+
+TounoMacBook-puro:Desktop toukyou$ you-get --debug "http://v.youku.com/v_show/id_XMzMwNzg2NjcxMg==.html"
+[DEBUG] get_content: https://ups.youku.com/ups/get.json?vid=XMzMwNzg2NjcxMg==&ccode=0590&client_ip=192.168.1.1&utid=kYccFdWi2DsCAdzQU5J6ImjI&client_ts=1553308052&ckey=DIl58SLFxFNndSV1GFNnMQVYkx1PP5tKe1siZu/86PR1u/Wh1Ptd%2BWOZsHHWxysSfAOhNJpdVWsdVJNsfJ8Sxd8WKVvNfAS8aS8fAOzYARzPyPc3JvtnPHjTdKfESTdnuTW6ZPvk2pNDh4uFzotgdMEFkzQ5wZVXl2Pf1/Y6hLK0OnCNxBj3%2Bnb0v72gZ6b0td%2BWOZsHHWxysSo/0y9D2K42SaB8Y/%2BaD2K42SaB8Y/%2BahU%2BWOZsHcrxysooUeND
+site:                优酷 (Youku)
+title:               第01课《均线理论》
+stream:
+    - format:        3gphd
+      container:     mp4
+      video-profile: 渣清
+      size:          26.9 MiB (28164907 bytes)
+      m3u8_url:      http://pl-ali.youku.com/playlist/m3u8?vid=XMzMwNzg2NjcxMg&type=mp4&ups_client_netip=dcd05392&utid=kYccFdWi2DsCAdzQU5J6ImjI&ccode=0590&psid=8f9278bc1668e8ad0ebd4e3c884be811&duration=2839&expire=18000&drm_type=1&drm_device=10&ups_ts=1553308052&onOff=0&encr=0&ups_key=ee46146fd5e25d6c4a612676489e9342
+    # download-with: you-get --format=3gphd [URL]
+
+Downloading 第01课《均线理论》.mp4 ...
+ 100% ( 26.9/ 26.9MB) ├████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████┤[8/8]   19 MB/syou-get: version 0.4.1205, a tiny downloader that scrapes the web.
+you-get: Namespace(URL=['http://v.youku.com/v_show/id_XMzMwNzg2NjcxMg==.html'], auto_rename=False, cookies=None, debug=True, extractor_proxy=None, force=False, format=None, help=False, http_proxy=None, info=False, input_file=None, itag=None, json=False, no_caption=False, no_merge=False, no_proxy=False, output_dir='.', output_filename=None, password=None, player=None, playlist=False, socks_proxy=None, stream=None, timeout=600, url=False, version=False)
+
+Merging video parts...
+./第01课《均线理论》[00].mp4
+./第01课《均线理论》[01].mp4
+./第01课《均线理论》[02].mp4
+./第01课《均线理论》[03].mp4
+./第01课《均线理论》[04].mp4
+./第01课《均线理论》[05].mp4
+./第01课《均线理论》[06].mp4
+./第01课《均线理论》[07].mp4
+Traceback (most recent call last):
+  File "/Users/toukyou/anaconda3/bin/you-get", line 11, in <module>
+    sys.exit(main())
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/__main__.py", line 92, in main
+    main(**kwargs)
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/common.py", line 1653, in main
+    script_main(any_download, any_download_playlist, **kwargs)
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/common.py", line 1541, in script_main
+    **extra
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/common.py", line 1276, in download_main
+    download(url, **kwargs)
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/common.py", line 1644, in any_download
+    m.download(url, **kwargs)
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/extractors/youku.py", line 309, in youku_download_by_url
+    Youku().download_by_url(url, **kwargs)
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/extractor.py", line 59, in download_by_url
+    self.download(**kwargs)
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/extractor.py", line 228, in download
+    av=stream_id in self.dash_streams)
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/common.py", line 1011, in download_urls
+    concat_mp4(parts, output_filepath)
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/processor/join_mp4.py", line 914, in concat_mp4
+    merge_mp4s(mp4s, output)
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/processor/join_mp4.py", line 879, in merge_mp4s
+    moov = merge_moov(moovs, mdats)
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/processor/join_mp4.py", line 823, in merge_moov
+    ctts = sum((x.get(b'mdia', b'minf', b'stbl', b'ctts').body[1] for x in trak0s), [])
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/processor/join_mp4.py", line 823, in <genexpr>
+    ctts = sum((x.get(b'mdia', b'minf', b'stbl', b'ctts').body[1] for x in trak0s), [])
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/processor/join_mp4.py", line 91, in get
+    atom = atom.get1(k)
+  File "/Users/toukyou/anaconda3/lib/python3.7/site-packages/you_get/processor/join_mp4.py", line 87, in get1
+    raise Exception('atom not found: ' + k)
+TypeError: can only concatenate str (not "bytes") to str
+
+TounoMacBook-puro:Desktop toukyou$ you-get --debug "http://v.youku.com/v_show/id_XNDY0NjE0MDM2.html"
+[DEBUG] get_content: https://ups.youku.com/ups/get.json?vid=XNDY0NjE0MDM2&ccode=0590&client_ip=192.168.1.1&utid=RV8eFYGgxnUCAdzQU5KjgdiN&client_ts=1553428808&ckey=DIl58SLFxFNndSV1GFNnMQVYkx1PP5tKe1siZu/86PR1u/Wh1Ptd%2BWOZsHHWxysSfAOhNJpdVWsdVJNsfJ8Sxd8WKVvNfAS8aS8fAOzYARzPyPc3JvtnPHjTdKfESTdnuTW6ZPvk2pNDh4uFzotgdMEFkzQ5wZVXl2Pf1/Y6hLK0OnCNxBj3%2Bnb0v72gZ6b0td%2BWOZsHHWxysSo/0y9D2K42SaB8Y/%2BaD2K42SaB8Y/%2BahU%2BWOZsHcrxysooUeND
+site:                优酷 (Youku)
+title:               第一季第三集  常用技术图表解析
+stream:
+    - format:        flvhd
+      container:     flv
+      video-profile: 渣清
+      size:          27.0 MiB (28358891 bytes)
+      m3u8_url:      http://pl-ali.youku.com/playlist/m3u8?vid=XNDY0NjE0MDM2&type=flv&ups_client_netip=dcd05392&utid=RV8eFYGgxnUCAdzQU5KjgdiN&ccode=0590&psid=80aa882abcb6999620bfd35285dbbf30&duration=789&expire=18000&drm_type=1&drm_device=10&ups_ts=1553428809&onOff=0&encr=0&ups_key=9b77fbd88408ec397b6064d1087e02a8
+    # download-with: you-get --format=flvhd [URL]
+
+Downloading 第一季第三集  常用技术图表解析.flv ...
+ 100% ( 27.0/ 27.0MB) ├████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████┤[2/2]   13 MB/s
+Merging video parts...
+Merged into 第一季第三集  常用技术图表解析.flv
