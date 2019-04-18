@@ -61,4 +61,8 @@ if __name__ == "__main__":
     if len(sys.argv) == 2 and sys.argv[1]:
         tree(depth=int(sys.argv[1]))
     else:
-        tree()
+        # usage:python tree.py 2 c:\temp
+        if len(sys.argv) == 3 and sys.argv[1]:
+            tree(path=sys.argv[2],depth=int(sys.argv[1]))
+        else:
+            tree()
