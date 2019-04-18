@@ -213,8 +213,17 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
-*.xml
+#*.xml
 *.iml
-sample/python/.ipynb_checkpoints/Pandas_h2h-checkpoint.ipynb
-sample/python/.ipynb_checkpoints/fushareSample-checkpoint.ipynb
-sample/python/.ipynb_checkpoints/10MinsPandas-checkpoint.ipynb
+#sample/python/.ipynb_checkpoints/Pandas_h2h-checkpoint.ipynb
+#sample/python/.ipynb_checkpoints/fushareSample-checkpoint.ipynb
+#sample/python/.ipynb_checkpoints/10MinsPandas-checkpoint.ipynb
+#ignore ipynb(jupyter) middle files
+
+**/.ipynb_checkpoints/*.ipynb
+
+#ignore office middle files
+
+**/~$*
+*.csv
+*.json
