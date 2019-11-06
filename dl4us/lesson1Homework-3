@@ -1,0 +1,80 @@
+import numpy as np
+import pandas as pd
+import os
+
+def load_mnist():
+
+    # 学習データ
+    x_train = np.load('/root/userspace/public/lesson1/data/x_train.npy')
+    y_train = np.load('/root/userspace/public/lesson1/data/y_train.npy')
+    
+    # テストデータ
+    x_test = np.load('/root/userspace/public/lesson1/data/x_test.npy')
+
+    x_train = x_train.reshape(-1, 784).astype('float32') / 255
+    x_test = x_test.reshape(-1, 784).astype('float32') / 255
+    y_train = np.eye(10)[y_train.astype('int32').flatten()]
+
+    return (x_train, x_test, y_train)
+
+x_train, x_test, y_train = load_mnist()
+
+
+
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Dropout
+
+model = Sequential()
+
+model.add(Dense(512, input_shape=(784,), activation='relu', kernel_initializer='he_normal'))
+model.add(Dense(256, activation='relu', kernel_initializer='he_normal'))
+model.add(Dense(128, activation='relu', kernel_initializer='he_normal'))
+model.add(Dropout(0.3))
+model.add(Dense(64, activation='relu', kernel_initializer='he_normal'))
+model.add(Dense(32, activation='relu', kernel_initializer='he_normal'))
+model.add(Dense(10, activation='softmax'))
+
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+model.fit(x_train, y_train, batch_size=32, epochs=16, validation_split=0.1)
+
+pred_y = model.predict(x_test)
+pred_y = np.argmax(pred_y, 1)
+    
+submission = pd.Series(pred_y, name='label')
+submission.to_csv('/root/userspace/lesson1/submissions/submission.csv', header=True, index_label='id')
+
+
+
+Train on 58500 samples, validate on 6500 samples
+Epoch 1/16
+58500/58500 [==============================] - 9s 152us/sample - loss: 0.5614 - acc: 0.7978 - val_loss: 0.4445 - val_acc: 0.8357
+Epoch 2/16
+58500/58500 [==============================] - 8s 145us/sample - loss: 0.4046 - acc: 0.8561 - val_loss: 0.3694 - val_acc: 0.8652
+Epoch 3/16
+58500/58500 [==============================] - 8s 145us/sample - loss: 0.3617 - acc: 0.8696 - val_loss: 0.3447 - val_acc: 0.8728
+Epoch 4/16
+58500/58500 [==============================] - 8s 145us/sample - loss: 0.3350 - acc: 0.8788 - val_loss: 0.3279 - val_acc: 0.8820
+Epoch 5/16
+58500/58500 [==============================] - 8s 145us/sample - loss: 0.3168 - acc: 0.8851 - val_loss: 0.3618 - val_acc: 0.8632
+Epoch 6/16
+58500/58500 [==============================] - 8s 145us/sample - loss: 0.3016 - acc: 0.8900 - val_loss: 0.3034 - val_acc: 0.8883
+Epoch 7/16
+58500/58500 [==============================] - 8s 145us/sample - loss: 0.2891 - acc: 0.8935 - val_loss: 0.3185 - val_acc: 0.8851
+Epoch 8/16
+58500/58500 [==============================] - 8s 145us/sample - loss: 0.2787 - acc: 0.8971 - val_loss: 0.3284 - val_acc: 0.8834
+Epoch 9/16
+58500/58500 [==============================] - 8s 145us/sample - loss: 0.2680 - acc: 0.9009 - val_loss: 0.3218 - val_acc: 0.8885
+Epoch 10/16
+58500/58500 [==============================] - 8s 145us/sample - loss: 0.2582 - acc: 0.9036 - val_loss: 0.3201 - val_acc: 0.8891
+Epoch 11/16
+58500/58500 [==============================] - 8s 145us/sample - loss: 0.2517 - acc: 0.9059 - val_loss: 0.3037 - val_acc: 0.8903
+Epoch 12/16
+58500/58500 [==============================] - 8s 145us/sample - loss: 0.2446 - acc: 0.9091 - val_loss: 0.3027 - val_acc: 0.8928
+Epoch 13/16
+58500/58500 [==============================] - 8s 145us/sample - loss: 0.2382 - acc: 0.9098 - val_loss: 0.2962 - val_acc: 0.8951
+Epoch 14/16
+58500/58500 [==============================] - 8s 145us/sample - loss: 0.2310 - acc: 0.9138 - val_loss: 0.3075 - val_acc: 0.8922
+Epoch 15/16
+58500/58500 [==============================] - 8s 145us/sample - loss: 0.2254 - acc: 0.9146 - val_loss: 0.2968 - val_acc: 0.8957
+Epoch 16/16
+58500/58500 [==============================] - 8s 145us/sample - loss: 0.2204 - acc: 0.9181 - val_loss: 0.3101 - val_acc: 0.8932
