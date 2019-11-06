@@ -1,0 +1,205 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.915
+In this video,
+
+2
+00:00:06.915 --> 00:00:13.645
+we will explore how to estimate the average return using confidence interval.
+
+3
+00:00:13.645 --> 00:00:19.065
+Here is a sample of the log return of a stock price of Apple.
+
+4
+00:00:19.065 --> 00:00:22.760
+We can get average return in this sample.
+
+5
+00:00:22.760 --> 00:00:28.120
+We can sample mean to estimate the real average return,
+
+6
+00:00:28.120 --> 00:00:31.415
+which is population mean in our example.
+
+7
+00:00:31.415 --> 00:00:35.345
+We want to do more about estimation.
+
+8
+00:00:35.345 --> 00:00:41.175
+Intuitionally, if a sample is a good representative of the population,
+
+9
+00:00:41.175 --> 00:00:44.465
+the population mean should be close to sample mean.
+
+10
+00:00:44.465 --> 00:00:51.975
+It is plausible to say that the population mean is in a range with sample mean centered.
+
+11
+00:00:51.975 --> 00:00:57.409
+Hence, our task in this video is to estimate
+
+12
+00:00:57.409 --> 00:01:03.140
+population mean using interval with lower and upper bound.
+
+13
+00:01:03.140 --> 00:01:07.510
+To start with, we need to standardize sample mean
+
+14
+00:01:07.510 --> 00:01:12.675
+because different sample has different mean and a standard deviation.
+
+15
+00:01:12.675 --> 00:01:17.995
+We have learned that distribution of sample mean is normal in our last video.
+
+16
+00:01:17.995 --> 00:01:22.695
+We can standardize sample mean by minus it's mean,
+
+17
+00:01:22.695 --> 00:01:28.575
+which is identical to population mean and then divided by its standard deviation,
+
+18
+00:01:28.575 --> 00:01:34.765
+which is the standard deviation of population divided by square root of sample size.
+
+19
+00:01:34.765 --> 00:01:39.470
+After standardization, it'll become standard normal,
+
+20
+00:01:39.470 --> 00:01:42.305
+and follows Z-distribution.
+
+21
+00:01:42.305 --> 00:01:47.375
+For Z-distribution, it is not difficult to find the two quantities;
+
+22
+00:01:47.375 --> 00:01:49.390
+Z Alpha over two,
+
+23
+00:01:49.390 --> 00:01:54.860
+and Z, one minus Alpha over two such that in the middle,
+
+24
+00:01:54.860 --> 00:01:58.035
+the probability is one minus Alpha.
+
+25
+00:01:58.035 --> 00:02:02.625
+Since Z is symmetric with respect to zero,
+
+26
+00:02:02.625 --> 00:02:09.550
+the magnitudes of these two quantiles are the same except the sign.
+
+27
+00:02:09.550 --> 00:02:18.740
+We have Z_1 minus Alpha over two equal to negative Z Alpha over two.
+
+28
+00:02:18.780 --> 00:02:25.245
+Since the standardization form of sample mean is also Z,
+
+29
+00:02:25.245 --> 00:02:28.805
+then we have this equation.
+
+30
+00:02:28.805 --> 00:02:32.585
+With some calculation in the parenthesis,
+
+31
+00:02:32.585 --> 00:02:35.090
+we can have this form,
+
+32
+00:02:35.090 --> 00:02:41.155
+which explicitly gives the upper and lower bounds for population mean.
+
+33
+00:02:41.155 --> 00:02:46.040
+Notice that Sigma is the population standard deviation,
+
+34
+00:02:46.040 --> 00:02:48.620
+which is usually unknown.
+
+35
+00:02:48.620 --> 00:02:52.010
+In practice, we can replace it using
+
+36
+00:02:52.010 --> 00:02:57.045
+the sample standard deviation if sample size is large enough.
+
+37
+00:02:57.045 --> 00:03:05.130
+The interval here, for Mu is called confidence interval at the level of one minus Alpha.
+
+38
+00:03:05.130 --> 00:03:10.030
+In our problems, to build the interval for the average return,
+
+39
+00:03:10.030 --> 00:03:17.330
+we need to find quantiles of mean distribution which has been discussed in topic two.
+
+40
+00:03:17.330 --> 00:03:21.875
+We can use the norm.ppf to get the quantiles.
+
+41
+00:03:21.875 --> 00:03:26.735
+Here, alpha over two is equal to 0.1,
+
+42
+00:03:26.735 --> 00:03:31.330
+hence confidence level is 80 percent.
+
+43
+00:03:31.330 --> 00:03:35.870
+Then we can calculate sample mean and the standard deviation of
+
+44
+00:03:35.870 --> 00:03:40.685
+sample in which the population standard deviation
+
+45
+00:03:40.685 --> 00:03:44.615
+is replaced by sample standard deviation.
+
+46
+00:03:44.615 --> 00:03:48.685
+The 80 percent of confidence interval is printed out.
+
+47
+00:03:48.685 --> 00:03:56.400
+Average return of Apple stocks falls in this interval with 80 percent chance.
+
+48
+00:03:56.400 --> 00:04:00.835
+Notice, this interval is on the positive side.
+
+49
+00:04:00.835 --> 00:04:06.905
+It implies that the average return is very likely to be positive.
+
+50
+00:04:06.905 --> 00:04:13.640
+In next video, we will discuss another statistical inference tool,
+
+51
+00:04:13.640 --> 00:04:21.850
+hypothesis testing, which can be applied to detect difference or change of population.
