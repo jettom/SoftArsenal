@@ -7,6 +7,7 @@
 .metadata
 bin/
 tmp/
+temp/
 *.tmp
 *.bak
 *.swp
@@ -233,3 +234,6 @@ input/embeddings/GoogleNews-vectors-negative300/GoogleNews-vectors-negative300.b
 input/embeddings/paragram_300_sl999/paragram_300_sl999.txt
 input/embeddings/paragram_300_sl999/README.txt
 input/embeddings/wiki-news-300d-1M/wiki-news-300d-1M.vec
+
+#customer
+**/*.mp4

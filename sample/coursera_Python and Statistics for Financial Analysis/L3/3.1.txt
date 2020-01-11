@@ -1,0 +1,78 @@
+[MUSIC] In this video, we are going to discuss basic
+concepts about population and sample. Population is a group of individuals
+who have something in common. We may be interested in some
+properties about a certain group, which we call target population,
+that cannot be observed completely. For example,
+all registered voters in Thailand, or all Hong Kong citizens who played
+golf at least once past year, or all neurons from your brain. Since we cannot get information for
+every individual of these populations, we have to take sample,
+which is a part of target population. Sample is a small group of population. It is a representative of the population,
+hence, it has to be randomly selected. This process is called random sampling. There are two kinds of sampling,
+called a sampling without replacement, or with replacement, depending on
+whether you put the select individuals back into population before
+you select the next one. In a sampling without replacement, an individual is randomly
+selected from the population. The next individual will be selected without putting the previous
+individual back. Every individual is selected
+from a different pool. If the population size is very large,
+this method is a factor because it can generate a random
+sample with different individuals. There is another kind of sampling method,
+sampling with replacement. A randomly selected
+individual will be put back before the next individual being selected. Hence, it is possible that the same
+individual can be selected more than once. When the population is small,
+this method can make sure that everyone in the population has
+the same chance being selected. In this example,
+we first create a blank DataFrame and we create a new column in this DataFrame. Name the column as Population. Then I run this python code to
+perform sampling from the population by drawing five individuals
+randomly without replacement. And stored them,
+as a_sample_without_replacement. In we can use method
+sample to get samples. Here, the key word replace=False means the sampling is
+a sampling without replacement. We can define replace True to
+perform sampling with replacement. Here are the results of two samples. You can see that for
+sampling without replacement, which is on the left-hand side,
+there are no duplicates individuals found. As we can see, there are no
+duplicate index numbers either. However, on the right-hand side,
+which is the sampling with replacement, it is possible to see the same
+individual is drawn for multiple times. Besides population sample, there is
+another pair of concepts, parameter and statistics, of which are very important
+in categorizing population and sample. Parameter is a characteristic or
+summary number of populations. Statistic is a characteristic or
+summary number of sample. For example, mean, variance, standard deviation of population
+are characteristics of population. Once target populations are fixed,
+these summary numbers will not change. Sample also has mean, variance,
+and standard deviation, but their values changes
+in different samples, even if they are drawn
+from the same population. Let's print out the parameters of
+population which we have just created. We can calculate the mean,
+variance, and the standard deviation using dataframe methods,
+.mean, .var, .std. The mathematic formulas for
+mean and variance are given. In calculating var and std,
+we set the keyword ddof as 0. Which means the denominator of
+the population variance is N, which is the number of the population. The .shape,
+as described in the previous module, offers a size of the data
+frame in rows and columns. We use .shape(0) to display
+only the number of rows. Also, these methods can be applied
+to compute statistics of samples. First, let us get a sample with size
+10 from population, using replacement. The sample and sample variance
+standard deviation are printed out. Notice that when we compute
+a sample variance and std, we need the ddof equal to 1. It means the denominator
+of a sample variance has to be n-1 instead of n,
+which is the sample size. To understand why the denominator
+of the sample variance is n-1, let us generate 500 samples,
+each sample with size equal to 50. We calculate sample variance for each sample using n and
+n-1 as denominators. You'll find that the real
+population variance is 571.8. As you can see,
+the average of sample variances using n-1 is closer to population
+variance than using n. The average of sample variance
+using n as denominator is always smaller than population variance,
+which is some mathematical reasons. n-1, in fact,
+is called degrees of freedom. For sample variance,
+there is another explanation why sample variance is divided by n-1,
+which is the degrees of freedom. Degrees of freedom is
+a number of values used in calculation that are free to variate. When we use the sample mean to
+compute the sample variance, we will lose one degree of freedom. For example, sample size equal to 3, sample mean equal to 100 is used
+in computing sample variance. We can choose two individuals
+independently, for example, 90 and 80 in the table, but the third is not free to variate
+because of constraint of sample mean. The only choice for a third number is 130. When we compute the variance, using degrees of freedom is
+better than using sample size. In the sense that the average of estimator
+will be equal to population variance, which is called an unbiased estimator. In the next video, we will talk about
+distribution of sample statistics.

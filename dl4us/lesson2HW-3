@@ -1,0 +1,274 @@
+
+
+Python 3
+Lesson2 畳み込みニューラルネットワーク (CNN)
+Homework
+今Lessonで学んだことに工夫を加えて, CNNでより高精度なCIFAR10の分類器を実装してみましょう. 精度上位者はリーダーボードに載ります.
+
+目標値
+Accuracy 90%
+
+ルール
+ネットワークの形などは特に制限を設けません.
+アンサンブル学習などを組み込んでもOKです.
+下のセルで指定されているx_train, y_train以外の学習データは使わないでください.
+評価について
+テストデータ(x_test)に対する予測ラベルをcsvファイルで提出してください.
+ファイル名はsubmission.csvとしてください.
+予測ラベルのy_testに対する精度 (Accuracy) で評価します.
+毎日24時にテストデータの一部に対する精度でLeader Boardを更新します.
+最終的な評価はテストデータ全体に対する精度でおこないます.
+サンプルコード
+次のセルで指定されているx_train, y_trainのみを使って学習させてください.
+
+import numpy as np
+import pandas as pd
+​
+def load_cifar10():
+    
+    # 学習データ
+    x_train = np.load('/root/userspace/public/lesson2/data/x_train.npy')
+    y_train = np.load('/root/userspace/public/lesson2/data/y_train.npy')
+​
+    # テストデータ
+    x_test = np.load('/root/userspace/public/lesson2/data/x_test.npy')
+    
+    x_train = x_train / 255.
+    x_test = x_test / 255.
+    
+    y_train = np.eye(10)[y_train]
+    
+    return (x_train, x_test, y_train)
+​
+x_train, x_test, y_train = load_cifar10()
+256
+import tensorflow.keras as keras
+​
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Conv2D, MaxPooling2D, Flatten
+​
+model = Sequential()
+​
+model.add(Conv2D(8, kernel_size=(5, 5), activation='relu', input_shape=(32, 32, 3)))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Conv2D(8, kernel_size=(5, 5), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Flatten())
+model.add(Dense(10, activation='softmax'))
+​
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+​
+model.fit(x=x_train, y=y_train, batch_size=256, epochs=100, validation_split=0.1)
+​
+y_pred = model.predict(x_test)
+y_pred = np.argmax(y_pred, 1)
+​
+submission = pd.Series(y_pred, name='label')
+submission.to_csv('/root/userspace/lesson2/submissions/submission.csv', header=True, index_label='id')
+WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow/python/ops/resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+Train on 45000 samples, validate on 5000 samples
+WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow/python/ops/math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+Epoch 1/100
+45000/45000 [==============================] - 3s 60us/sample - loss: 2.0133 - acc: 0.2766 - val_loss: 1.7654 - val_acc: 0.3634
+Epoch 2/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.6850 - acc: 0.3968 - val_loss: 1.6146 - val_acc: 0.4114
+Epoch 3/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.5952 - acc: 0.4292 - val_loss: 1.5589 - val_acc: 0.4352
+Epoch 4/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.5423 - acc: 0.4459 - val_loss: 1.5184 - val_acc: 0.4540
+Epoch 5/100
+45000/45000 [==============================] - 1s 29us/sample - loss: 1.5080 - acc: 0.4581 - val_loss: 1.4962 - val_acc: 0.4588
+Epoch 6/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.4818 - acc: 0.4682 - val_loss: 1.4642 - val_acc: 0.4742
+Epoch 7/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.4452 - acc: 0.4839 - val_loss: 1.4391 - val_acc: 0.4836
+Epoch 8/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.4201 - acc: 0.4910 - val_loss: 1.4199 - val_acc: 0.4906
+Epoch 9/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.4007 - acc: 0.5002 - val_loss: 1.4144 - val_acc: 0.4964
+Epoch 10/100
+45000/45000 [==============================] - 1s 29us/sample - loss: 1.3871 - acc: 0.5057 - val_loss: 1.3904 - val_acc: 0.5074
+Epoch 11/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.3664 - acc: 0.5141 - val_loss: 1.3998 - val_acc: 0.4958
+Epoch 12/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.3528 - acc: 0.5182 - val_loss: 1.3802 - val_acc: 0.5034
+Epoch 13/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.3415 - acc: 0.5203 - val_loss: 1.3818 - val_acc: 0.5082
+Epoch 14/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.3347 - acc: 0.5268 - val_loss: 1.3726 - val_acc: 0.5164
+Epoch 15/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.3274 - acc: 0.5304 - val_loss: 1.3707 - val_acc: 0.5120
+Epoch 16/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.3128 - acc: 0.5344 - val_loss: 1.3420 - val_acc: 0.5264
+Epoch 17/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.3025 - acc: 0.5394 - val_loss: 1.3599 - val_acc: 0.5244
+Epoch 18/100
+45000/45000 [==============================] - 1s 28us/sample - loss: 1.2973 - acc: 0.5412 - val_loss: 1.3349 - val_acc: 0.5310
+Epoch 19/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.2923 - acc: 0.5430 - val_loss: 1.3319 - val_acc: 0.5248
+Epoch 20/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.2841 - acc: 0.5476 - val_loss: 1.3351 - val_acc: 0.5184
+Epoch 21/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.2796 - acc: 0.5473 - val_loss: 1.3089 - val_acc: 0.5360
+Epoch 22/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.2632 - acc: 0.5552 - val_loss: 1.3147 - val_acc: 0.5400
+Epoch 23/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.2570 - acc: 0.5584 - val_loss: 1.3267 - val_acc: 0.5226
+Epoch 24/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.2567 - acc: 0.5563 - val_loss: 1.2941 - val_acc: 0.5442
+Epoch 25/100
+45000/45000 [==============================] - 1s 29us/sample - loss: 1.2439 - acc: 0.5643 - val_loss: 1.2840 - val_acc: 0.5482
+Epoch 26/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.2380 - acc: 0.5642 - val_loss: 1.2909 - val_acc: 0.5462
+Epoch 27/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.2293 - acc: 0.5688 - val_loss: 1.3075 - val_acc: 0.5456
+Epoch 28/100
+45000/45000 [==============================] - 1s 29us/sample - loss: 1.2302 - acc: 0.5702 - val_loss: 1.3283 - val_acc: 0.5308
+Epoch 29/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.2166 - acc: 0.5718 - val_loss: 1.2749 - val_acc: 0.5490
+Epoch 30/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.2117 - acc: 0.5754 - val_loss: 1.2872 - val_acc: 0.5488
+Epoch 31/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.2088 - acc: 0.5761 - val_loss: 1.2701 - val_acc: 0.5560
+Epoch 32/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.2019 - acc: 0.5787 - val_loss: 1.2528 - val_acc: 0.5564
+Epoch 33/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.1945 - acc: 0.5797 - val_loss: 1.2534 - val_acc: 0.5584
+Epoch 34/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.1964 - acc: 0.5806 - val_loss: 1.2509 - val_acc: 0.5618
+Epoch 35/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.1883 - acc: 0.5846 - val_loss: 1.2384 - val_acc: 0.5678
+Epoch 36/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.1810 - acc: 0.5884 - val_loss: 1.2375 - val_acc: 0.5606
+Epoch 37/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.1776 - acc: 0.5871 - val_loss: 1.2286 - val_acc: 0.5672
+Epoch 38/100
+45000/45000 [==============================] - 1s 29us/sample - loss: 1.1737 - acc: 0.5891 - val_loss: 1.2282 - val_acc: 0.5674
+Epoch 39/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.1713 - acc: 0.5906 - val_loss: 1.2202 - val_acc: 0.5648
+Epoch 40/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.1675 - acc: 0.5918 - val_loss: 1.2314 - val_acc: 0.5660
+Epoch 41/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.1651 - acc: 0.5936 - val_loss: 1.2364 - val_acc: 0.5714
+Epoch 42/100
+45000/45000 [==============================] - 1s 29us/sample - loss: 1.1602 - acc: 0.5950 - val_loss: 1.2366 - val_acc: 0.5560
+Epoch 43/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.1575 - acc: 0.5956 - val_loss: 1.2169 - val_acc: 0.5700
+Epoch 44/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.1573 - acc: 0.5958 - val_loss: 1.2134 - val_acc: 0.5726
+Epoch 45/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.1545 - acc: 0.5980 - val_loss: 1.2089 - val_acc: 0.5810
+Epoch 46/100
+45000/45000 [==============================] - 1s 29us/sample - loss: 1.1478 - acc: 0.6005 - val_loss: 1.2225 - val_acc: 0.5620
+Epoch 47/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.1454 - acc: 0.6020 - val_loss: 1.2085 - val_acc: 0.5778
+Epoch 48/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.1416 - acc: 0.6005 - val_loss: 1.2257 - val_acc: 0.5672
+Epoch 49/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.1432 - acc: 0.6004 - val_loss: 1.2541 - val_acc: 0.5504
+Epoch 50/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.1426 - acc: 0.6001 - val_loss: 1.2121 - val_acc: 0.5748
+Epoch 51/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.1365 - acc: 0.6042 - val_loss: 1.2096 - val_acc: 0.5720
+Epoch 52/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.1332 - acc: 0.6040 - val_loss: 1.2047 - val_acc: 0.5824
+Epoch 53/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.1298 - acc: 0.6071 - val_loss: 1.2152 - val_acc: 0.5712
+Epoch 54/100
+45000/45000 [==============================] - 1s 31us/sample - loss: 1.1310 - acc: 0.6054 - val_loss: 1.1946 - val_acc: 0.5786
+Epoch 55/100
+45000/45000 [==============================] - 1s 32us/sample - loss: 1.1295 - acc: 0.6070 - val_loss: 1.1880 - val_acc: 0.5824
+Epoch 56/100
+45000/45000 [==============================] - 1s 33us/sample - loss: 1.1273 - acc: 0.6058 - val_loss: 1.2264 - val_acc: 0.5708
+Epoch 57/100
+45000/45000 [==============================] - 1s 32us/sample - loss: 1.1204 - acc: 0.6106 - val_loss: 1.1881 - val_acc: 0.5834
+Epoch 58/100
+45000/45000 [==============================] - 1s 33us/sample - loss: 1.1255 - acc: 0.6074 - val_loss: 1.1900 - val_acc: 0.5814
+Epoch 59/100
+45000/45000 [==============================] - 1s 31us/sample - loss: 1.1214 - acc: 0.6081 - val_loss: 1.1905 - val_acc: 0.5834
+Epoch 60/100
+45000/45000 [==============================] - 1s 33us/sample - loss: 1.1202 - acc: 0.6105 - val_loss: 1.1892 - val_acc: 0.5798
+Epoch 61/100
+45000/45000 [==============================] - 1s 33us/sample - loss: 1.1178 - acc: 0.6097 - val_loss: 1.1759 - val_acc: 0.5924
+Epoch 62/100
+45000/45000 [==============================] - 1s 32us/sample - loss: 1.1127 - acc: 0.6113 - val_loss: 1.1997 - val_acc: 0.5818
+Epoch 63/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.1155 - acc: 0.6103 - val_loss: 1.1812 - val_acc: 0.5840
+Epoch 64/100
+45000/45000 [==============================] - 1s 31us/sample - loss: 1.1137 - acc: 0.6112 - val_loss: 1.1835 - val_acc: 0.5898
+Epoch 65/100
+45000/45000 [==============================] - 1s 31us/sample - loss: 1.1191 - acc: 0.6101 - val_loss: 1.1992 - val_acc: 0.5754
+Epoch 66/100
+45000/45000 [==============================] - 1s 31us/sample - loss: 1.1111 - acc: 0.6117 - val_loss: 1.1948 - val_acc: 0.5850
+Epoch 67/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.1120 - acc: 0.6134 - val_loss: 1.1848 - val_acc: 0.5864
+Epoch 68/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.1077 - acc: 0.6130 - val_loss: 1.1900 - val_acc: 0.5870
+Epoch 69/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.1081 - acc: 0.6138 - val_loss: 1.1745 - val_acc: 0.5868
+Epoch 70/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.1077 - acc: 0.6139 - val_loss: 1.1843 - val_acc: 0.5832
+Epoch 71/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.1053 - acc: 0.6154 - val_loss: 1.1836 - val_acc: 0.5868
+Epoch 72/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.1054 - acc: 0.6157 - val_loss: 1.1905 - val_acc: 0.5796
+Epoch 73/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.1000 - acc: 0.6165 - val_loss: 1.1851 - val_acc: 0.5886
+Epoch 74/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.0997 - acc: 0.6167 - val_loss: 1.1650 - val_acc: 0.5930
+Epoch 75/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.1010 - acc: 0.6155 - val_loss: 1.1739 - val_acc: 0.5900
+Epoch 76/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.0973 - acc: 0.6191 - val_loss: 1.1741 - val_acc: 0.5826
+Epoch 77/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.0965 - acc: 0.6184 - val_loss: 1.1692 - val_acc: 0.5882
+Epoch 78/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.0978 - acc: 0.6187 - val_loss: 1.1638 - val_acc: 0.5960
+Epoch 79/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.0944 - acc: 0.6198 - val_loss: 1.2038 - val_acc: 0.5824
+Epoch 80/100
+45000/45000 [==============================] - 1s 29us/sample - loss: 1.0954 - acc: 0.6192 - val_loss: 1.1833 - val_acc: 0.5826
+Epoch 81/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.0876 - acc: 0.6207 - val_loss: 1.1669 - val_acc: 0.5914
+Epoch 82/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.0917 - acc: 0.6196 - val_loss: 1.1656 - val_acc: 0.5972
+Epoch 83/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.0919 - acc: 0.6206 - val_loss: 1.1844 - val_acc: 0.5862
+Epoch 84/100
+45000/45000 [==============================] - 1s 29us/sample - loss: 1.0869 - acc: 0.6196 - val_loss: 1.1717 - val_acc: 0.5884
+Epoch 85/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.0831 - acc: 0.6237 - val_loss: 1.1874 - val_acc: 0.5900
+Epoch 86/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.0893 - acc: 0.6206 - val_loss: 1.1709 - val_acc: 0.5900
+Epoch 87/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.0856 - acc: 0.6201 - val_loss: 1.1583 - val_acc: 0.5972
+Epoch 88/100
+45000/45000 [==============================] - 1s 29us/sample - loss: 1.0869 - acc: 0.6214 - val_loss: 1.1599 - val_acc: 0.5908
+Epoch 89/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.0837 - acc: 0.6220 - val_loss: 1.1617 - val_acc: 0.5964
+Epoch 90/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.0893 - acc: 0.6187 - val_loss: 1.1520 - val_acc: 0.6022
+Epoch 91/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.0851 - acc: 0.6224 - val_loss: 1.1543 - val_acc: 0.5954
+Epoch 92/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.0814 - acc: 0.6236 - val_loss: 1.1676 - val_acc: 0.5888
+Epoch 93/100
+45000/45000 [==============================] - 1s 29us/sample - loss: 1.0782 - acc: 0.6251 - val_loss: 1.1573 - val_acc: 0.5960
+Epoch 94/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.0818 - acc: 0.6222 - val_loss: 1.1502 - val_acc: 0.5998
+Epoch 95/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.0772 - acc: 0.6245 - val_loss: 1.1552 - val_acc: 0.5968
+Epoch 96/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.0799 - acc: 0.6240 - val_loss: 1.1716 - val_acc: 0.5922
+Epoch 97/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.0813 - acc: 0.6253 - val_loss: 1.1667 - val_acc: 0.5974
+Epoch 98/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.0798 - acc: 0.6227 - val_loss: 1.1504 - val_acc: 0.5988
+Epoch 99/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.0744 - acc: 0.6262 - val_loss: 1.1552 - val_acc: 0.5984
+Epoch 100/100
+45000/45000 [==============================] - 1s 30us/sample - loss: 1.0761 - acc: 0.6252 - val_loss: 1.1580 - val_acc: 0.5986

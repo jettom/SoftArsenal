@@ -1,0 +1,76 @@
+(base) TounoMacBook-puro:tool toukyou$ easy_install scrapy
+Searching for scrapy
+Reading https://pypi.org/simple/scrapy/
+Downloading https://files.pythonhosted.org/packages/3e/45/414e87ac8209d537c91575538c5307c20217a6943f555e0ee39f6db4bb0f/Scrapy-1.6.0-py2.py3-none-any.whl#sha256=4ec03552c9aed1e82a376488150e904e0213bdee3ca140225105e9b03d0de204
+Best match: Scrapy 1.6.0
+Processing Scrapy-1.6.0-py2.py3-none-any.whl
+Installing Scrapy-1.6.0-py2.py3-none-any.whl to /Users/toukyou/anaconda3/lib/python3.6/site-packages
+writing requirements to /Users/toukyou/anaconda3/lib/python3.6/site-packages/Scrapy-1.6.0-py3.6.egg/EGG-INFO/requires.txt
+Adding Scrapy 1.6.0 to easy-install.pth file
+Installing scrapy script to /Users/toukyou/anaconda3/bin
+
+Installed /Users/toukyou/anaconda3/lib/python3.6/site-packages/Scrapy-1.6.0-py3.6.egg
+Processing dependencies for scrapy
+Searching for w3lib>=1.17.0
+Reading https://pypi.org/simple/w3lib/
+Downloading https://files.pythonhosted.org/packages/81/43/9dcf92a77f5f0afe4f4df2407d7289eea01368a08b64bda00dd318ca62a6/w3lib-1.20.0-py2.py3-none-any.whl#sha256=67eacd24f4f233a80bc472835ad6aad99616e49aa1d795f3dbb7b8b028fec6cf
+Best match: w3lib 1.20.0
+Processing w3lib-1.20.0-py2.py3-none-any.whl
+Installing w3lib-1.20.0-py2.py3-none-any.whl to /Users/toukyou/anaconda3/lib/python3.6/site-packages
+writing requirements to /Users/toukyou/anaconda3/lib/python3.6/site-packages/w3lib-1.20.0-py3.6.egg/EGG-INFO/requires.txt
+Adding w3lib 1.20.0 to easy-install.pth file
+
+Installed /Users/toukyou/anaconda3/lib/python3.6/site-packages/w3lib-1.20.0-py3.6.egg
+Searching for queuelib
+Reading https://pypi.org/simple/queuelib/
+Downloading https://files.pythonhosted.org/packages/4c/85/ae64e9145f39dd6d14f8af3fa809a270ef3729f3b90b3c0cf5aa242ab0d4/queuelib-1.5.0-py2.py3-none-any.whl#sha256=ff43b5b74b9266f8df4232a8f768dc4d67281a271905e2ed4a3689d4d304cd02
+Best match: queuelib 1.5.0
+Processing queuelib-1.5.0-py2.py3-none-any.whl
+Installing queuelib-1.5.0-py2.py3-none-any.whl to /Users/toukyou/anaconda3/lib/python3.6/site-packages
+Adding queuelib 1.5.0 to easy-install.pth file
+
+Installed /Users/toukyou/anaconda3/lib/python3.6/site-packages/queuelib-1.5.0-py3.6.egg
+Searching for parsel>=1.5
+Reading https://pypi.org/simple/parsel/
+Downloading https://files.pythonhosted.org/packages/96/69/d1d5dba5e4fecd41ffd71345863ed36a45975812c06ba77798fc15db6a64/parsel-1.5.1-py2.py3-none-any.whl#sha256=493a9214acbdcb4487a084d95344c25e85e90426a67311ea0425dc5df8dc24b9
+Best match: parsel 1.5.1
+Processing parsel-1.5.1-py2.py3-none-any.whl
+Installing parsel-1.5.1-py2.py3-none-any.whl to /Users/toukyou/anaconda3/lib/python3.6/site-packages
+writing requirements to /Users/toukyou/anaconda3/lib/python3.6/site-packages/parsel-1.5.1-py3.6.egg/EGG-INFO/requires.txt
+Adding parsel 1.5.1 to easy-install.pth file
+
+Installed /Users/toukyou/anaconda3/lib/python3.6/site-packages/parsel-1.5.1-py3.6.egg
+Searching for cssselect>=0.9
+Reading https://pypi.org/simple/cssselect/
+Downloading https://files.pythonhosted.org/packages/7b/44/25b7283e50585f0b4156960691d951b05d061abf4a714078393e51929b30/cssselect-1.0.3-py2.py3-none-any.whl#sha256=3b5103e8789da9e936a68d993b70df732d06b8bb9a337a05ed4eb52c17ef7206
+Best match: cssselect 1.0.3
+Processing cssselect-1.0.3-py2.py3-none-any.whl
+Installing cssselect-1.0.3-py2.py3-none-any.whl to /Users/toukyou/anaconda3/lib/python3.6/site-packages
+Adding cssselect 1.0.3 to easy-install.pth file
+
+Installed /Users/toukyou/anaconda3/lib/python3.6/site-packages/cssselect-1.0.3-py3.6.egg
+Searching for PyDispatcher>=2.0.5
+Reading https://pypi.org/simple/PyDispatcher/
+Downloading https://files.pythonhosted.org/packages/f5/6f/17cee8b82ea6f6938052133dfa06384da73407d8b13c5b83ea9010136509/PyDispatcher-2.0.5.zip#sha256=5be4a8be12805ef7d712dd9a93284fb8bc53f309867e573f653a72e5fd10e433
+Best match: PyDispatcher 2.0.5
+Processing PyDispatcher-2.0.5.zip
+Writing /var/folders/tn/jpgtj65x2p5fb0y9f51hknzw0000gn/T/easy_install-k35om_lt/PyDispatcher-2.0.5/setup.cfg
+Running PyDispatcher-2.0.5/setup.py -q bdist_egg --dist-dir /var/folders/tn/jpgtj65x2p5fb0y9f51hknzw0000gn/T/easy_install-k35om_lt/PyDispatcher-2.0.5/egg-dist-tmp-bifsq4va
+warning: no previously-included files matching '*.bat' found anywhere in distribution
+warning: no previously-included files matching './CVS' found anywhere in distribution
+warning: no previously-included files matching '.cvsignore' found anywhere in distribution
+zip_safe flag not set; analyzing archive contents...
+Copying PyDispatcher-2.0.5-py3.6.egg to /Users/toukyou/anaconda3/lib/python3.6/site-packages
+Adding PyDispatcher 2.0.5 to easy-install.pth file
+
+Installed /Users/toukyou/anaconda3/lib/python3.6/site-packages/PyDispatcher-2.0.5-py3.6.egg
+Searching for pyasn1
+Reading https://pypi.org/simple/pyasn1/
+Downloading https://files.pythonhosted.org/packages/7b/7c/c9386b82a25115cccf1903441bba3cbadcfae7b678a20167347fa8ded34c/pyasn1-0.4.5-py2.py3-none-any.whl#sha256=da6b43a8c9ae93bc80e2739efb38cc776ba74a886e3e9318d65fe81a8b8a2c6e
+Best match: pyasn1 0.4.5
+Processing pyasn1-0.4.5-py2.py3-none-any.whl
+Installing pyasn1-0.4.5-py2.py3-none-any.whl to /Users/toukyou/anaconda3/lib/python3.6/site-packages
+Adding pyasn1 0.4.5 to easy-install.pth file
+
+Installed /Users/toukyou/anaconda3/lib/python3.6/site-packages/pyasn1-0.4.5-py3.6.egg
+Finished processing dependencies for scrapy
