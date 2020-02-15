@@ -237,3 +237,6 @@ input/embeddings/wiki-news-300d-1M/wiki-news-300d-1M.vec
 
 #customer
 **/*.mp4
+**/*.ex4
+FX&EA/history/*
+
