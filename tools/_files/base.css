@@ -1,0 +1,1522 @@
+@charset "utf-8";
+
+/* =Reset default browser CSS.
+Based on work by Eric Meyer: http://meyerweb.com/eric/tools/css/reset/index.html
+-------------------------------------------------------------- */
+html, body, div, span, applet, object, iframe, img, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table.table, caption, tbody, tfoot, thead, tr, th, td {border: 0;font-family: inherit;font-size: 100%;font-style: inherit;font-weight: inherit;margin: 0;outline: 0;padding: 0;}
+:focus {outline: 0;}
+ol, ul {list-style: none;}
+table.table {border-collapse: separate;border-spacing: 0;}
+caption, th, td {font-weight: normal;text-align: left;}
+blockquote:before, blockquote:after,q:before, q:after {content: "";}
+blockquote, q {quotes: "" "";}
+a img{border: 0;vertical-align:-webkit-baseline-middle;}
+a:hover img {opacity: 0.99;filter: alpha(opacity=99);}
+figure{margin:0}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display: block;}
+.clear{clear:both;}
+img{max-width:100%;}
+a:hover{text-decoration:none;color:blue;}
+html{overflow:scroll;}
+.center{text-align:center;}
+.margin_topbottom30 {margin:30px 0;}
+.quotation{font-size: 70%;color:#666;}
+b{font-weight:bold;background:#adff2f;}
+label{display:inline-block;cursor:pointer;color:#103184;}
+
+body, textarea {
+    font-family: "メイリオ",Meiryo,YuGothic,"游ゴシック","Hiragino Kaku Gothic Pro",Osaka,"ＭＳ Ｐゴシック","MS PGothic",sans-serif;
+    line-height: 1.5;
+    background: #fff;
+    color: #1e1e1e;
+    word-wrap: break-word;
+}
+
+#wrapper {
+	margin: 0 auto;
+    width: 1058px;
+}
+
+header{
+}
+
+.header_inner {
+    width: 1058px;
+    margin: 0 auto;
+    padding-top: 10px;
+    position: relative;
+}
+.logo {
+	max-width:100%;
+    float:left;
+}
+.logo a{
+    font-size:27px;
+    text-decoration:none;
+    color:#103184;
+    font-weight:bold;
+}
+.logo a:hover{
+    opacity:0.8;
+}
+.header_right{
+    float:right;
+    margin-top:10px;
+    font-size:14px;
+    font-weight: bold;
+}
+/* *********************************************** */
+.nav{
+	margin-top:5px;
+    width: 100%;
+}
+.nav ul{
+	border:1px solid #aaa;
+}
+.nav ul li{
+	display:inline-block;
+    border-right:1px solid #aaa;
+    box-sizing:border-box;
+    width:150.8px;
+    text-align:center;
+}
+.nav ul li:last-child{
+    width:151.2px;
+    border-right:0;
+}
+.nav ul li a{
+    display:block;
+    padding:10px 5px;
+    text-decoration:none;
+    color:#333;
+    font-weight:bold;
+    font-size:12px;
+}
+.nav ul li a:hover{
+	background:#e9e9e9;
+}
+/* *********************************************** */
+.spad_top{
+	display:none;
+}
+
+/* *********************************************** */
+.main_coment {
+	margin-top:15px;
+    width:100%;
+    height:154px;
+    position:relative;
+}
+.main_coment h1 {
+	position:absolute;
+    top:50px;
+    left:30px;
+    font-size: 20px;
+    padding:15px;
+    box-sizing:border-box;
+    color:#fff;
+    background: rgba(0,0,0,.4);
+    border-radius:5px;
+}
+.sub_coment{
+    margin:15px 0 15px 0;
+}
+.sub_coment p {
+    font-size:13px;
+}
+/* *********************************************** */
+.area_search{
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.area_search h2, .keisan_form h2, .keisan_form_comment h1{
+    font-size: 30px;
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+    color:#103184;
+    line-height:1.2;
+}
+.h1_comment{
+    font-size:13px;
+    margin:0 0 10px 0;
+}
+.area_search dl{
+	width: 100%;
+    display:table;
+    padding: 5px 0;
+}
+.area_search_page dl{
+    border-bottom: 1px solid #aaa;
+}
+.area_search dl:last-child{
+	border-bottom: 1px dotted #aaa;
+}
+.area_search dl dt{
+    display:table-cell;
+    width: 140px;
+    text-align: center;
+    background: #f3f4f9;
+	padding: 5px 5px 3px 10px;
+    border-radius: 3px;
+    font-size: 16px;
+    vertical-align:top;
+    color:#103184;
+    font-weight:bold;
+}
+.area_search dl dd{
+	font-size: 16px;
+    padding: 3px 5px 3px 10px;
+}
+.area_search ul{
+}
+.area_search ul li{
+    display:inline-block;
+    padding: 0 10px;
+    border-right:1px solid #aaa;
+}
+.area_search ul li:last-child{
+	border-right:0;
+}
+.area_search_page ul li{
+	padding:0;
+    border-right:0;
+    width: 160px;
+    height:25px;
+    font-size:16px;
+    line-height:2.2;
+}
+.area_search_page ul li:last-child{
+	border-right: 0;
+}
+.area_search ul li a{
+    width: 180px;
+    text-align: center;
+    text-decoration:none;
+    text-align:left;  
+}
+.area_search ul li a:hover{
+	text-decoration:underline;
+}
+.toppage_ad{
+    width:100%;
+    height:auto;
+}
+.news{
+    width:100%;
+    margin:20px 0 0 0;
+    background:#eee;
+    padding:10px;
+    box-sizing:border-box;
+    border-radius:5px;    
+}
+.news h3{
+    border-left:5px solid #103184;
+    padding-left:15px;
+    font-size:16px;
+    font-weight:bold;
+}
+.news ul{
+    background:#fff;
+    margin-top:10px;
+    border-radius:5px;
+    overflow-y: scroll;
+    height: auto;
+}
+.news ul li {
+	padding:10px;
+    border-bottom:1px dotted #eee;
+	font-size:14px;
+}
+.news ul li span {
+	margin-right:15px;
+    color:#103184;
+}
+
+/*-------------------------
+	計算フォームページ
+--------------------------*/
+.keisan_form{
+    width: 100%;
+}
+#next{
+    display:none;
+}
+#next_open{
+	display:inline;
+}
+.kesa_form_comment{   
+}
+.keisan_form dl{
+    display:inline-table;
+    width: 100%;
+    margin-bottom:10px;
+    margin-right:5px;
+    font-size:14px;
+    border-top:1px solid #aaa;
+    border-right:1px solid #aaa;
+    border-bottom:3px solid #aaa;
+    box-sizing:border-box;
+}
+.keisan_form dl dt{
+    display: table-cell;
+    width: 25%;
+    background: #E6EDE0;
+    padding:10px;
+    font-weight: bold;
+    text-align:center;
+    border-left:1px solid #aaa;
+}
+.keisan_form dl dd{
+    display: table-cell;
+    width: 75%;
+    margin-right:4px;
+    padding:10px 10px 5px 10px;
+}
+.keisan_form dl.master{
+    width:100%;
+    margin-right:0;
+}
+.keisan_form dl.master dt{
+}
+.keisan_form dl.master dd p{
+    font-size:11px;
+    padding:5px 0;
+}
+.ninikeizoku{
+    padding:10px 10px 0 10px;
+}
+.ninikeizoku h3{
+    font-size:14px;
+    font-weight:bold;
+    color:#358D23;
+}
+.ninkei dl{
+    width:100%;
+    margin-right:0;
+}
+.ninkei dl:first-child{
+	margin-bottom:0;
+    border-bottom:0;
+}
+.ninkei dl dt{
+}
+.ninkei dl dd p{
+    font-size:11px;
+    padding:5px 0;
+}
+.keisan_form select, .contact_form_info1 select{
+    margin: 0 0 5px 5px;
+    cursor: pointer;
+    padding:5px;
+    font-size:14px;
+}
+.keisan_form input[type="text"], .contact_form_info1 input[type="text"], .contact_form_info2 input[type="text"]{
+ 	margin: 0 5px 5px 5px;
+    padding:5px;
+    font-size:16px;
+    text-align:right; 
+    width:170px;
+}
+.contact_form_info2 input[type="text"]{
+	width:60%;
+}
+.keisan_form input[type="text"]::-webkit-input-placeholder{
+	color: #999;
+    font-size:13px;
+    text-align:left;
+}
+
+.keisan_form input[type="text"]:-ms-input-placeholder{
+    color: #999;
+    font-size:13px;
+    text-align:left;
+} 
+.keisan_form input[type="text"]::-moz-placeholder{
+    color: #999;
+    font-size:13px;
+    text-align:left;
+}
+.keisan_form input[type="text"]::-placeholder {
+    color: #999;
+    font-size:13px;
+    text-align:left;
+}
+
+.keisan_form_comment{
+	width:100%;
+    font-size:12px;
+    color:#333;
+    box-sizing:border-box;
+}
+.keisan_form_comment dl{
+    display:table;
+    padding-left:5px;
+}
+.keisan_form_comment dl dt{
+    display:table-cell;
+    font-weight:bold;
+    width:40px;
+}
+.keisan_form_comment dl dd{
+    display:table-cell;
+}
+
+.keisan_form_button{
+    width: 100%;
+    padding:20px 0;
+    text-align:center;
+    background:#eee;
+    margin-top:10px;
+}
+.send_button:hover {
+    opacity: 0.8;
+}
+
+/* 結果エリア国保＆任意継続 */
+.keisan_result_none{   
+}
+.keisan_result{
+    width: 100%;
+    border:3px solid #e8aa1a;
+    padding:10px 20px;
+    box-sizing:border-box;
+    background:#fbf2dd;
+    margin-top:10px;
+}
+.keisan_result p{
+    font-size:11px;
+}
+.kokuho_result_area{
+    float:left;
+    width:48%;
+    border-right:2px dotted #e8aa1a;
+    padding-right:20px;
+    text-align:right;
+}
+.ninkei_result_area{
+    float:right;
+    width:48%;
+    text-align:right;
+}
+.kokuho_result_area dl, .ninkei_result_area dl{
+}
+.kokuho_result_area dl dt, .ninkei_result_area dl dt{
+	width:100%;
+    display:block;
+    font-size:18px;
+    font-weight:bold;
+    text-align:left;
+}
+.kokuho_result_area dl dd, .ninkei_result_area dl dd{
+	width:100%;
+    display:block;
+    color:#ee0000;
+    font-size:40px;
+    font-weight:bold;
+    text-align:right;
+}
+.kokuho_result_area dl dd span, .ninkei_result_area dl dd span{
+	font-size:15px;
+    font-weight:bold;
+    color:#111;
+}
+.keisan_result_detail{
+    border:3px solid #e8aa1a;
+    border-top:0;
+    padding:20px;
+    box-sizing:border-box;
+    
+}
+.keisan_result_detail_left{
+    float:left;
+    width:336px;
+    height:280px;
+}
+.keisan_result_detail_right{
+    float:right;
+    width:656px;
+    margin-left:20px;
+}
+.keisan_result_detail_right dl.dl_head{
+	width:100%;
+    background:#e0efff;
+    border:1px solid #aaa;
+    box-sizing:border-box;
+}
+.keisan_result_detail_right dl.dl_head dt{
+	width:25%;
+    text-align:center;
+    background:#e0efff;
+}
+.keisan_result_detail_right dl.dl_head dd{
+	width:25%;
+    text-align:center;
+    border-left:1px solid #aaa;
+}
+.keisan_result_detail_right dl{
+	display:table;
+    width:100%;
+    border:1px solid #aaa;
+    border-top:0;
+    box-sizing:border-box;
+}
+.keisan_result_detail_right dl dt{
+	display:table-cell;
+    width:25%;
+    text-align:center;
+    vertical-align:middle;
+    font-size:13px;
+    padding:5px;
+    background:#f6f6f6;
+}
+.keisan_result_detail dl dd{
+	display:table-cell;
+	width:25%;
+    text-align:right;
+    vertical-align:middle;
+    border-left:1px solid #aaa;
+    padding: 5px;
+    font-size:13px;
+}
+.keisan_result_detail_right dl span{
+	font-size:10px;
+    display:block;
+    color:#666;
+}
+.keisan_result_detail_right dl.dl_footer{
+    margin-top:10px;
+    border:1px solid #aaa;
+    width:100%;
+    box-sizing:border-box;
+}
+.keisan_result_detail_right dl.dl_footer dt{
+	width:25%;
+    border-left:1px solid #aaa;
+}
+.keisan_result_detail_right dl.dl_footer dt:first-child{
+	border-left:0;
+}
+.hikazei{
+    width:100%;
+    margin-top:20px;
+    text-align:center;
+}
+.hikazei p{
+    font-size:20px;
+	color:#ff1821;
+}
+.attention{
+    width:100%;
+    margin-top:20px;
+    border:1px solid #E6C0C0;
+    background:#FFF9F5;
+    padding:5px;
+    font-size:11px;
+    box-sizing:border-box;
+}
+.attention span{
+    color:#c00;
+    font-weight:bold;  
+}
+.attention ul li{
+	list-style:square inside;
+}
+
+.city_rate, .ninkei_rate{
+    width: 100%;
+    margin-top:20px;
+    box-sizing:border-box;
+}
+.city_rate h3, .ninkei_rate h3{
+    font-weight:bold;
+	font-size:14px;
+}
+.city_rate dl.head, .ninkei_rate dl.head{
+	display:table;
+    width:100%;
+    background:#666;
+    border:1px solid #aaa;
+    border-bottom:1px solid #aaa;
+    box-sizing:border-box;
+    color:#fff;
+    font-size:13px;
+}
+.city_rate dl.head dt, .ninkei_rate dl.head dt{
+	display:table-cell;
+    width:25%;
+    padding:5px;
+    background:#666;
+    vertical-align:middle;
+}
+.city_rate dl.head dd, .ninkei_rate dl.head dd{
+	width:25%;
+    display:table-cell;
+    border-left:1px solid #aaa;
+    text-align:center;
+    padding:5px;
+    vertical-align:middle;
+}
+.city_rate dl, .ninkei_rate dl{
+	display:table;
+    width:100%;
+    border:1px solid #aaa;
+    border-bottom:1px solid #aaa;
+	border-top:0;
+    box-sizing:border-box;
+    font-size:13px;
+}
+.city_rate dl:last-child, .ninkei_rate dl:last-child{
+	border-bottom:3px solid #aaa;
+}
+.city_rate dl dt, .ninkei_rate dl dt{
+	display:table-cell;
+	width:25%;
+    text-align:center;
+    padding:5px;
+    background:#F7F6FB;
+}
+.city_rate dl dd, .ninkei_rate dl dd{
+	display:table-cell;
+	width:25%;
+    text-align:right;
+    border-left:1px solid #aaa;
+    padding:5px;
+}
+.ninkei_rate dl dt{
+	border-right:1px solid #aaa;
+}
+.ninkei_rate dl dt:nth-child(2){
+	border-right:0;
+}
+
+/* SNSボタン */
+#share {
+	width: 100%;
+    overflow:hidden;
+    padding: 30px 20px 12px 20px ;
+    box-sizing: border-box;
+}
+#share ul{
+	height:auto;
+    width: 100%;
+    overflow: hidden;
+    margin: 0 auto;
+    text-align: center;
+}
+#share li{
+	font-size:14px;
+	text-align:center;
+	width:84px;
+	margin-right:1%;
+	margin-bottom:8px;
+	border-radius:3px;
+	list-style:none;
+    display: inline-block;
+}
+#share li.share-twitter{
+	background:#55acee;
+	box-shadow:0 2px #2795e9;
+}
+#share li.share-twitter:hover{
+	background:#83c3f3;
+}
+#share li.share-facebook{
+	background:#3b5998;
+	box-shadow:0 2px #2d4373;
+}
+#share li.share-facebook:hover{
+	background:#4c70ba;
+}
+#share li.share-google{
+	background:#dd4b39;
+	box-shadow:0 2px #c23321;
+}
+#share li.share-google:hover{
+	background:#e47365;
+}
+#share li.share-hatena{
+	background:#2c6ebd;
+	box-shadow:0 2px #225694;
+}
+#share li.share-hatena:hover{
+	background:#4888d4;
+}
+#share li.share-pocket{
+	background:#f13d53;
+	box-shadow:0 2px #e6152f;
+}
+#share li.share-pocket:hover{
+	background:#f26f7f;
+}
+#share li.share-line{
+	background:#00C300;
+	box-shadow:0 2px #009d00;
+}
+#share li.share-line:hover{
+	background:#2bd92b;
+}
+#share a{
+	display:block;
+	height:27px;
+	padding-top:6px;
+	color:#ffffff;
+	text-decoration:none;
+}
+#share a:hover{
+	text-decoration:none;
+	color:#ffffff;
+}
+/* *********************************************** */
+
+.footer {
+	background: #666;
+    margin-top: 10px;
+}
+.footer_inner {
+    width: 1058px;
+    margin: 0 auto;
+    padding: 30px 0 0 0;
+}
+ul.footer_list {
+    text-align: center;
+}
+ul.footer_list li {
+	display: inline-block;
+    margin-right: 10px;
+}
+ul.footer_list li:last-child {
+	margin-right: 0;
+}
+ul.footer_list li a {
+	color: #fff;
+    font-size: 70%;
+    text-decoration: none;
+}
+ul.footer_list li a:hover {
+	text-decoration: underline;
+}
+.copy {
+    text-align: center;
+    padding-bottom: 30px;
+}
+.copy p {
+    font-size: 70%;
+    color: #d7d7d7;
+}
+
+/*-------------------------
+	検索結果ページ
+--------------------------*/
+/* パンクズ */
+.path{
+    padding: 15px 15px 0 15px;
+}
+.pankuzu{
+    font-size: 11px;
+    color:#666;
+    margin-bottom:15px;
+}
+.pankuzu a{
+    font-size:11px;
+    color:#666;
+}
+
+.send_button_area{
+    width: 100%;
+    margin: 30px 0 100px; 0
+}
+.send_button{
+    border: none;;
+    outline: none;
+    padding: 0;
+    margin: 0 auto;
+    display: block;
+    width: 320px;
+    height: 70px;
+    line-height: 50px;
+    text-align: center;
+    position: relative;
+    background: #ff1821;
+    border-radius: 6px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 20px;
+	-webkit-appearance: none;
+  
+}
+.send_button:hover{
+    opacity: 0.8;
+}
+
+
+.clear{
+    clear:both;
+}
+/**************** 自動計算フォームのCSS *****************/
+.keisan_section_title{
+    background:#103184;
+    width:100%;
+}
+.keisan_section_title h2{
+    float:left;
+    font-size:20px;
+    font-weight:bold;
+    color:#fff;
+    padding:5px 20px;
+}
+#help_1, #help_2, #help_3, #help_4{
+	cursor:pointer;
+    float:right;
+    font-size:12px;
+    padding:10px;
+    font-weight:bold;
+    color:#fff;
+}
+#help_1_open, #help_2_open, #help_3_open, #help_4_open{
+    display:none;
+}
+
+.keisan_section{
+    padding: 10px;
+    overflow: hidden; 
+}
+.keisan_section p{
+    font-size:11px;
+    margin:5px 0;
+}
+table.help_table{
+	margin:10px 0 0 0;
+	width:100%;
+}
+table.help_table tr:nth-child(odd) {
+    background: #f3f4f9;
+}
+table.help_table th {
+    font-size: 13px;
+    font-weight: bold;
+    width: 200px;
+    padding: 10px;
+    vertical-align: top;
+}
+table.help_table td {
+    font-size: 13px;
+    padding: 10px;
+}
+.close{
+    margin:10px 0 20px 0;
+}
+#help_1_close, #help_2_close, #help_3_close, #help_4_close {
+    color: #666;
+    font-size: 12px;
+    font-weight: normal;
+    cursor: pointer;
+    font-weight:bold;
+}
+
+table.form, table.form2{
+    margin: 10px 0;
+    padding: 3px;
+    font-size: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    width: 100%;
+    margin-bottom: 30px;
+}
+table.form2{
+	margin-bottom:0px;
+}
+table.form th, table.form2 th {
+    width: 250px;
+    font-size: 16px;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    font-weight: bold;
+    background:#f3f4f9;
+    color:#103184;
+}
+table.form2 th{
+	width:300px;
+}
+table.form td, table.form2 td {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    font-size: 16px;
+}
+table.form td select{
+    font-size:18px;
+    padding:10px;
+    border-radius:5px;
+    cursor:pointer;
+    border:1px solid #103184;
+}
+table.form td input[type="text"]{
+	font-size:18px;
+    padding:10px;
+    text-align:right;
+    border:1px solid #103184;
+    border-radius:5px;
+}
+#medical_money_open, #selfmedical_money_open{
+    margin:5px 0 0 10px;
+}
+#spousesp_open h3, #handi_open h3{
+    margin-top:10px;
+    width:100%;
+    background:#f3f4f9;
+    padding:5px;
+    margin-bottom:10px;
+    font-weight:bold;
+    color:#103184;
+    font-size:16px;
+}
+.link_a{
+    text-align:center;
+    margin-bottom:40px;
+}
+.link_a a{
+    text-decoration:none;
+    padding:10px 20px;
+    background:#aaa;
+    color:#fff;
+    width:250px;
+}
+
+/**************** 計算結果のCSS *****************/
+.result{
+    margin-top:30px;
+    padding:10px;
+    overflow:hidden;
+}
+.result_inner{
+    border:3px solid #103184;
+    padding:30px 20px 20px 20px;
+    box-sizing:border-box;
+    width:100%;
+    overflow:hidden;
+}
+.result_left{
+    float:left;
+	position:relative;
+}
+.result_left ul {
+}
+.result_left ul li {
+	overflow:hidden;
+    width:100%;   
+}
+.result_left:after{
+    position: absolute;
+    right: -50px;
+    top: 35%;
+    margin-top: -.8em;
+    display: inline-block;
+    content: "";
+    width: 1.5em;
+    height: 1.5em;
+    vertical-align: text-top;
+    border-top: 2px solid #103184;
+    border-right: 2px solid #103184;
+    -ms-transform: rotate(45deg) translate(10px,0px);
+    -webkit-transform: rotate(45deg) translate(10px,0px);
+    transform: rotate(45deg) translate(10px,0px);
+}
+.result_left p{
+	width: 180px;
+    float:left;
+    color:#103184;
+    font-size:18px;
+    font-weight:bold;
+}
+.result_right{
+    float:right;
+}
+.result_right ul {
+}
+.result_right ul li {
+	overflow:hidden;
+    width:100%;   
+}
+.result_right p{
+	width: 120px;
+    float:left;
+    font-weight:bold;
+    color:#103184;
+    font-size:24px;
+    padding:10px 0 0 0;
+}
+.result_right p.result_right_p{
+	font-size:50px;
+    text-align:right;
+    color:#ff1821;
+    padding:0;
+    line-height:1.1;
+    width:350px;
+}
+.result_right span{
+    color:#ff1821;
+    margin:20px 0 0 5px;
+    display:inline-block;
+    font-size:20px;
+}
+.result_detail{
+    width:100%;
+    padding-top:20px;
+}
+
+.result_detail_top{
+	margin-top:20px;
+    width:100%;
+    position:relative;  
+}
+.result_detail_top ul li{
+	position:relative;
+    padding-left:20px;
+    display:block;
+    line-height:1.8;
+}
+.result_detail_top ul li:before{
+	background:#103184;
+    content: '';
+    display: block;
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    top:5px;
+    left: 0;
+    margin-top: 1px;
+    border-radius: 7px;
+}
+.result_detail_top ul li p{
+	float:left;
+    width:212px;
+    color:#103184;
+    font-size:17px;
+}
+
+.result_detail_left{
+    float:left;
+    width:491px;
+    margin-right:10px;
+    margin-top:15px;
+}
+.result_detail_left h4{
+	font-weight:bold;
+}
+.margin_right0{
+    margin-right:0;
+}
+.result_detail_left table{
+	width:100%;
+    border-collapse:collapse;
+    border:1px solid #ddd;
+    text-align:center;
+}
+.result_detail_left table thead{
+}
+.result_detail_left table thead td{
+	text-align:center;
+    padding:5px 10px;
+    font-size:16px;
+    color:#103184;
+    border:1px solid #ddd;
+    background:#f3f4f9;
+    font-weight:bold;
+}
+.result_detail_left table th{
+	border:1px solid #ddd;
+	padding:5px 10px;
+    width:130px;
+    font-size:13px;
+    color:#103184;
+}
+.result_detail_left table td{
+	border:1px solid #ddd;
+    text-align:right;
+    padding:5px 10px;
+    color:#103184;
+}
+.result_detail_left table td span{
+	font-size:15px;
+}
+.income_detail{
+	margin:5px 0;
+    width:100%;
+    background:#f3f4f9;
+    font-size:10px;
+    padding:10px;
+    box-sizing:border-box;
+    text-align:center;
+}
+.income_detail h3{
+	padding:0 5px 5px 5px;
+	width:100%;
+    text-align:center;
+    font-size:11px;
+    border-bottom:1px solid #ddd;
+    margin-bottom:5px;
+}
+.income_detail span{
+	font-size:11px !important;
+    color:red;
+}
+.zeigakukoujo_title{
+    text-align:center !important;
+    font-size:14px;
+    font-weight:bold;
+}
+.error_comment{
+    width:100%;
+    margin:20px 0;
+    padding:0 10px;
+    text-align:center;
+    font-size:13px;
+    box-sizing:border-box;
+}
+.error_comment p{
+}
+.error_comment a{
+    text-decoration:none;
+   	line-height:3;
+}
+.link{
+	margin-top:20px;
+	width:100%;
+    border:1px solid #ddd;
+    box-sizing:border-box;
+}
+.link h3{
+    background:#ddd;
+    font-size:20px;
+    font-weight:bold;
+    padding:5px 20px;
+}
+.link ul{
+    padding: 5px 10px 10px 10px;
+    box-sizing:border-box;
+}
+.link ul li{
+	padding: 7px 5px 0 5px;
+    display: inline-block;
+    text-align: left;
+}
+.link ul li a{
+	font-size: 15px;
+    text-decoration: none;
+    color: #333;
+    position: relative;
+    padding-left: 10px;
+    display: inline-block;
+    color: #2c5885;
+}
+.link ul li a:after{
+	content: '';
+    display: block;
+    position: absolute;
+    top: 0.4em;
+    left: 0;
+    border-width: 4px 0 4px 4px;
+    border-style: solid;
+    border-color: transparent transparent transparent #c00;
+    width: 0;
+    height: 0;
+}
+
+/*-------------------------
+	1058px以上
+--------------------------*/
+@media only screen and (min-width: 1058px){
+.sp{
+	display:none;
+}
+
+}
+
+/*-------------------------
+	1057px以下
+--------------------------*/
+@media only screen and (max-width: 1057px){
+.pc{
+    display:none;
+}
+.header_inner , .footer_inner {
+	width: 98%;
+}
+.logo{
+	float:none;
+    text-align:center;
+}
+.header_right{
+    float:none;
+    margin-top:0;
+    text-align:center;
+    font-size:10px;
+}
+#wrapper{
+	width:100%;
+}
+
+.area_search h2, .keisan_form h2, .keisan_form_comment h1{
+	padding:0 10px; 
+}
+.h1_comment{
+    padding:0 10px;
+}
+.pref_select, .city_select{
+	margin-top:20px;
+    padding:0 20px;
+}
+.pref_select select, .city_select select{
+	font-size:16px;
+	width: 100%;
+    padding: 10px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 1px solid #999;
+    background: #eee;
+    background: url(../img/arrow01.png) right 50% no-repeat, -webkit-linear-gradient(top, #fff 0%,#f3f4f9 100%);
+    background: url(../img/arrow01.png) right 50% no-repeat, linear-gradient(to bottom, #fff 0%,#f3f4f9 100%);
+    background-size: 30px, 100%;
+    border-color:#103184;
+}
+.pref_select select option, .city_select select option{
+	border-color:#103184;
+}
+.news{
+	border-radius:0;
+}
+.news ul li span {
+	display:block;
+}
+#next{
+	display:block;
+    margin:0 auto;
+    text-align:center;
+    margin-top:10px;
+    margin-bottom:20px;
+}
+#next span{
+	border:1px solid #aaa;
+    border-radius:5px;
+    padding:5px 10px;
+    font-size:13px;
+}
+#next_open{
+	display:none;
+}
+.keisan_form_comment{
+    font-size:11px;
+}
+.keisan_form_comment dl{
+	padding:0 10px;
+}
+.keisan_form_comment dl dt {
+    width: 35px;
+}
+.keisan_form dl{
+	width:100%;
+    margin-right:0;
+}
+
+.keisan_result{
+    padding: 10px 10px;
+    border:none;
+    border-top:3px solid #e8aa1a;
+    border-bottom:3px solid #e8aa1a;    
+}
+.kokuho_result_area, .ninkei_result_area{
+	width:100%;
+    float:none;
+}
+.kokuho_result_area{
+    border-bottom:3px dotted #e8aa1a;
+    padding-bottom:10px;
+    border-right:0;
+    padding-right:0;
+}
+.ninkei_result_area{
+	padding-top:10px;
+}
+
+
+.keisan_result_detail{
+	border:none;
+    padding:10px 10px 0 10px;  
+}
+.keisan_result_detail_left, .keisan_result_detail_right{
+	float:none;
+    width:100%;
+    height:auto;
+}
+.keisan_result_detail_right{
+	margin-left:0;
+    margin-top:10px;
+}
+.keisan_result_detail_right dl dt, .keisan_result_detail_right dl dd{
+	font-size:11px;
+    padding:5px 5px 5px 3px;
+}
+.keisan_result_detail_right dl span{
+	font-size:8px;
+}
+.city_rate, .ninkei_rate{
+	margin-top:10px;
+	padding:0 10px;
+    font-size:11px;
+}
+.city_rate dl.head, .ninkei_rate dl.head {
+	font-size:11px;
+}
+.city_rate dl.head dd, .ninkei_rate dl.head dd {
+	vertical-align:middle;
+}
+.city_rate dl, .ninkei_rate dl{
+    font-size:11px;
+}
+.send_button{
+	width:90%;
+}
+.keisan_section{
+	padding:10px 0 10px 0;
+}
+table.help_table{
+    display:block;
+}
+table.help_table tr:nth-child(odd){
+    background:#fff;
+}
+table.help_table th, table.help_table td{
+	display:block;
+    width:100%;
+    box-sizing:border-box;
+}
+table.help_table th{
+    padding:5px 10px 2px 10px;
+    background:#f3f4f9;
+}
+table.help_table td{
+	padding-top:5px;
+    font-size:12px;
+}
+table.form, table.form2{
+    display:block;
+    padding:0;
+    border:0;
+}
+table.form tbody, table.form2 tbody{
+	display:block;
+}
+table.form tr, table.form2 tr{
+	display:block;
+}
+table.form th, table.form2 th{
+    display:block;
+    width:100%;
+    border:0;
+    padding:10px 10px 7px 10px;
+    box-sizing:border-box;
+}
+table.form td, table.form2 td{
+    display:block;
+    width:100%;
+    border:0;
+    box-sizing:border-box;
+}
+.sp_td_1{
+    padding-bottom:0 !important;
+    font-size:14px !important;
+    color:#103184 !important;
+}
+.sp_td_2{
+	padding-top:5px !important;
+    padding-bottom:0 !important;    
+}
+.sp_td_3{
+	padding-top:5px !important;
+    padding-bottom:20px !important;    
+}
+.keisan_section_title{
+    background: #103184;
+}
+#help_1, #help_2, #help_3, #help_4{
+    color:#fff;
+}
+.result_left{
+    float:none;
+}
+.result_inner{
+    padding:10px;
+}
+.result_left p{
+    font-size:15px;
+    width:50%;
+}
+.result_left:after{
+    right:43%;
+    top:55px;
+    ms-transform: rotate(135deg) translate(10px,0px);
+    -webkit-transform: rotate(135deg) translate(10px,0px);
+    transform: rotate(135deg) translate(10px,0px);
+}
+.result_right{
+	float:none;
+    margin-top:40px;
+    text-align:center;
+}
+.result_right p{
+    width:100%;
+}
+.result_right p.result_right_p{
+    font-size:35px;
+    width:82%;
+}
+.result_right span{
+    font-size:15px;
+    margin:15px 0 0 0;
+    width:18%;
+    text-align:left;
+}
+.attention{
+    font-size:10px;
+    margin-top:10px;
+}
+.result_detail_top{
+    margin-top:15px;
+}
+.result_detail_top ul li{
+    border-bottom:1px dotted #ddd;
+    padding-top:5px;
+}
+.result_detail_top ul li:before{
+    top:10px;
+}
+.result_detail_top ul li p{
+    width:100%;
+    font-size:15px;
+}
+.result_detail_left{
+    float:none;
+    width:100%;
+}
+.result_detail_left table{
+    display:block;
+    border:0;
+    width:100%;
+    box-sizing:border-box;
+}
+.result_detail_left table thead{
+    display:block;
+    width:100%;
+    box-sizing:border-box;
+}
+.result_detail_left table tbody{
+    display:block;
+    width:100%;
+    box-sizing:border-box;
+}
+.result_detail_left table tr{
+    display:block;
+    width:100%;
+    box-sizing:border-box;
+}
+.result_detail_left table th{
+    display:block;
+   	border:0;
+    width:100%;
+    box-sizing:border-box;
+    padding-top:10px;
+}
+.result_detail_left table td{
+    display:block;
+   	border:0;
+    width:100%;
+    box-sizing:border-box;
+    border-bottom:1px dotted #ddd;
+}
+#share{
+    padding:20px 20px 12px 20px;
+}
+.sub_coment{
+	margin:15px 0 5px 0;
+}
+.pankuzu{
+    margin-bottom:0;
+}
+
+
+
+
+
+
+
+/* ｽﾏﾎ用nav*********************************************** */
+.nav{
+	margin-top:10px;
+}
+.nav ul{
+	border:0;
+    border-bottom:0;
+    padding:0 0 0 30px;
+    background-image:url(../img/icon.png);
+    background-position:10px 10px;
+    background-repeat:no-repeat;
+}
+.nav ul li{
+    border-right:0;
+    border:1px solid #aaa;
+    border-radius:5px;
+    margin-bottom:3px;
+    margin-right:3px;
+    width:auto;
+}
+.nav ul li:last-child{
+	border-right:1px solid #aaa;
+}
+.nav ul li a{
+    padding:8px 10px;
+    font-size:11px;
+}
+.nav ul li a:hover{
+	background:#e9e9e9;
+}
+.spad_top{
+	display:block;
+    width:100%;
+    text-align:center;
+    margin-top:15px;
+}
+.main_coment{
+	height:auto;
+    margin-top:10px;
+}
+.main_coment h1 {
+    position: absolute;
+    top: 20%;
+    left: 1%;
+    font-size: 12px;
+    padding: 2%;
+    box-sizing: border-box;
+    color: #333;
+    background: none;
+    border-radius: 5px;
+    text-shadow:1px 1px 1px #f7f7f7;
+    font-weight:bold;
+}
+.sub_coment{
+    margin:5px 12px;
+}
+.sub_coment p{
+	font-size:11px;
+}
+.keisan_form input[type="text"]{
+	width:150px;
+}
+.footer{
+	margin-top:0px;
+}
+}
+
+

@@ -1,0 +1,1717 @@
+
+//////////////////////////////イベントハンドラ//////////////////////////////
+
+
+$(function(){
+
+	// ヘルプを表示
+	$('#help_1').click(function() {
+		$('#help_1_open').slideToggle("slow");
+	});
+	$('#help_2').click(function() {
+		$('#help_2_open').slideToggle("slow");
+	});
+	$('#help_3').click(function() {
+		$('#help_3_open').slideToggle("slow");
+	});
+	$('#help_4').click(function() {
+		$('#help_4_open').slideToggle("slow");
+	});
+
+	$('#help_1_close').click(function() {
+		$('#help_1_open').slideToggle("slow");
+	});
+	$('#help_2_close').click(function() {
+		$('#help_2_open').slideToggle("slow");
+	});
+	$('#help_3_close').click(function() {
+		$('#help_3_open').slideToggle("slow");
+	});
+	$('#help_4_close').click(function() {
+		$('#help_4_open').slideToggle("slow");
+	});
+
+	//医療費控除のインプットを表示・非表示
+	$('input[name="medical"]').change(function() {
+		var nomedical = $('#nomedical').prop('checked');
+		var medical_money = $('#medical').prop('checked');
+		var selfmedical_money = $('#selfmedical').prop('checked');
+		if (nomedical){
+			$('#medical_money_open').css('display', 'none');
+			$('#medical_money_reset').val("0");
+			$('#selfmedical_money_open').css('display', 'none');
+			$('#selfmedical_money_reset').val("0");
+		}
+		if (medical_money){
+			$('#medical_money_open').slideToggle("slow");
+			$('#selfmedical_money_open').css('display', 'none');
+			$('#selfmedical_money_reset').val("0");
+		}
+		if (selfmedical_money){
+			$('#selfmedical_money_open').slideToggle("slow");
+			$('#medical_money_open').css('display', 'none');
+			$('#medical_money_reset').val("0");
+		}
+	});
+
+	//障害者控除のインプットを表示・非表示
+	$('input[name="handi"]').change(function() {
+		var nohandi = $('#nohandi').prop('checked');
+		var handi = $('#handi').prop('checked');
+		if (nohandi){
+			$('#handi_open').css('display', 'none');
+			$('#handi_support_sp_dokyo').val("0");
+			$('#handi_support_sp').val("0");
+			$('#handi_support_other').val("0");
+		}
+		if (handi){
+			$('#handi_open').slideToggle("slow");
+		}
+	});
+
+	//障害者控除（親族）のインプットを表示・非表示
+	$('input[name="handi_support"]').change(function() {
+		var nohandi_support = $('#nohandi_support').prop('checked');
+		var handi_support = $('#handi_support').prop('checked');
+		if (nohandi_support){
+			$('#handi_support_open').css('display', 'none');
+			$('#handi_support_sp_dokyo').val("0");
+			$('#handi_support_sp').val("0");
+			$('#handi_support_other').val("0");
+		}
+		if (handi_support){
+			$('#handi_support_open').slideToggle("slow");
+		}
+	});
+
+	//配偶者控除なし、ありの場合、配特を表示・非表示
+	$('input[name="spouse"]').change(function() {
+		var nospouse = $('#nospouse').prop('checked');
+		var spouse69 = $('#spouse69').prop('checked');
+		var spouse70 = $('#spouse70').prop('checked');
+		var spousesp = $('#spousesp').prop('checked');
+
+		if (nospouse){
+			$('#spousesp_open').css('display', 'none');
+		}
+		if (spouse69){
+			$('#spousesp_open').css('display', 'none');
+		}
+		if (spouse70){
+			$('#spousesp_open').css('display', 'none');
+		}
+		if (spousesp){
+			$('#spousesp_open').slideToggle("slow");
+		}
+	});
+
+	//扶養控除のインプットを表示・非表示
+	$('input[name="support"]').change(function() {
+		var nosupport = $('#nosupport').prop('checked');
+		var support = $('#support').prop('checked');
+
+		if (nosupport){
+			$('#support_open').css('display', 'none');
+			$('#support16').val("0");
+			$('#support18').val("0");
+			$('#support70grand').val("0");
+			$('#support70').val("0");
+		}
+		if (support){
+			$('#support_open').slideToggle("slow");
+		}
+	});
+	
+});
+
+// 入力チェック
+function isRegNum(obj){
+	var str = obj.value;
+	if(str.match(/[^0-9|^.]+/)){
+		alert("半角数字のみ入力できます。");
+		obj.value = "";
+		return false;
+	}
+}
+
+
+
+//////////////////////////////住民税の計算フォーム//////////////////////////////
+
+function calculation(){
+	
+	// 基本情報
+	var ErrorFlg = 0;					// エラーフラグ
+	var Year = 0;						// 年
+	var Month = 0;						// 月
+	var Day = 0;						// 日
+	var Pref = "";						// 都道府県
+	var City = "";						// 市町村
+	var Under16 = "";					// 16歳未満の扶養家族
+
+	Year = document.keisan.year.value;
+	Month = document.keisan.month.value;
+	Day = document.keisan.day.value;
+	Pref = document.keisan.pref.value;
+	City = document.keisan.city.value;
+	Under16 = document.keisan.under16.value;
+		if(Under16==""){Under16=0;}
+
+	// 生まれ年を算出
+	var Birth_year = Year;
+
+	// 収入・所得
+	var Salary = "";					// 給与収入
+	var Income_business = "";			// 事業所得
+	var Income_estate = "";				// 不動産所得
+	var Income_interest = "";			// 利子所得
+	var Dividend_profit = "";			// 配当所得（利益分）
+	var Dividend_foreign = "";			// 配当所得（外貨）
+	var Dividend_noforeign = "";		// 配当所得（非外貨）
+	var Dividend_other = "";			// 配当所得（その他）
+	var Income_sundry_pension = "";		// 雑所得（年金）
+	var Income_sundry_other	= "";		// 雑所得（その他）
+	var Income_transfercomp_short = "";	// 総合譲渡（短期）
+	var Income_transfercomp_long = "";	// 総合譲渡（長期）
+	var Income_atime = "";				// 一時所得
+	var Income = 0;						// 合計所得
+	
+	Salary = document.keisan.salary.value;
+		if(Salary==""){Salary=0;}
+	Income_business = document.keisan.income_business.value;
+		if(Income_business==""){Income_business=0;}
+	Income_estate = document.keisan.income_estate.value;
+		if(Income_estate==""){Income_estate=0;}
+	Income_interest = document.keisan.income_interest.value;
+		if(Income_interest==""){Income_interest=0;}
+	Dividend_profit = document.keisan.dividend_profit.value;
+		if(Dividend_profit==""){Dividend_profit=0;}
+	Dividend_foreign = document.keisan.dividend_foreign.value;
+		if(Dividend_foreign==""){Dividend_foreign=0;}
+	Dividend_noforeign = document.keisan.dividend_noforeign.value;
+		if(Dividend_noforeign==""){Dividend_noforeign=0;}
+	Dividend_other = document.keisan.dividend_other.value;
+		if(Dividend_other==""){Dividend_other=0;}
+	Income_sundry_pension = document.keisan.income_sundry_pension.value;
+		if(Income_sundry_pension==""){Income_sundry_pension=0;}
+	Income_sundry_other = document.keisan.income_sundry_other.value;
+		if(Income_sundry_other==""){Income_sundry_other=0;}
+	Income_transfercomp_short = document.keisan.income_transfercomp_short.value;
+		if(Income_transfercomp_short==""){Income_transfercomp_short=0;}
+	Income_transfercomp_long = document.keisan.income_transfercomp_long.value;
+		if(Income_transfercomp_long==""){Income_transfercomp_longdend_foreign=0;}
+	Income_atime = document.keisan.income_atime.value;
+		if(Income_atime==""){Income_atime=0;}
+
+
+	// 所得控除
+	var Loss = ""; 						// 雑損控除額（差引損失額）
+	var Expend = "";					// 雑損控除額（災害関連支出額）
+	var Medical = "";					// 医療費控除
+	var Medical_money = "";				// 医療費控除額（通常の医療費）
+	var Selfmedical_money = "";			// 医療費控除額（セルフメディケーション）
+	var Social = "";					// 社会保険料
+	var Aid = "";						// 小規模企業共済
+	var Life_new = "";					// 生命保険（新）
+	var Life_old = "";					// 生命保険（旧）
+	var Pension_new = "";				// 年金（新）
+	var Pension_old = "";				// 年金（旧）
+	var Care = "";						// 介護
+	var Quake = "";						// 地震保険
+	var Damage = "";					// 旧長期損害保険
+	var Handi = "";						// 障害者控除
+	var Handi_myself = "";	 			// 障害者控除（本人情報） 
+	var Handi_support = "";	 			// 障害者控除（家族情報）
+	var Handi_support_sp_dokyo = "";	// 障害者控除（家族・同居特別の人数）
+	var Handi_support_sp = "";	 		// 障害者控除（家族・特別の人数）
+	var Handi_support_other = "";	 	// 障害者控除（家族・その他の人数）
+	var Widow = "";						// 寡婦・寡夫控除
+	var Student = "";					// 学生控除
+	var Spouse = "";					// 配偶者控除
+	var Spouse_sp = "";					// 配偶者特別控除
+	var Support = "";					// 扶養控除
+	var Support16 = "";					// 扶養控除16
+	var Support18 = "";					// 扶養控除18
+	var Support70grand = "";			// 扶養控除70grand
+	var Support70 = "";					// 扶養控除70
+
+	Loss = document.keisan.loss.value;
+		if(Loss==""){Loss=0;}
+	Expend = document.keisan.expend.value;
+		if(Expend==""){Expend=0;}
+	Medical = document.getElementsByName("medical");	
+	Medical_money = document.keisan.medical_money.value;
+		if(Medical_money==""){Medical_money=0;}
+	Selfmedical_money = document.keisan.selfmedical_money.value;
+		if(Selfmedical_money==""){Selfmedical_money=0;}
+	Social = document.keisan.social.value;
+		if(Social==""){Social=0;}
+	Aid = document.keisan.aid.value;
+		if(Aid==""){Aid=0;}
+	Life_new = document.keisan.life_new.value;
+		if(Life_new==""){Life_new=0;}
+	Life_old = document.keisan.life_old.value;
+		if(Life_old==""){Life_old=0;}
+	Pension_new = document.keisan.pension_new.value;
+		if(Pension_new==""){Pension_new=0;}
+	Pension_old = document.keisan.pension_old.value;
+		if(Pension_old==""){Pension_old=0;}
+	Care = document.keisan.care.value;
+		if(Care==""){Care=0;}
+	Quake = document.keisan.quake.value;
+		if(Quake==""){Quake=0;}
+	Damage = document.keisan.damage.value;
+		if(Damage==""){Damage=0;}
+	Handi = document.getElementsByName("handi");
+	Handi_myself = document.getElementsByName("handi_myself");
+	Handi_support = document.getElementsByName("handi_support");
+	Handi_support_sp_dokyo = document.keisan.handi_support_sp_dokyo.value;
+		if(Handi_support_sp_dokyo==""){Handi_support_sp_dokyo=0;}
+	Handi_support_sp = document.keisan.handi_support_sp.value;
+		if(Handi_support_sp==""){Handi_support_sp=0;}
+	Handi_support_other = document.keisan.handi_support_other.value;
+		if(Handi_support_other==""){Handi_support_other=0;}
+	Widow =document.getElementsByName("widow");
+	Student = document.getElementsByName("student");
+	Spouse = document.getElementsByName("spouse");
+	Spouse_sp = document.keisan.spouse_sp.value;
+		if(Spouse_sp==""){Spouse_sp=0;}
+	Support = document.getElementsByName("support");
+	Support16 = document.keisan.support16.value;
+		if(Support16==""){Support16=0;}
+	Support18 = document.keisan.support18.value;
+		if(Support18==""){Support18=0;}
+	Support70grand = document.keisan.support70grand.value;
+		if(Support70grand==""){Support70grand=0;}
+	Support70 = document.keisan.support70.value;
+		if(Support70==""){Support70=0;}
+
+
+	// 税額控除
+	var Houseloan = "";					// 住宅ローン控除
+	var Per8 = "";						// 8%取得
+	var Kazeiforest = "";				// 所得税の課税所得＋山林所得
+	var Home = "";						// ふるさと納税
+	var Onestop = "";					// ワンストップ特例の適用有無
+	var Donation = "";					// 共同募金・日本赤十字
+	var Cityordinance = "";				// 市区町村の条例指定寄付
+	var Prefordinance = "";				// 都道府県の条例指定寄付
+	var Dividendallocation = "";		// 配当割控除
+	var Stocktrancefer = "";			// 株式譲渡割控除
+
+	Houseloan = document.keisan.houseloan.value;
+		if(Houseloan==""){Houseloan=0;}
+	Per8 = document.getElementsByName("per8");
+	Kazeiforest = document.keisan.kazeiforest.value;
+		if(Kazeiforest==""){Kazeiforest=0;}
+	Home = document.keisan.home.value;
+		if(Home==""){Home=0;}
+	Onestop = document.getElementsByName("onestop");
+	Donation = document.keisan.donation.value;
+		if(Donation==""){Donation=0;}
+	Cityordinance = document.keisan.cityordinance.value;	
+		if(Cityordinance==""){Cityordinance=0;}
+	Prefordinance = document.keisan.prefordinance.value;
+		if(Prefordinance==""){Prefordinance=0;}
+	Dividendallocation = document.keisan.dividendallocation.value;
+		if(Dividendallocation==""){Dividendallocation=0;}
+	Stocktrancefer = document.keisan.stocktrancefer.value;
+		if(Stocktrancefer==""){Stocktrancefer=0;}
+
+
+	// 入力チェック
+	if(Year == "" || Month == "" || Day == ""){
+		alert("生年月日を入力してください。");
+		return false;
+	}
+	if(Pref == ""){
+		alert("お住まいの都道府県を選択してください。");
+		return false;
+	}
+
+
+	//////////////////////////////////////// ↓↓↓ 所得セクション ↓↓↓ ////////////////////////////////////////
+
+	//////////////////// ↓↓↓ 給与所得を算出（29年度） ↓↓↓ ////////////////////
+	var Income_salary = 0;	
+
+	if(Salary <= 650000){
+		Income_salary = 0;
+	}else if(Salary <= 1625000){
+		Income_salary = parseInt(Salary) - 650000;
+	}else if(Salary <= 1800000){
+		Income_salary = Math.floor(Salary / 4000) * 4000 * 0.6;		// 基準額
+	}else if(Salary <= 3600000){
+		Income_salary = Math.floor(Salary / 4000) * 4000 * 0.7 - 180000;	// 基準額
+	}else if(Salary <= 6600000){
+		Income_salary = Math.floor(Salary / 4000) * 4000 * 0.8 - 540000;	// 基準額
+	}else if(Salary <= 10000000){
+		Income_salary = Salary * 0.9 - 1200000;
+	}else if (Salary > 10000000){
+		Income_salary = parseInt(Salary) - 2200000;
+	}
+
+
+	// 配当所得の合計
+	var Income_dividend= 0;
+	Income_dividend = parseInt(Dividend_profit) + parseInt(Dividend_foreign) + parseInt(Dividend_noforeign) + parseInt(Dividend_other);
+
+
+	// 雑所得の合計
+	var Income_sundry = 0;
+	var Nenkin_koujo = 0;
+	
+	if(Birth_year <= 1953 && Month <= 12 && Day <= 31){		// 65歳以上
+		if(Income_sundry_pension <= 3300000){
+			Nenkin_koujo = Math.floor(0.001 * (parseInt(Income_sundry_pension) - 1200000)) * 1000;
+			if(Nenkin_koujo <= 0){
+				Nenkin_koujo = 0;
+			}
+		}else if(Income_sundry_pension <= 4100000){
+			Nenkin_koujo = Math.floor(Income_sundry_pension  * 0.75 - 375000);
+		}else if(Income_sundry_pension <= 7700000){
+			Nenkin_koujo = Math.floor(Income_sundry_pension  * 0.85 - 785000);
+		}else if(Income_sundry_pension > 7700000){
+			Nenkin_koujo = Math.floor(Income_sundry_pension  * 0.95 - 1555000);
+		}
+	}else{													// 65歳未満
+		if(Income_sundry_pension <= 1300000){
+			Nenkin_koujo = Math.floor(0.001 * (parseInt(Income_sundry_pension) - 700000)) * 1000;
+			if(Nenkin_koujo <= 0){
+				Nenkin_koujo = 0;
+			}
+		}else if(Income_sundry_pension <= 4100000){
+			Nenkin_koujo = Math.floor(Income_sundry_pension  * 0.75 - 375000);
+		}else if(Income_sundry_pension <= 7700000){
+			Nenkin_koujo = Math.floor(Income_sundry_pension  * 0.85 - 785000);
+		}else if(Income_sundry_pension > 7700000){
+			Nenkin_koujo = Math.floor(Income_sundry_pension  * 0.95 - 1555000);
+		}
+	}
+
+	Income_sundry = parseInt(Nenkin_koujo) + parseInt(Income_sundry_other);
+
+
+	// 総合譲渡の合計
+	var Income_transfercomp = 0;
+	Income_transfercomp = Math.floor(parseInt(Income_transfercomp_short) + Income_transfercomp_long / 2 - 500000);
+	if(Income_transfercomp <= 0){
+		Income_transfercomp = 0;
+	}
+	
+	// 一時所得
+	var Income_itiji = 0;
+	Income_itiji = Math.floor((parseInt(Income_atime) - 500000) / 2);
+	if(Income_itiji <= 0){
+		Income_itiji = 0;
+	}	
+	
+
+	//////////////////// ↓↓↓ 所得の合計 ↓↓↓ ////////////////////
+
+	//所得金額の合計
+	Income = parseInt(Income_salary) + parseInt(Income_business) + parseInt(Income_estate) + parseInt(Income_interest) + parseInt(Income_dividend) + parseInt(Income_sundry) + parseInt(Income_transfercomp) + parseInt(Income_itiji);
+
+
+
+
+	//////////////////////////////////////// ↓↓↓ 所得控除セクション ↓↓↓ ////////////////////////////////////////
+
+	//雑損控除
+	var Zatsu = 0;
+
+	if(Loss <= 0 && Expend <= 0){
+		Zatsu = 0;
+	}else{
+		var TempLoss = Loss - (Income * 0.1);
+		var TempExpend = Expend	- 50000;
+		if(TempLoss <= 0 && TempExpend <= 0){
+			Zatsu = 0;
+		}else{
+			if(TempLoss < TempExpend){
+				Zatsu = TempExpend;
+			}else{
+				Zatsu = TempLoss;
+			}
+		}
+	}
+
+	//医療費控除
+	var Iryou = 0;
+
+	if(Medical[0].checked){
+		Iryou = 0;
+	}else if(Medical[1].checked){
+		if(Medical_money <= 0){
+			Iryou = 0;
+		}else{
+			var TempIncome = Income * 0.05;
+			if(TempIncome < 100000){
+				Iryou = Medical_money - TempIncome;
+				if(Iryou <= 0){
+					Iryou = 0;
+				}else if(Iryou >= 2000000){
+					Iryou = 2000000;
+				}
+			}else{
+				Iryou = Medical_money - 100000;
+				if(Iryou <= 0){
+					Iryou = 0;
+				}else if(Iryou >= 2000000){
+					Iryou = 2000000;
+				}
+			}
+		}
+	}else if(Medical[2].checked){
+		if(Selfmedical_money <= 12000){
+			Iryou = 0;
+		}else if(Selfmedical_money <= 100000){
+			Iryou = Selfmedical_money - 12000;
+		}else{
+			Iryou = 88000;
+		}
+	}
+
+	//社会保険料控除
+	if(Social <= 0){
+		Social = 0;
+	}
+
+	//小規模企業共済等掛金控除
+	if(Aid <= 0){
+		Aid = 0;
+	}
+	
+	//生命保険料控除
+	var Seimei = 0;
+
+	if(Life_new <= 12000){
+		Life_new = Life_new;
+	}else if(Life_new <= 32000){
+		Life_new = Life_new * 0.5 + 6000;
+	}else if(Life_new <= 56000){
+		Life_new = Life_new * 0.25 + 14000;
+	}else{
+		Life_new = 28000;
+	}
+
+	if(Pension_new <= 12000){
+		Pension_new = Pension_new;
+	}else if(Pension_new <= 32000){
+		Pension_new =Pension_new * 0.5 + 6000;
+	}else if(Pension_new <= 56000){
+		Pension_new =Pension_new * 0.25 + 14000;
+	}else{
+		Pension_new = 28000;
+	}
+
+	if(Life_old <= 15000){
+		Life_old = Life_old;
+	}else if(Life_old <= 40000){
+		Life_old = Life_old * 0.5 + 7500;
+	}else if(Life_old <= 70000){
+		Life_old = Life_old * 0.25 + 17500;
+	}else{
+		Life_old = 35000;
+	}
+
+	if(Pension_old <= 15000){
+		Pension_old = Pension_old;
+	}else if(Life_old <= 40000){
+		Pension_old = Pension_old * 0.5 + 7500;
+	}else if(Life_old <= 70000){
+		Pension_old = Pension_old * 0.25 + 17500;
+	}else{
+		Pension_old = 35000;
+	}
+
+	if(Care <= 12000){
+		Care = Care;
+	}else if(Care <= 32000){
+		Care = Care * 0.5 + 6000;
+	}else if(Care <= 56000){
+		Care = Care * 0.25 + 14000;
+	}else{
+		Care = 28000;
+	}
+
+	var Life = 0;
+	var Pension = 0;
+
+	Life = parseInt(Life_new) + parseInt(Life_old);
+	if(Life >= 28000){
+		Life = 28000;
+	}
+	if(Life_old > 28000){
+		Life = Life_old;		
+	}
+
+	Pension = parseInt(Pension_new) + parseInt(Pension_old);
+	if(Pension >= 28000){
+		Pension = 28000;
+	}
+	if(Pension_old > 28000){
+		Pension = Pension_old;		
+	}
+	
+	Seimei = parseInt(Life) + parseInt(Pension) + parseInt(Care);
+
+	if(Seimei >= 70000){
+		Seimei = 70000;
+	}
+
+	// 地震保険料控除
+	var Jishin = 0;
+
+	Quake = Quake * 0.5;
+	if(Quake >= 25000){
+		Quake = 25000;
+	}
+
+	if(Damage <= 5000){
+		Damage = Damage;
+	}else if(Damage <= 15000){
+		Damage = Damage * 0.5 + 2500;
+	}else{
+		Damage = 10000;
+	}
+
+	Jishin = parseInt(Quake) + parseInt(Damage);
+	if(Jishin >= 25000){
+		Jishin = 25000;
+	}
+	
+	// 障害者控除
+	var Shougai = 0;
+	var Shougai_myself = 0;
+	var Shougai_support = 0;
+
+	if(Handi[0].checked){
+		Shougai_myself = 0;
+		Shougai_support = 0;
+	}else if(Handi[1].checked){
+
+		if(Handi_myself[0].checked){
+			Shougai_myself = 0;
+		}else if(Handi_myself[1].checked){
+			Shougai_myself = 300000;
+		}else if(Handi_myself[2].checked){
+			Shougai_myself = 260000;
+		}
+		
+		if(Handi_support[0].checked){
+			Shougai_support = 0;
+		}else if(Handi_support[1].checked){
+			Shougai_support = Handi_support_sp_dokyo * 530000 + Handi_support_sp * 300000 + Handi_support_other * 260000;
+		}
+	}
+
+	Shougai = parseInt(Shougai_myself) + parseInt(Shougai_support);	
+
+		
+	// 寡婦（夫）控除
+	var Kafu = 0;
+	
+	if(Widow[0].checked){
+		Kafu = 0;
+	}else if(Widow[1].checked){
+		Kafu = 260000;
+	}else if(Widow[2].checked){
+		Kafu = 300000;
+	}
+
+	// 勤労学生控除
+	var Gakusei = 0;
+	
+	if(Student[0].checked){
+		Gakusei = 0;
+	}else if(Student[1].checked){
+		Gakusei = 260000;
+	}
+
+	// 配偶者控除
+	var Haiguusha = 0;
+
+	if(Spouse[0].checked){
+		Haiguusha = 0;
+	}else if(Spouse[1].checked){
+		Haiguusha = 330000;
+	}else if(Spouse[2].checked){
+		Haiguusha = 380000;
+	}
+
+	// 配偶者特別控除
+	var Haiguusha_sp = 0;
+
+	if(Spouse[3].checked){
+		if(Spouse_sp == 0){
+			Haiguusha_sp = 330000;
+		}else if(Spouse_sp == 1){
+			Haiguusha_sp = 330000;
+		}else if(Spouse_sp == 2){
+			Haiguusha_sp = 310000;
+		}else if(Spouse_sp == 3){
+			Haiguusha_sp = 260000;
+		}else if(Spouse_sp == 4){
+			Haiguusha_sp = 210000;
+		}else if(Spouse_sp == 5){
+			Haiguusha_sp = 160000;
+		}else if(Spouse_sp == 6){
+			Haiguusha_sp = 110000;
+		}else if(Spouse_sp == 7){
+			Haiguusha_sp = 60000;
+		}else if(Spouse_sp == 8){
+			Haiguusha_sp = 30000;
+		}else if(Spouse_sp == 9){
+			Haiguusha_sp = 0;
+		}
+	}
+
+	// 扶養控除
+	var Fuyou = 0;
+	
+	if(Support[0].checked){
+		Fuyou = 0;
+	}else if(Support[1].checked){
+		Fuyou = (Support16 * 330000) + (Support18 * 450000) + (Support70grand * 450000) + (Support70 * 380000);
+	}
+
+	var FuyouNum = 0;
+	FuyouNum = parseInt(Support16) + parseInt(Support18) + parseInt(Support70grand) + parseInt(Support70);
+
+
+	// 基礎控除
+	var Kiso = 330000;
+
+
+	//////////////////// ↓↓↓ 所得控除額の合計 ↓↓↓ ////////////////////
+
+	// 障害＋寡婦＋勤労学生
+	var SKG = 0;
+	SKG = parseInt(Shougai) + parseInt(Kafu) + parseInt(Gakusei);
+
+	// 配偶者＋配偶者特別
+	var HH = 0;
+	HH = parseInt(Haiguusha) + parseInt(Haiguusha_sp);
+
+	// 所得控除の合計
+	var KoujoIncome = 0;
+	KoujoIncome = parseInt(Zatsu) + parseInt(Iryou) + parseInt(Social) + parseInt(Aid) + parseInt(Seimei) + parseInt(Jishin) + parseInt(Shougai) + parseInt(Kafu) + parseInt(Gakusei) + parseInt(Haiguusha) + parseInt(Haiguusha_sp) + parseInt(Fuyou) + parseInt(Kiso);
+
+
+	//////////////////////////////////////// ↓↓↓ 課税総所得の計算セクション ↓↓↓ ////////////////////////////////////////
+
+	// 課税総所得金額
+	var Kazei = 0;
+	Kazei = Math.floor(0.001 * (parseInt(Income) - parseInt(KoujoIncome))) * 1000;
+	if(Kazei <= 0){
+		Kazei = 0;
+	}
+
+
+
+	
+	//////////////////////////////////////// ↓↓↓ 所得割額の計算セクション ↓↓↓ ////////////////////////////////////////
+
+	var CityRate = 0.06;	// 税率（市区町村）標準
+	var PrefRate = 0.04;	// 税率（都道府県）標準
+	var CityShitei = false;	// 指定都市の変数
+	var CityIncome = 0;		// 所得割の額（市区町村）
+	var PrefIncome = 0;		// 所得割の額（都道府県）
+	var IncomeRatio = 0;	// 所得割の合計額
+
+	var CityRateArray = [	//　指定都市の料率
+		["札幌市",0.08],
+		["仙台市",0.08],
+		["さいたま市",0.08],
+		["千葉市",0.08],
+		["横浜市",0.08],
+		["川崎市",0.08],
+		["相模原市",0.08],
+		["静岡市",0.08],
+		["浜松市",0.08],
+		["新潟市",0.08],
+		["名古屋市",0.077],
+		["京都市",0.08],
+		["大阪市",0.08],
+		["堺市",0.08],
+		["神戸市",0.08],
+		["岡山市",0.08],
+		["広島市",0.08],
+		["福岡市",0.08],
+		["北九州市",0.08],
+		["熊本市",0.08]
+	];
+	for(e = 0 ; e < CityRateArray.length ; e++){
+		for(f = 0 ; f < 1 ; f++){
+			if(City == CityRateArray[e][0]){
+				CityRate = CityRateArray[e][1];
+				CityShitei = true;
+			}
+		}
+	}
+
+	var CityRateArray2 = [	//　超過課税実施都市の料率
+		["夕張市",0.065],
+		["豊岡市",0.061]
+	];
+	for(i = 0 ; i < CityRateArray2.length ; i++){
+		for(j = 0 ; j < 1 ; j++){
+			if(City == CityRateArray2[i][0]){
+				CityRate = CityRateArray2[i][1];
+			}
+		}
+	}
+
+
+	if(Pref == "神奈川県"){	//神奈川県のみ超過課税実施
+		PrefRate = 0.04025;
+	}
+
+	var PrefRateArray = [	// 指定都市のある都道府県料率
+		["北海道",0.02],
+		["宮城県",0.02],
+		["埼玉県",0.02],
+		["千葉県",0.02],
+		["神奈川県",0.02025],
+		["静岡県",0.02],
+		["新潟県",0.02],
+		["愛知県",0.02],
+		["京都府",0.02],
+		["大阪府",0.02],
+		["兵庫県",0.02],
+		["岡山県",0.02],
+		["広島県",0.02],
+		["福岡県",0.02],
+		["熊本県",0.02]
+	];
+	for(g = 0 ; g < PrefRateArray.length ; g++){
+		for(h = 0 ; h < 1 ; h++){
+			if(Pref == PrefRateArray[g][0] && CityShitei == true){
+				PrefRate = PrefRateArray[g][1];
+			}
+		}
+	}
+
+	CityIncome = Kazei * CityRate;
+	PrefIncome = Kazei * PrefRate;
+	
+
+
+
+	//////////////////////////////////////// ↓↓↓ 均等割額の計算セクション ↓↓↓ ////////////////////////////////////////
+
+	var CityKintou = 3500;	// 均等割の額（市区町村）標準
+	var PrefKintou = 1500;	// 均等割の額（都道府県）標準
+	var Kintou = 0;
+
+	var CityArray = [
+		["名古屋市",3300],
+		["横浜市",4400]
+	];
+	for(a = 0 ; a < CityArray.length ; a++){
+		for(b = 0 ; b < 1 ; b++){
+			if(City == CityArray[a][0]){
+				CityKintou = CityArray[a][1];
+			}
+		}
+	}
+	
+	var PrefArray = [
+		["北海道",1500],
+		["青森県",1500],
+		["岩手県",2500],
+		["宮城県",2700],
+		["秋田県",2300],
+		["山形県",2500],
+		["福島県",2500],
+		["茨城県",2500],
+		["栃木県",2200],
+		["群馬県",2200],
+		["埼玉県",1500],
+		["千葉県",1500],
+		["東京都",1500],
+		["神奈川県",1800],
+		["新潟県",1500],
+		["富山県",2000],
+		["石川県",2000],
+		["福井県",1500],
+		["山梨県",2000],
+		["長野県",2000],
+		["岐阜県",2500],
+		["静岡県",1900],
+		["愛知県",2000],
+		["三重県",2500],
+		["滋賀県",2300],
+		["京都府",2100],
+		["大阪府",1800],
+		["兵庫県",2300],
+		["奈良県",2000],
+		["和歌山県",2000],
+		["鳥取県",2000],
+		["島根県",2000],
+		["岡山県",2000],
+		["広島県",2000],
+		["山口県",2000],
+		["徳島県",1500],
+		["香川県",1500],
+		["愛媛県",2200],
+		["高知県",2000],
+		["福岡県",2000],
+		["佐賀県",2000],
+		["長崎県",2000],
+		["熊本県",2000],
+		["大分県",2000],
+		["宮崎県",2000],
+		["鹿児島県",2000],
+		["沖縄県",1500]
+	];
+	for(c = 0 ; c < PrefArray.length ; c++){
+		for(d = 0 ; d < 1 ; d++){
+			if(Pref == PrefArray[c][0]){
+				PrefKintou = PrefArray[c][1];
+			}
+		}
+	}
+
+	Kintou = parseInt(PrefKintou) + parseInt(CityKintou);		// 均等割の合計金額
+
+
+
+
+
+	//////////////////////////////////////// ↓↓↓ 税額控除の計算セクション ↓↓↓ ////////////////////////////////////////
+
+	// 人的控除の差額（障害者控除）
+	var HandiSagaku = 0;
+	var Handi_myselfSagaku = 0;
+	var Handi_supportSagaku = 0;
+
+	if(Handi[0].checked){
+		HandiSagaku = 0;
+	}else if(Handi[1].checked){
+
+		if(Handi_myself[0].checked){
+			Handi_myselfSagaku = 0;
+		}else if(Handi_myself[1].checked){
+			Handi_myselfSagaku = 100000;
+		}else if(Handi_myself[2].checked){
+			Handi_myselfSagaku = 10000;
+		}
+		
+		if(Handi_support[0].checked){
+			Handi_supportSagaku = 0;
+		}else if(Handi_support[1].checked){
+			Handi_supportSagaku =  Handi_support_sp_dokyo * 220000 + Handi_support_sp * 100000 + Handi_support_other * 10000;
+		}
+	
+		HandiSagaku = parseInt(Handi_myselfSagaku) + parseInt(Handi_supportSagaku);
+
+	}
+
+
+	// 人的控除の差額（寡婦控除）
+	var KafuSagaku = 0;
+
+	if(Widow[0].checked){
+		KafuSagaku = 0;
+	}else if(Widow[1].checked){
+		KafuSagaku = 10000;
+	}else if(Widow[2].checked){
+		KafuSagaku = 50000;
+	}
+
+
+	// 人的控除の差額（勤労学生控除）
+	var GakuseiSagaku = 0;
+
+	if(Student[0].checked){
+		GakuseiSagaku = 0;
+	}else if(Student[1].checked){
+		GakuseiSagaku = 10000;
+	}
+
+
+	// 人的控除の差額（配偶者控除）
+	var HaiguushaSagaku = 0;
+
+	if(Spouse[0].checked){
+		HaiguushaSagaku = 0;
+	}else if(Spouse[1].checked){
+		HaiguushaSagaku = 50000;
+	}else if(Spouse[2].checked){
+		HaiguushaSagaku = 100000;
+	} 		
+
+
+	// 人的控除の差額（配偶者特別控除）
+	var Haiguusha_spSagaku = 0;
+
+	if(Spouse[3].checked){
+		if(Spouse_sp == 0){
+			Haiguusha_spSagaku = 50000;
+		}else if(Spouse_sp == 1){
+			Haiguusha_spSagaku = 30000;
+		}	
+	}
+
+
+	// 人的控除の差額（扶養控除）
+	var FuyouSagaku = 0;
+
+	if(Support[0].chekced){
+		FuyouSagaku = 0;
+	}else if(Support[1].checked){
+		FuyouSagaku = (Support16 * 50000) + (Support18 * 180000) + (Support70grand * 130000) + (Support70 * 100000);	
+	}
+
+
+	// 人的控除の差額（基礎控除）
+	var KisoSagaku = 50000;
+
+	
+	// 人的控除の差額の控除額
+	var Sagaku = 0;
+	var PrefSagakuKoujo = 0;
+	var CitySagakuKoujo = 0;
+	var SagakuKoujo = 0;
+
+	Sagaku = parseInt(HandiSagaku) + parseInt(KafuSagaku) + parseInt(GakuseiSagaku) + parseInt(HaiguushaSagaku) + parseInt(Haiguusha_spSagaku) + parseInt(FuyouSagaku) + parseInt(KisoSagaku);
+	
+	if(Kazei <= 2000000){
+		if(Sagaku < Kazei){
+			PrefSagakuKoujo = Sagaku * 0.02;
+				if(CityShitei == true){
+					PrefSagakuKoujo = Sagaku * 0.01;
+				}
+			CitySagakuKoujo = Sagaku * 0.03;
+				if(CityShitei == true){
+					CitySagakuKoujo = Sagaku * 0.04;
+				}
+		}else{
+			PrefSagakuKoujo = Kazei * 0.02;
+				if(CityShitei == true){
+					PrefSagakuKoujo = Kazei * 0.01;
+				}
+			CitySagakuKoujo = Kazei * 0.03;
+				if(CityShitei == true){
+					CitySagakuKoujo = Kazei * 0.04;
+				}
+		}
+	}else if(Kazei > 2000000){
+		var TempSagaku = 0;
+		TempSagaku = Sagaku - (Kazei - 2000000);
+		if(TempSagaku < 50000){
+			TempSagaku = 50000;
+		}
+		PrefSagakuKoujo = TempSagaku * 0.02;
+			if(CityShitei == true){
+				PrefSagakuKoujo = TempSagaku * 0.01;
+			}
+		CitySagakuKoujo = TempSagaku * 0.03;
+			if(CityShitei == true){
+				CitySagakuKoujo = TempSagaku * 0.04;
+			}
+	}
+
+
+	// 配当控除
+	var Haitou = 0;
+	var PrefHaitouKoujo = 0;
+	var CityHaitouKoujo = 0;
+	var HaitouKoujo = 0;
+	var CityDpRate1 = 0.016;	//1000万円以下の市区町村の料率↓
+	var CityDnRate1 = 0.008;
+	var CityDfRate1 = 0.004;
+	var CityDpRate2 = 0.008;	//1000万円超えの市区町村の料率↓
+	var CityDnRate2 = 0.004;
+	var CityDfRate2 = 0.002;
+
+	if(CityShitei == true){		//政令市都市の場合の市区町村の料率
+		CityDpRate1 = 0.0224;
+		CityDnRate1 = 0.0112;
+		CityDfRate1 = 0.0056;
+		CityDpRate2 = 0.0112;
+		CityDnRate2 = 0.0056;
+		CityDfRate2 = 0.0028;
+	}
+	var PrefDpRate1 = 0.012;	//1000万円以下の都道府県の料率↓
+	var PrefDnRate1 = 0.006;
+	var PrefDfRate1 = 0.003;
+	var PrefDpRate2 = 0.006;	//1000万円超えの都道府県の料率↓
+	var PrefDnRate2 = 0.003;
+	var PrefDfRate2 = 0.0015;
+	if(CityShitei == true){		//政令市都市の場合の都道府県の料率
+		PrefDpRate1 = 0.0056;
+		PrefDnRate1 = 0.0028;
+		PrefDfRate1 = 0.0014;
+		PrefDpRate2 = 0.0028;
+		PrefDnRate2 = 0.0014;
+		PrefDfRate2 = 0.0007;
+	}
+
+	Haitou = parseInt(Dividend_profit) + parseInt(Dividend_noforeign) + parseInt(Dividend_foreign);
+	
+	if(Kazei <= 10000000){		// 1000万以下の場合①
+		CityHaitouKoujo = Dividend_profit * CityDpRate1 + Dividend_noforeign * CityDnRate1 + Dividend_foreign *CityDfRate1;
+		PrefHaitouKoujo = Dividend_profit * PrefDpRate1 + Dividend_noforeign *  PrefDnRate1 + Dividend_foreign * PrefDfRate1;
+	}else if(Kazei > 10000000){
+		if(Kazei - Haitou > 10000000){		// 1000万超えの場合②
+			CityHaitouKoujo = Dividend_profit * CityDpRate2 + Dividend_noforeign * CityDnRate2 + Dividend_foreign * CityDfRate2;
+			PrefHaitouKoujo = Dividend_profit * PrefDpRate2 + Dividend_noforeign *  PrefDnRate2 + Dividend_foreign * PrefDfRate2;
+		}else{
+			var Haitou_less = 0;
+			var Haitou_beyond = 0;
+			var Dividend_profit_less = 0;
+			var Dividend_profit_beyond = 0;
+			var Dividend_noforeign_less = 0;
+			var Dividend_noforeign_beyond = 0;
+			var Dividend_foreign_less = 0;
+			var Dividend_foreign_beyond = 0;
+			Haitou_beyond = Kazei - 10000000;
+			Haitou_less = parseInt(Haitou) - parseInt(Haitou_beyond);
+			
+			// 1000万以下の利益配当
+			if(Dividend_profit <= Haitou_less){
+				Dividend_profit_less = Dividend_profit;
+			}else{
+				Dividend_profit_less = Haitou_less;
+			}
+
+			// 1000万超えの利益配当
+			if(Dividend_profit > Haitou_less){
+				Dividend_profit_beyond = Dividend_profit;
+			}else{
+				Dividend_profit_beyond = 0;
+			}
+
+			// 1000万以下の非外貨
+			if(Dividend_profit_less >= Haitou_less){
+				Dividend_noforeign_less = 0;
+			}else{
+				if(parseInt(Haitou_less) - parseInt(Dividend_profit_less) >= parseInt(Dividend_noforeign)){
+					Dividend_noforeign_less = Dividend_noforeign;
+				}else{
+					Dividend_noforeign_less = parseInt(Haitou_less) - parseInt(Dividend_profit_less);
+				}
+			}
+
+			// 1000万超えの非外貨
+			if(parseInt(Dividend_noforeign) - parseInt(Dividend_noforeign_less) >= 0){
+				Dividend_noforeign_beyond = parseInt(Dividend_noforeign) - parseInt(Dividend_noforeign_less);
+			}else{
+				Dividend_noforeign_beyond = 0;
+			}
+
+			// 1000万以下の外貨
+			if(parseInt(Dividend_profit_less) + parseInt(Dividend_noforeign_less) >= Haitou_less){
+				Dividend_foreign_less = 0;
+			}else{
+				if(parseInt(Haitou_less) - parseInt(Dividend_noforeign_less) >= Dividend_foreign){
+					Dividend_foreign_less = Dividend_foreign;
+				}else{
+					Dividend_foreign_less = parseInt(Haitou_less) - (parseInt(Dividend_profit_less) + parseInt(Dividend_noforeign_less));
+				}
+			}
+
+			// 1000万超えの外貨
+			if(parseInt(Dividend_foreign) - parseInt(Dividend_foreign_less) >= 0){
+				Dividend_foreign_beyond = parseInt(Dividend_foreign) - parseInt(Dividend_foreign_less);
+			}else{
+				Dividend_foreign_beyond = 0;
+			}
+			
+			// 控除額の計算
+			var CityHaitouKoujo_less = 0;
+			var CityHaitouKoujo_beyond = 0;
+			var PrefHaitouKoujo_less = 0;
+			var PrefHaitouKoujo_beyond = 0;
+			CityHaitouKoujo_less = Dividend_profit_less * CityDpRate1 + Dividend_noforeign_less * CityDnRate1 + Dividend_foreign_less * CityDfRate1;
+			CityHaitouKoujo_beyond = Dividend_profit_beyond * CityDpRate2 + Dividend_noforeign_beyond * CityDnRate2 + Dividend_foreign_beyond * CityDfRate2;
+			PrefHaitouKoujo_less = Dividend_profit_less * PrefDpRate1 + Dividend_noforeign_less * PrefDnRate1 + Dividend_foreign_less * PrefDfRate1;
+			PrefHaitouKoujo_beyond = Dividend_profit_beyond * PrefDpRate2 + Dividend_noforeign_beyond * PrefDnRate2 + Dividend_foreign_beyond * PrefDfRate2;
+ 			CityHaitouKoujo = parseInt(CityHaitouKoujo_less) + parseInt(CityHaitouKoujo_beyond);
+			PrefHaitouKoujo = parseInt(PrefHaitouKoujo_less) + parseInt(PrefHaitouKoujo_beyond);
+
+		}
+	}			
+					
+	// 住宅ローン控除
+	var JuutakuKoujo = 0;
+	var CityJuutakuKoujo = 0;
+	var PrefJuutakuKoujo = 0;
+	var CityJuutakuRate = 0.6;	// 市区町村の料率
+	var PrefJuutakuRate = 0.4;	// 都道府県の料率
+	if(CityShitei==true){
+		CityJuutakuRate = 0.8;	// 政令指定都市の場合の市区町村の料率
+	}
+	if(CityShitei==true){
+		PrefJuutakuRate = 0.2;	// 政令指定都市の場合の都道府県の料率
+	}		
+
+	if(Per8[0].checked){
+		if(Houseloan > Kazeiforest * 0.05){
+			JuutakuKoujo = Kazeiforest * 0.05;
+			if(JuutakuKoujo >= 97500){
+				JuutakuKoujo = 97500;
+			}
+		}else if(Houseloan < Kazeiforest * 0.05){
+			JuutakuKoujo = Houseloan;
+		}
+	}else if(Per8[1].checked){
+		if(Houseloan > Kazeiforest * 0.07){
+			JuutakuKoujo = Kazeiforest * 0.07;
+			if(JuutakuKoujo >= 136500){
+				JuutakuKoujo = 136500;
+			}
+		}else if(Houseloan < Kazeiforest * 0.07){
+			JuutakuKoujo = Houseloan;
+		}
+	}
+	CityJuutakuKoujo = Math.floor(JuutakuKoujo * CityJuutakuRate);
+	PrefJuutakuKoujo = Math.floor(JuutakuKoujo * PrefJuutakuRate);
+
+		
+	// 寄付金控除
+
+	var CityKifuKihon = 0;		// 市区町村基本控除額
+	var PrefKifuKihon = 0;		// 都道府県基本控除額
+	var CityKifuRate = 0.06;	// 市区町村の料率
+	var PrefKifuRate = 0.04;	// 都道府県の料率
+	if(CityShitei==true){
+		CityKifuRate = 0.08;	// 政令指定都市の場合の市区町村の料率
+	}
+	if(CityShitei==true){
+		PrefKifuRate = 0.02;	// 政令指定都市の場合の都道府県の料率
+	}
+
+	CityKifuKihon = Math.ceil((parseInt(Home) + parseInt(Donation) + parseInt(Cityordinance) - 2000) * CityKifuRate);
+	if(parseInt(Home) + parseInt(Donation) + parseInt(Cityordinance) >= Income * 0.3){
+		CityKifuKihon = Math.ceil((Income * 0.3 - 2000) * CityKifuRate);
+	}
+	if(CityKifuKihon <= 0){
+		CityKifuKihon = 0;
+	}
+
+	PrefKifuKihon = Math.ceil((parseInt(Home) + parseInt(Donation) + parseInt(Prefordinance) - 2000) * PrefKifuRate);
+	if(parseInt(Home) + parseInt(Donation) + parseInt(Prefordinance) >= Income * 0.3){
+		PrefKifuKihon = Math.ceil((Income * 0.3 - 2000) * PrefKifuRate);
+	}
+	if(PrefKifuKihon <= 0){
+		PrefKifuKihon = 0;
+	}
+
+	
+	var CityTokurei = 0;	// 市区町村の特例控除額
+	var PrefTokurei = 0;	// 都道府県の特例控除額
+	var TempTokurei = 0;		// 課税総所得 - 人的控除の差額
+	var TokureiProportion = 0;	// 課税総所得 - 人的控除の差額の割合
+	var CityTokureiRate = 0.6;	// 市区町村の料率
+	var PrefTokureiRate = 0.4;	// 都道府県の料率
+	if(CityShitei==true){
+		CityTokureiRate = 0.8;	// 政令指定都市の場合の市区町村の料率
+	}
+	if(CityShitei==true){
+		PrefTokureiRate = 0.2;	// 政令指定都市の場合の都道府県の料率
+	}
+	
+	TempTokurei = parseInt(Kazei) - parseInt(Sagaku);
+	if(TempTokurei <= 1950000){
+		TokureiProportion = 0.84895;
+	}else if(TempTokurei <= 3300000){
+		TokureiProportion = 0.7979;
+	}else if(TempTokurei <= 6950000){
+		TokureiProportion = 0.6958;
+	}else if(TempTokurei <= 9000000){
+		TokureiProportion = 0.66517;
+	}else if(TempTokurei <= 18000000){
+		TokureiProportion = 0.56307;
+	}else if(TempTokurei <= 40000000){
+		TokureiProportion = 0.4916;
+	}else if(TempTokurei > 40000000){
+		TokureiProportion = 0.44055;
+	}
+
+
+	CityTokurei = Math.ceil((Home -2000) * TokureiProportion * CityTokureiRate);
+	if(CityTokurei >= (parseInt(CityIncome) - parseInt(CitySagakuKoujo)) * 0.2){
+		CityTokurei = Math.ceil((parseInt(CityIncome) - parseInt(CitySagakuKoujo)) * 0.2);
+	}
+	if(CityTokurei <= 0){
+		CityTokurei = 0;
+	}
+
+	PrefTokurei = Math.ceil((Home -2000) * TokureiProportion * PrefTokureiRate);
+	if(PrefTokurei >= (parseInt(PrefIncome) - parseInt(PrefSagakuKoujo)) * 0.2){
+		PrefTokurei = Math.ceil((parseInt(PrefIncome) - parseInt(PrefSagakuKoujo)) * 0.2);
+	}
+	if(PrefTokurei <= 0){
+		PrefTokurei = 0;
+	}
+
+
+	var CityShinkoku = 0;	// 市区町村の申告特例控除額（ワンストップ特例）
+	var PrefShinkoku = 0;	// 都道府県の申告特例控除額（ワンストップ特例）
+	var ShinkokuProportion = 0;	// 課税総所得 - 人的控除の差額の割合
+
+	if(Onestop[1].checked){			// ふるさと納税（ワンストップ特例）
+		if(TempTokurei <= 1950000){
+			ShinkokuProportion = 5.105 / 84.895;
+		}else if(TempTokurei <= 3300000){
+			ShinkokuProportion = 10.21 / 79.79;
+		}else if(TempTokurei <= 6950000){
+			ShinkokuProportion = 20.42 / 69.58;
+		}else if(TempTokurei <= 9000000){
+			ShinkokuProportion = 23.483 / 66.517;
+		}else if(TempTokurei > 9000000){
+			ShinkokuProportion = 33.693 / 56.307;
+		}
+	
+		CityShinkoku = Math.ceil(CityTokurei * ShinkokuProportion);
+		PrefShinkoku = Math.ceil(PrefTokurei * ShinkokuProportion);
+
+	}
+
+	var CityKifuKoujo = 0;
+	var PrefKifuKoujo = 0;
+	var KifuKoujo = 0;
+
+	CityKifuKoujo = parseInt(CityKifuKihon) + parseInt(CityTokurei) + parseInt(CityShinkoku);	// 寄付金控除の合計（市区町村）
+	PrefKifuKoujo = parseInt(PrefKifuKihon) + parseInt(PrefTokurei) + parseInt(PrefShinkoku);	// 寄付金控除の合計（都道府県）
+	KifuKoujo = parseInt(CityKifuKoujo) + parseInt(PrefKifuKoujo);
+
+	
+	// 配当割控除
+	var CityHaitouwari = 0;		// 配当割控除額（市区町村）
+	var PrefHaitouwari = 0;		// 配当割控除額（都道府県）
+	var CityHaitouwariRate = 0.6;	//市区町村の料率
+	if(CityShitei == true){
+		CityHaitouwariRate = 0.8;
+	}
+	var PrefHaitouwariRate = 0.4;	//都道府県の料率
+	if(CityShitei == true){
+		PrefHaitouwariRate = 0.2;
+	}
+	
+	CityHaitouwari = Dividendallocation * CityHaitouwariRate;
+	PrefHaitouwari = Dividendallocation * PrefHaitouwariRate;
+
+
+	// 株式譲渡割控除
+	var CityKabushikiwari = 0;		// 株式譲渡割控除額（市区町村）
+	var PrefKabushikiwari = 0;		// 株式譲渡割控除額（都道府県）
+	var CityKabushikiwariRate = 0.6;	//市区町村の料率
+	if(CityShitei == true){
+		CityKabushikiwariRate = 0.8;
+	}
+	var PrefKabushikiwariRate = 0.4;	//都道府県の料率
+	if(CityShitei == true){
+		PrefKabushikiwariRate = 0.2;
+	}
+	
+	CityKabushikiwari = Stocktrancefer * CityKabushikiwariRate;
+	PrefKabushikiwari = Stocktrancefer * PrefKabushikiwariRate;
+
+
+	// 税額控除の合計
+	var CityZeigakuKoujo = 0;		// 税額控除の合計額（市区町村）
+	var PrefZeigakuKoujo = 0;		// 税額控除の合計額（都道府県）
+	
+	CityZeigakuKoujo = parseInt(CitySagakuKoujo) + parseInt(CityHaitouKoujo) + parseInt(CityJuutakuKoujo) + parseInt(CityKifuKoujo) + parseInt(CityHaitouwari) + parseInt(CityKabushikiwari);
+	PrefZeigakuKoujo = parseInt(PrefSagakuKoujo) + parseInt(PrefHaitouKoujo) + parseInt(PrefJuutakuKoujo) + parseInt(PrefKifuKoujo) + parseInt(PrefHaitouwari) + parseInt(PrefKabushikiwari);
+
+
+	// 税額控除後の所得割の額
+	CityIncome = Math.floor((parseInt(CityIncome) - parseInt(CityZeigakuKoujo)) * 0.01) * 100;
+	PrefIncome = Math.floor((parseInt(PrefIncome) - parseInt(PrefZeigakuKoujo)) * 0.01) * 100; 
+	IncomeRatio = parseInt(PrefIncome) + parseInt(CityIncome);
+
+
+
+
+	//////////////////////////////////////// ↓↓↓ 非課税（所得割＋均等割）の条件セクション ↓↓↓ ////////////////////////////////////////
+
+	var Hikazei_sk = false;	//所得割＆均等割りが非課税
+	var Hikazei_s = false;	//所得割のみ非課税
+
+	// 未成年
+	var Miseinen = false;
+	if(Birth_year >= 1999 && Month >= 1 && Day >= 1){	// 1999年1月1日生まれ以降は未成年（20歳未満）
+		Miseinen = true;
+	}else{
+		Miseinen = false;
+	}
+	
+	// 障害者、未成年者、寡婦（寡夫）で合計所得が125万円以下は非課税
+	if(Handi_myself[1].checked || Handi_myself[2].checked || Widow[1].checked || Widow[2].checked || Miseinen == true){
+		if(Income <= 1250000){
+			CityIncome = 0;
+			PrefIncome = 0;
+			CityKintou = 0;
+			PrefKintou = 0;
+			Hikazei_sk = true;
+		}
+	}
+
+
+	// 合計所得が基準値以下の場合は非課税
+	var SpouseNum = 0; 	
+	if(Spouse[1].checked || Spouse[2].checked || Spouse[3].checked){
+		SpouseNum = 1;
+	}else{
+		SpouseNum = 0;
+	}
+
+	if(Spouse[1].checked || Spouse[2].checked || Spouse[3].checked || FuyouNum > 0 || Under16 > 0){
+		if(Income <= 350000 * (1 + parseInt(SpouseNum) + parseInt(FuyouNum) + parseInt(Under16)) + 210000){
+			CityIncome = 0;
+			PrefIncome = 0;
+			CityKintou = 0;
+			PrefKintou = 0;
+			Hikazei_sk = true;
+		}
+	}
+	if(Spouse[0].checked && FuyouNum == 0 && Under16 == 0){
+		if(Income <= 350000){
+			CityIncome = 0;
+			PrefIncome = 0;
+			CityKintou = 0;
+			PrefKintou = 0;
+			Hikazei_sk = true;
+		}
+	}
+
+
+	//////////////////////////////////////// ↓↓↓ 非課税（所得割のみ）の条件セクション ↓↓↓ ////////////////////////////////////////
+	
+	var HikazeiIncome = false; 
+	if(Spouse[1].checked || Spouse[2].checked || Spouse[3].checked || FuyouNum > 0 || Under16 > 0){
+		if(Income <= 350000 * (1 + parseInt(SpouseNum) + parseInt(FuyouNum) + parseInt(Under16)) + 320000){
+			HiKazeiIncome = true;
+		}else if(Spouse[0].checked && FuyouNum == 0 && Under16 == 0){
+			if(Income <= 350000){
+				HikazeiIncome = true;
+			}
+		}
+	}else{
+		HikazeiIncome = false;
+	}
+	
+	if(HikazeiIncome == true){
+		CityIncome = 0;
+		PrefIncome = 0;
+		Hikazei_s = true;
+	}
+
+
+
+	//////////////////////////////////////// ↓↓↓ 非課税（限度額）の条件セクション ↓↓↓ ////////////////////////////////////////
+	
+	var KazokuNum = 0;
+	KazokuNum = parseInt(SpouseNum) + parseInt(FuyouNum) + parseInt(Under16);		// 控除対象配偶者および扶養親族の人数
+	
+	if(KazokuNum == 0){
+		if(Income <= 350000){
+			CityIncome = 0;
+			PrefIncome = 0;
+			CityKintou = 0;
+			PrefKintou = 0;
+			Hikazei_sk = true;
+		}
+	}else if(KazokuNum == 1){
+		if(Income <= 910000){
+			CityIncome = 0;
+			PrefIncome = 0;
+			CityKintou = 0;
+			PrefKintou = 0;
+			Hikazei_sk = true;
+		}else if(Income <= 1020000){
+			CityIncome = 0;
+			PrefIncome = 0;
+			Hikazei_s = true;
+		}
+	}else if(KazokuNum == 2){
+		if(Income <= 1260000){
+			CityIncome = 0;
+			PrefIncome = 0;
+			CityKintou = 0;
+			PrefKintou = 0;
+			Hikazei_sk = true;
+		}else if(Income <= 1370000){
+			CityIncome = 0;
+			PrefIncome = 0;
+			Hikazei_s = true;
+		}
+	}else if(KazokuNum == 3){
+		if(Income <= 1610000){
+			CityIncome = 0;
+			PrefIncome = 0;
+			CityKintou = 0;
+			PrefKintou = 0;
+			Hikazei_sk = true;
+		}else if(Income <= 1720000){
+			CityIncome = 0;
+			PrefIncome = 0;
+			Hikazei_s = true;
+		}
+	}else if(KazokuNum == 4){
+		if(Income <= 1960000){
+			CityIncome = 0;
+			PrefIncome = 0;
+			CityKintou = 0;
+			PrefKintou = 0;
+			Hikazei_sk = true;
+		}else if(Income <= 2070000){
+			CityIncome = 0;
+			PrefIncome = 0;
+			Hikazei_s = true;
+		}
+	}else if(KazokuNum >= 5){
+		if(Income <= (parseInt(KazokuNum) - 4) * 350000 + 1960000 ){
+			CityIncome = 0;
+			PrefIncome = 0;
+			CityKintou = 0;
+			PrefKintou = 0;
+			Hikazei_sk = true;
+		}else if(Income <= (parseInt(KazokuNum) - 4) * 350000 + 2070000 ){
+			CityIncome = 0;
+			PrefIncome = 0;
+			Hikazei_s = true;
+		}
+	}
+
+
+	var Hikazei = "";
+	if(Hikazei_sk == true){
+		Hikazei = "<p>所得割と均等割が非課税対象となります。</p>";
+	}
+	if(Hikazei_s == true){
+		Hikazei = "<p>所得割のみ非課税対象となります。</p>";
+	}
+
+	
+	IncomeRatio = parseInt(PrefIncome) + parseInt(CityIncome);	// 所得割合計の再計算
+	Kintou = parseInt(PrefKintou) + parseInt(CityKintou);		// 均等割合計の再計算
+
+	PrefTax = parseInt(PrefIncome) + parseInt(PrefKintou);	// 都道府県民税合計
+	CityTax = parseInt(CityIncome) + parseInt(CityKintou);	// 市町村民税
+
+
+	//////////////////////////////////////// ↓↓↓ 住民税の金額計算セクション ↓↓↓ ////////////////////////////////////////
+
+	var Result = 0;		
+	Result = parseInt(IncomeRatio) + parseInt(Kintou);
+
+	//////////////////////////////////////// ↓↓↓ HTMLに出力 ↓↓↓ ////////////////////////////////////////
+
+	////// 所得金額 //////
+	// 給与所得
+	var kyuuyo = document.getElementById("kyuuyo");
+	kyuuyo.innerHTML = Number(Math.floor(Income_salary)).toLocaleString() + '円';
+
+	// 事業所得
+	var jigyou = document.getElementById("jigyou");
+	jigyou.innerHTML = Number(Math.floor(Income_business)).toLocaleString() + '円';
+
+	// 不動産所得
+	var fudousan = document.getElementById("fudousan");
+	fudousan.innerHTML = Number(Math.floor(Income_estate)).toLocaleString() + '円';
+
+	// 利子所得
+	var rishi = document.getElementById("rishi");
+	rishi.innerHTML = Number(Math.floor(Income_interest)).toLocaleString() + '円';
+
+	// 配当所得
+	var haitou = document.getElementById("haitou");
+	haitou.innerHTML = Number(Math.floor(Income_dividend)).toLocaleString() + '円';
+
+	// 雑所得（年金）
+	var nenkin = document.getElementById("nenkin");
+	nenkin.innerHTML = Number(Math.floor(Nenkin_koujo)).toLocaleString() + '円';
+
+	// 雑所得（その他）
+	var zatsuother = document.getElementById("zatsuother");
+	zatsuother.innerHTML = Number(Math.floor(Income_sundry_other)).toLocaleString() + '円';
+
+	// 総合譲渡
+	var jouto = document.getElementById("jouto");
+	jouto.innerHTML = Number(Math.floor(Income_transfercomp)).toLocaleString() + '円';
+
+	// 一時
+	var ichiji = document.getElementById("ichiji");
+	ichiji.innerHTML = Number(Math.floor(Income_itiji)).toLocaleString() + '円';
+
+	// 総所得金額
+	var sousyotoku = document.getElementById("sousyotoku");
+	sousyotoku.innerHTML = Number(Math.floor(Income)).toLocaleString() + '円';
+
+
+	////// 所得控除 //////
+	// 雑損
+	var zatsuson = document.getElementById("zatsuson");
+	zatsuson.innerHTML = Number(Math.floor(Zatsu)).toLocaleString() + '円';
+
+	// 医療費
+	var iryou = document.getElementById("iryou");
+	iryou.innerHTML = Number(Math.floor(Iryou)).toLocaleString() + '円';
+
+	// 社保
+	var shaho = document.getElementById("shaho");
+	shaho.innerHTML = Number(Math.floor(Social)).toLocaleString() + '円';
+	
+	// 小規模
+	var syoukibo = document.getElementById("syoukibo");
+	syoukibo.innerHTML = Number(Math.floor(Aid)).toLocaleString() + '円';
+
+	// 生命
+	var seimei = document.getElementById("seimei");
+	seimei.innerHTML = Number(Math.floor(Seimei)).toLocaleString() + '円';
+
+	// 地震
+	var jishin = document.getElementById("jishin");
+	jishin.innerHTML = Number(Math.floor(Jishin)).toLocaleString() + '円';
+
+	// 障害＋寡婦＋学生
+	var kafu = document.getElementById("kafu");
+	kafu.innerHTML = Number(Math.floor(SKG)).toLocaleString() + '円';
+
+	// 配偶者＋配偶者特別
+	var haiguusha = document.getElementById("haiguusha");
+	haiguusha.innerHTML = Number(Math.floor(HH)).toLocaleString() + '円';
+
+	// 扶養
+	var fuyou = document.getElementById("fuyou");
+	fuyou.innerHTML = Number(Math.floor(Fuyou)).toLocaleString() + '円';
+
+	// 基礎
+	var kiso = document.getElementById("kiso");
+	kiso.innerHTML = Number(Math.floor(Kiso)).toLocaleString() + '円';
+
+	// 所得控除合計
+	var syotokukoujo = document.getElementById("syotokukoujo");
+	syotokukoujo.innerHTML = Number(Math.floor(KoujoIncome)).toLocaleString() + '円';
+
+
+
+
+	// 非課税対象
+	var hikazei = document.getElementById("hikazei");
+	hikazei.innerHTML = Hikazei;	
+	
+	// 住民税額の合計
+	var result = document.getElementById("result");
+	result.innerHTML = Number(Math.floor(Result)).toLocaleString();
+
+	// 都道府県民税額
+	var preftax = document.getElementById("preftax");
+	preftax.innerHTML = Number(Math.floor(PrefTax)).toLocaleString() + '円／年';
+	var preftax2 = document.getElementById("preftax2");
+	preftax2.innerHTML = Number(Math.floor(PrefTax)).toLocaleString() + '円／年';
+
+	// 市町村民税額
+	var citytax = document.getElementById("citytax");
+	citytax.innerHTML = Number(Math.floor(CityTax)).toLocaleString() + '円／年';
+	var citytax2 = document.getElementById("citytax2");
+	citytax2.innerHTML = Number(Math.floor(CityTax)).toLocaleString() + '円／年';
+
+	// 都道府県民税の均等割
+	var prefkintou = document.getElementById("prefkintou");
+	prefkintou.innerHTML = Number(Math.floor(PrefKintou)).toLocaleString() + '円／年';
+
+	// 市町村民税の均等割
+	var citykintou = document.getElementById("citykintou");
+	citykintou.innerHTML = Number(Math.floor(CityKintou)).toLocaleString() + '円／年';
+
+	// 都道府県民税の所得割
+	var prefincome = document.getElementById("prefincome");
+	prefincome.innerHTML = Number(Math.floor(PrefIncome)).toLocaleString() + '円／年';
+	
+	// 市町村民税の所得割
+	var cityincome = document.getElementById("cityincome");
+	cityincome.innerHTML = Number(Math.floor(CityIncome)).toLocaleString() + '円／年';
+
+	// 所得金額
+	var income = document.getElementById("income");
+	income.innerHTML = Number(Math.floor(Income)).toLocaleString() + '円';
+
+	// 所得割の率（都道府県民税）
+	var prefrate = document.getElementById("prefrate");
+	prefrate.innerHTML = '（' + PrefRate * 100 + '%）';
+	var prefrate2 = document.getElementById("prefrate2");
+	prefrate2.innerHTML = PrefRate * 100 + '%';
+
+	// 所得割の率（市町村民税）
+	var cityrate = document.getElementById("cityrate");
+	cityrate.innerHTML = '（' + CityRate * 100 + '%）';
+	var cityrate2 = document.getElementById("cityrate2");
+	cityrate2.innerHTML = CityRate * 100 + '%';
+
+
+	// 所得控除
+	var koujoincome = document.getElementById("koujoincome");
+	koujoincome.innerHTML = Number(Math.floor(KoujoIncome)).toLocaleString() + '円';
+
+	//　課税される金額
+	var kazei = document.getElementById("kazei");
+	kazei.innerHTML = Number(Math.floor(Kazei)).toLocaleString() + '円';
+	var kazei2 = document.getElementById("kazei2");
+	kazei2.innerHTML = Number(Math.floor(Kazei)).toLocaleString() + '円';
+	var kazei3 = document.getElementById("kazei3");
+	kazei3.innerHTML = Number(Math.floor(Kazei)).toLocaleString() + '円';
+
+	// 税額控除の合計（都道府県民税）
+	var prefzeigakukoujo = document.getElementById("prefzeigakukoujo");
+	prefzeigakukoujo.innerHTML = Number(Math.floor(PrefZeigakuKoujo)).toLocaleString() + '円';
+	var prefzeigakukoujo2 = document.getElementById("prefzeigakukoujo2");
+	prefzeigakukoujo2.innerHTML = Number(Math.floor(PrefZeigakuKoujo)).toLocaleString() + '円';
+
+	// 税額控除の合計（市町村民税）
+	var cityzeigakukoujo = document.getElementById("cityzeigakukoujo");
+	cityzeigakukoujo.innerHTML = Number(Math.floor(CityZeigakuKoujo)).toLocaleString() + '円';
+	var cityzeigakukoujo2 = document.getElementById("cityzeigakukoujo2");
+	cityzeigakukoujo2.innerHTML = Number(Math.floor(CityZeigakuKoujo)).toLocaleString() + '円';
+
+	// 
+	var prefsagakukoujo = document.getElementById("prefsagakukoujo");
+	prefsagakukoujo.innerHTML = Number(Math.floor(PrefSagakuKoujo)).toLocaleString() + '円';
+
+	var citysagakukoujo = document.getElementById("citysagakukoujo");
+	citysagakukoujo.innerHTML = Number(Math.floor(CitySagakuKoujo)).toLocaleString() + '円';
+
+	var prefhaitoukoujo = document.getElementById("prefhaitoukoujo");
+	prefhaitoukoujo.innerHTML = Number(Math.floor(PrefHaitouKoujo)).toLocaleString() + '円';
+
+	var cityhaitoukoujo = document.getElementById("cityhaitoukoujo");
+	cityhaitoukoujo.innerHTML = Number(Math.floor(CityHaitouKoujo)).toLocaleString() + '円';
+
+	var prefjuutakukoujo = document.getElementById("prefjuutakukoujo");
+	prefjuutakukoujo.innerHTML = Number(Math.floor(PrefJuutakuKoujo)).toLocaleString() + '円';
+
+	var cityjuutakukoujo = document.getElementById("cityjuutakukoujo");
+	cityjuutakukoujo.innerHTML = Number(Math.floor(CityJuutakuKoujo)).toLocaleString() + '円';
+
+	var citykifukoujo = document.getElementById("citykifukoujo");
+	citykifukoujo.innerHTML = Number(Math.floor(CityKifuKoujo)).toLocaleString() + '円';
+
+	var prefkifukoujo = document.getElementById("prefkifukoujo");
+	prefkifukoujo.innerHTML = Number(Math.floor(PrefKifuKoujo)).toLocaleString() + '円';
+
+	var cityhaitouwari = document.getElementById("cityhaitouwari");
+	cityhaitouwari.innerHTML = Number(Math.floor(CityHaitouwari)).toLocaleString() + '円';
+
+	var prefhaitouwari = document.getElementById("prefhaitouwari");
+	prefhaitouwari.innerHTML = Number(Math.floor(PrefHaitouwari)).toLocaleString() + '円';
+
+	var citykabushikiwari = document.getElementById("citykabushikiwari");
+	citykabushikiwari.innerHTML = Number(Math.floor(CityKabushikiwari)).toLocaleString() + '円';
+
+	var prefkabushikiwari = document.getElementById("prefkabushikiwari");
+	prefkabushikiwari.innerHTML = Number(Math.floor(PrefKabushikiwari)).toLocaleString() + '円';
+
+
+
+
+	//#result_openを表示
+	document.getElementById("result_open").style.display="block";
+
+}

@@ -1,0 +1,27 @@
+
+function check() {
+	if(document.foo.family01_age.value=="0" && document.foo.family02_age.value=="0" && document.foo.family03_age.value=="0" && document.foo.family04_age.value=="0" && document.foo.family05_age.value=="0" && document.foo.family06_age.value=="0") {
+		alert("年齢を選択して下さい。");
+		return false;
+	}else{
+		return true;
+	}
+}
+
+// 入力チェック
+function isRegNum(obj){
+	var str = obj.value;
+	if(str.match(/[^0-9|^.]+/)){
+		alert("半角数字のみ入力できます。");
+		obj.value = "";
+		return false;
+	}
+}
+
+$(function(){
+	// 2人以降入力画面を表示
+	$('#next_button').click(function() {
+		$('#next_open').slideToggle("slow");
+	});
+});
+
