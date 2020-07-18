@@ -30,34 +30,36 @@ var canvas = document.querySelector('canvas');
 var context = canvas.getContext('2d');
 
 //绘制六边形
+var arrayText = ['学習力','影響力','時間力','運営力','写作力','思维力'];
+var array     = [80,50,40,50,10,80];
 
 var pointArr = [];
 
 for (let i=0;i<6;i++){
 
-pointArr[i]={};
+    pointArr[i]={};
 
-pointArr[i].x = 250 + 100 * Math.round(Math.sin(Math.PI * 60 * i / 180) * 1000000) / 1000000;//这里这样写，是因为浮点数计算误差问题
+    pointArr[i].x = 250 + 100 * Math.round(Math.sin(Math.PI * 60 * i / 180) * 1000000) / 1000000;//这里这样写，是因为浮点数计算误差问题
 
-pointArr[i].y = 250 + 100 * Math.round(Math.cos(Math.PI * 60 * i / 180) * 1000000) / 1000000;
+    pointArr[i].y = 250 + 100 * Math.round(Math.cos(Math.PI * 60 * i / 180) * 1000000) / 1000000;
 
-pointArr[i].text = 'text' + i;
+    pointArr[i].text = arrayText[i];
 
-if (i == 0) {
+    if (i == 0) {
 
-context.beginPath();
+        context.beginPath();
 
-context.moveTo(pointArr[i].x, pointArr[i].y);
+        context.moveTo(pointArr[i].x, pointArr[i].y);
 
-}
+    }
 
-if (i < 6 && i != 0) {
+    if (i < 6 && i != 0) {
 
-context.lineTo(pointArr[i].x, pointArr[i].y);
+        context.lineTo(pointArr[i].x, pointArr[i].y);
 
-continue;
+        continue;
 
-}
+    }
 
 }
 
@@ -77,19 +79,19 @@ if (j == 0) {
 
 // context.textAlign;
 
-context.fillText(pointArr[j].text,pointArr[j].x - 13, pointArr[j].y + 15);
+    context.fillText(pointArr[j].text,pointArr[j].x - 13, pointArr[j].y + 15);
 
 }else if (j == 4 || j == 5) {
 
-context.fillText(pointArr[j].text,pointArr[j].x - 35, pointArr[j].y + 6);
+    context.fillText(pointArr[j].text,pointArr[j].x - 35, pointArr[j].y + 6);
 
 }else if (j == 3){
 
-context.fillText(pointArr[j].text, pointArr[j].x - 13, pointArr[j].y - 6);
+    context.fillText(pointArr[j].text, pointArr[j].x - 13, pointArr[j].y - 6);
 
 }else {
 
-context.fillText(pointArr[j].text, pointArr[j].x + 3, pointArr[j].y - 3);
+    context.fillText(pointArr[j].text, pointArr[j].x + 3, pointArr[j].y - 3);
 
 }
 
@@ -101,9 +103,9 @@ context.beginPath();
 
 for (let k=0; k<3; k++) {
 
-context.moveTo(pointArr[k].x, pointArr[k].y);
+    context.moveTo(pointArr[k].x, pointArr[k].y);
 
-context.lineTo(pointArr[k+3].x, pointArr[k+3].y);
+    context.lineTo(pointArr[k+3].x, pointArr[k+3].y);
 
 }
 
@@ -115,99 +117,99 @@ context.stroke();
 
 function drawMap(array) {
 
-var pointInnerMap = [];
+    var pointInnerMap = [];
 
-for(let i=0; i<6; i++) {
+    for(let i=0; i<6; i++) {
 
-pointInnerMap[i]={};
+        pointInnerMap[i]={};
 
-pointInnerMap[i].x = 250 + array[i] * Math.round(Math.sin(Math.PI * 60 * i / 180) * 1000000) / 1000000;
+        pointInnerMap[i].x = 250 + array[i] * Math.round(Math.sin(Math.PI * 60 * i / 180) * 1000000) / 1000000;
 
-pointInnerMap[i].y = 250 + array[i] * Math.round(Math.cos(Math.PI * 60 * i / 180) * 1000000) / 1000000;
+        pointInnerMap[i].y = 250 + array[i] * Math.round(Math.cos(Math.PI * 60 * i / 180) * 1000000) / 1000000;
 
-pointInnerMap[i].text = 'text' + i;
+        pointInnerMap[i].text = 'text' + i;
 
-//这里直接画圆为什么不行？？？？？？？？？？？？？？？？
+        //这里直接画圆为什么不行？？？？？？？？？？？？？？？？
 
-// context.fillStyle = 'red';
+        // context.fillStyle = 'red';
 
-// context.beginPath();
+        // context.beginPath();
 
-// context.arc(pointInnerMap[i].x, pointInnerMap[i].y, 3, 0, Math.PI * 2);
+        // context.arc(pointInnerMap[i].x, pointInnerMap[i].y, 3, 0, Math.PI * 2);
 
-// context.fill();
+        // context.fill();
 
-// context.closePath();
+        // context.closePath();
 
-// context.stroke();
+        // context.stroke();
 
-if (i == 0) {
+        if (i == 0) {
 
-context.beginPath();
+            context.beginPath();
 
-context.moveTo(pointInnerMap[i].x, pointInnerMap[i].y);
+            context.moveTo(pointInnerMap[i].x, pointInnerMap[i].y);
 
-}
+        }
 
-if (i < 6 && i != 0) {
+        if (i < 6 && i != 0) {
 
-context.lineTo(pointInnerMap[i].x, pointInnerMap[i].y);
+            context.lineTo(pointInnerMap[i].x, pointInnerMap[i].y);
 
-continue;
+            continue;
 
-}
+        }
 
-}
+    }
 
-context.globalAlpha = 0.5;
+    context.globalAlpha = 0.5;
 
-context.fillStyle = 'red';
+    context.fillStyle = 'red';
 
-context.lineWidth = 3;
+    context.lineWidth = 3;
 
-context.strokeStyle = 'red';
+    context.strokeStyle = 'red';
 
-context.fill();
+    context.fill();
 
-context.closePath();
+    context.closePath();
 
-context.stroke();
+    context.stroke();
 
 }
 
 function drawMapCir(array) {
 
-var pointInnerMap = [];
+    var pointInnerMap = [];
 
-for(let i=0; i<6; i++) {
+    for(let i=0; i<6; i++) {
 
-pointInnerMap[i]={};
+        pointInnerMap[i]={};
 
-pointInnerMap[i].x = 250 + array[i] * Math.round(Math.sin(Math.PI * 60 * i / 180) * 1000000) / 1000000;
+        pointInnerMap[i].x = 250 + array[i] * Math.round(Math.sin(Math.PI * 60 * i / 180) * 1000000) / 1000000;
 
-pointInnerMap[i].y = 250 + array[i] * Math.round(Math.cos(Math.PI * 60 * i / 180) * 1000000) / 1000000;
+        pointInnerMap[i].y = 250 + array[i] * Math.round(Math.cos(Math.PI * 60 * i / 180) * 1000000) / 1000000;
 
-context.fillStyle = 'red';
+        context.fillStyle = 'red';
 
-context.globalAlpha = 1;
+        context.globalAlpha = 1;
 
-context.beginPath();
+        context.beginPath();
 
-context.arc(pointInnerMap[i].x, pointInnerMap[i].y, 3, 0, Math.PI * 2);
+        context.arc(pointInnerMap[i].x, pointInnerMap[i].y, 3, 0, Math.PI * 2);
 
-context.fill();
+        context.fill();
 
-context.closePath();
+        context.closePath();
 
-context.stroke();
+        context.stroke();
 
-}
+    }
 
 }
 
  
 
-var array = [60,50,40,20,60,60];
+
 
 // 画战力值区域图
 
