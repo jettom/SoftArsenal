@@ -203,3 +203,7 @@ Attribute Macro1.VB_ProcData.VB_Invoke_Func = " \n14"
     End With
     Range("H13").Select
 End Sub
+
+
+'=CELL("FILENAME")
+'=RIGHT(CELL("FILENAME",A2),LEN(CELL("FILENAME",A2)-FIND("]",CELL("FILENAME",A2)))
