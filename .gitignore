@@ -217,6 +217,7 @@ pip-log.txt
 .mr.developer.cfg
 #*.xml
 *.iml
+*.mp4
 #sample/python/.ipynb_checkpoints/Pandas_h2h-checkpoint.ipynb
 #sample/python/.ipynb_checkpoints/fushareSample-checkpoint.ipynb
 #sample/python/.ipynb_checkpoints/10MinsPandas-checkpoint.ipynb
