@@ -51,7 +51,12 @@ ISBN-13: 978-4775991473
 2.1.1 Python Notebookの起動
 2.2 パッケージ、モジュール
 2.2.1 パッケージ、モジュールのインストール方法
-2.2.1.1 easy_install の設定／ 2.2.1.2 monthdelta のインストー ル／ 2.2.1.3 pandas_datareader のインストール／ 2.2.2 Pandocのインストール
+2.2.1.1 easy_install の設定／ 
+2.2.1.2 monthdelta のインストー ル／ 
+2.2.1.3 pandas_datareader のインストール／ 
+2.2.2 Pandocのインストール
+    http://johnmacfarlane.net/pandoc
+    https://github.com/jgm/pandoc/releases
 2.3 プログラミングの前にMarkdown の使い方を学ぶ
 2.3.1 太文字：文字をダブル半角アステリスク（**）で挟む。
 2.3.2 斜体文字：文字を半角アステリスク（*）で挟む。
