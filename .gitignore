@@ -242,3 +242,4 @@ input/embeddings/wiki-news-300d-1M/wiki-news-300d-1M.vec
 #**/*.ex4
 FX&EA/history/*
 
+book/python3-for-system-trade/.idea/*
