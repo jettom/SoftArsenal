@@ -1,3 +1,4 @@
+' call log.cls.logUseTest
 Sub LogUseTest()
     Dim oLog    As New Log      '// Logクラス
     
@@ -20,3 +21,26 @@ Sub LogUseTest()
     Call oLog.WriteLog("")
 End Sub
 
+' indival log write at c:\temp\log.log
+sub writelog(ByVal strMsg as String)
+
+dim objFso as Object
+set objFso = CreateObject("Scripting.FileSystemObject")
+
+Dim strPath as String
+strPath = "c:\temp\log.log"
+
+With objFso
+    If Not .FileExists(strPath) Then
+        .CreateTextFile(strPath)
+    End If
+    with .OpenTextFile(strPath, 8)  '8:ForAppending
+        .WriteLine strMsg
+        .Close
+    End With
+
+End With
+
+set objFso = Nothing
+
+End Sub
