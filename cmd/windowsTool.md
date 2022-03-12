@@ -68,3 +68,8 @@ shutdown /r /o: Restarts the computer into advanced options.
 # net view
 
 cleanmgr.exe /D C: /VERYLOWDISK /SETUP
+
+# soft link
+E:\project\StockEvent\data>mklink /j trade_data E:\project\stockA_coding\data\trade_data
+Junction created for trade_data <<===>> E:\project\stockA_coding\data\trade_data
+
