@@ -29,3 +29,13 @@ defaults write com.apple.screencapture name [file name] && killall SystemUIServe
 defaults write com.apple.screencapture name JtPics && killall SystemUIServer
 
 如果你不喜欢「屏幕快照 + 时间」的截图命名方式，你可以自行定义文件名，将 file name 替换即可。
+
+# mac tools
+https://www.youtube.com/watch?v=DhuSAHICALI
+1:59 必装神器 Alfred
+5:01 实时状态监控 iStat Menus
+8:35 窗口吸附 Magnet
+9:41 容器软件 Dropover
+12:04 MacOS深度定制 TinkerTool
+14:15 截屏神器 Monosnap
+17:18 目录自动备份Sync folders Pro
