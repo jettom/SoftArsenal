@@ -55,3 +55,9 @@
 1. ### you-get    🌟🌟🌟🌟🌟    cloned
     非常强大的媒体下载工具。
 [官网：](https://you-get.org/)
+
+# install chrome in cmd
+https://itsfoss.com/install-chrome-ubuntu/
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+
+sudo dpkg -i google-chrome-stable_current_amd64.deb
