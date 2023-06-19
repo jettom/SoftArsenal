@@ -121,14 +121,17 @@ yy p
 
 ### 共有ライブラリの管理
 
+```bash
 /etc/ld.so.conf
 /etc/ld.so.cache
 
 ldconfig
 ldd
+```
 
 ### RPM/yum パッケージ管理
 
+```bash
 /etc/yum.conf
 /etc/yum.repod.d
 
@@ -137,15 +140,18 @@ rpm2cpio
 yum
 yumdownloader
 zypper
+```
 
 ### Debian/deb パッケージ管理
 
+```bash
 /etc/apt/sources.list
 
 dpkg
 dpkg-reconfigure
 apt-get
 apt-cache
+```
 
 ### 仮想化ゲストとしてのLinux
 
