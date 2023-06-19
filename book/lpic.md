@@ -1,6 +1,10 @@
-# 1 基本コマンドとファイルの操作
-## コマンドライン操作
-```
+# book
+
+## 1 基本コマンドとファイルの操作
+
+### コマンドライン操作
+
+```bash
 /usr/share/man
 .bash_history
 bash
@@ -13,8 +17,10 @@ unset
 man
 history
 ```
-## 基本的なファイル操作
-```
+
+### 基本的なファイル操作
+
+```bash
 cp
 find
 mkdir
@@ -37,8 +43,10 @@ bzcat
 xzcat
 zcat
 ```
-## ストリーム、パイプ、リダイレクション
-```
+
+### ストリーム、パイプ、リダイレクション
+
+```bash
 tee
 xargs
 標準入力
@@ -47,8 +55,10 @@ xargs
 リダイレクト    < >
 パイプ          |
 ```
-## ファルダによる処理
-```
+
+### ファルダによる処理
+
+```bash
 cat
 less
 nl
@@ -68,20 +78,57 @@ sha512sum
 md5sum
 sha256sum
 ```
-# 2
-# 3
-# 4
 
-# 5
+## 2 正規表現とVI
 
-# 6 software management
-## 共有ライブラリの管理
-/etc/ld.so.conf 
+### 正規表現
+
+```bash
+grep
+egrep
+fgrep
+```
+
+(¥,)
+
+### VI
+
+```bash
+vi
+```
+
+h j k l
+ctrl+f
+ctrl+b
+ZZ
+wq!
+:q!
+:e!
+i a o I A O
+x dd
+yy p
+/ ?
+
+## 3プロセス管理
+
+### 1
+
+## 4
+
+## 5
+
+## 6 software management
+
+### 共有ライブラリの管理
+
+/etc/ld.so.conf
 /etc/ld.so.cache
 
 ldconfig
 ldd
-## RPM/yum パッケージ管理
+
+### RPM/yum パッケージ管理
+
 /etc/yum.conf
 /etc/yum.repod.d
 
@@ -91,14 +138,15 @@ yum
 yumdownloader
 zypper
 
-## Debian/deb パッケージ管理
+### Debian/deb パッケージ管理
+
 /etc/apt/sources.list
 
 dpkg
 dpkg-reconfigure
 apt-get
 apt-cache
-## 仮想化ゲストとしてのLinux
 
-# 7
+### 仮想化ゲストとしてのLinux
 
+## 7
