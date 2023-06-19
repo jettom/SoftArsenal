@@ -1,4 +1,73 @@
-# 1
+# 1 基本コマンドとファイルの操作
+## コマンドライン操作
+```
+/usr/share/man
+.bash_history
+bash
+echo
+env
+export
+pwd
+set
+unset
+man
+history
+```
+## 基本的なファイル操作
+```
+cp
+find
+mkdir
+mv
+ls
+rm
+rmdir
+touch
+tar
+cpio
+dd
+file
+gzip
+gunzip
+bzip2
+bunzip2
+xz
+unxz
+bzcat
+xzcat
+zcat
+```
+## ストリーム、パイプ、リダイレクション
+```
+tee
+xargs
+標準入力
+標準出力
+標準エラー出力
+リダイレクト    < >
+パイプ          |
+```
+## ファルダによる処理
+```
+cat
+less
+nl
+head
+tail
+tr
+sed
+cut
+wc
+od
+split
+sort
+uniq
+join
+paste
+sha512sum
+md5sum
+sha256sum
+```
 # 2
 # 3
 # 4
