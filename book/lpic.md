@@ -111,9 +111,101 @@ yy p
 
 ## 3プロセス管理
 
-### 1
+### プロセスの生成、監視、終了
 
-## 4
+```bash
+ps
+top
+free
+```
+
+### 実行優先度の管理
+
+```bash
+nice
+renice
+```
+
+### シェルのジョブ管理
+
+```bash
+jobs
+nohup
+bg
+fg
+uptime
+watch
+tmux
+screen
+```
+
+### シグナル送信による制御
+
+```bash
+kill
+killall
+pgrep
+pkill
+```
+
+## 4ファイルシステムの管理
+
+### ファイルシステムの階層標準
+
+FHS
+デバイスファイル
+
+### パーティショニング
+
+基本パーティション
+拡張パーティション
+論理パーティション、ℹ︎ノード
+スワップ領域
+
+```bash
+fdisk
+gdisk
+parted
+gparted
+mkswap
+swapon
+swapoff
+```
+
+### ファイルシステムの作成
+
+```bash
+mkfs
+mke2fs
+```
+
+ファイルシステムの種類（ext2,ext3,ext4,reiserfs,xfs,jfs,vfat,exfat）、ジャーナル
+
+### ファイルシステムの整合性検査
+
+```bash
+df
+du
+fsck
+e2fsck
+tune2fs
+dumpe2fs
+debugfs
+fstrim
+xfs_repair
+xfs_fsr
+xfs_db
+```
+
+### マウントとアンマウント
+
+```bash
+/etc/fstab
+mount
+umount
+blkid
+lsblk
+```
 
 ## 5
 
