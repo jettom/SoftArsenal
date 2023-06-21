@@ -207,7 +207,36 @@ blkid
 lsblk
 ```
 
-## 5
+## 5ファイルの管理
+
+### ファイルのパーミッション
+
+```bash
+id
+groups
+chmod
+umask
+chown
+chgrp
+```
+
+### ハードリンクとシンポリックリンク
+
+```bash
+ln
+```
+
+### コマンドとファイルの検索
+
+```bash
+/etc/updatedb.conf
+find
+locat
+updatedb
+which
+whereis
+type
+```
 
 ## 6 software management
 
