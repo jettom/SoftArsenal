@@ -276,4 +276,67 @@ apt-cache
 
 ### 仮想化ゲストとしてのLinux
 
-## 7
+## 7システムアーキテクチャ
+
+### ハードウェアの構成と管理
+
+```bash
+/proc/cpuinfo
+/proc/interrupts
+/proc/ioports
+lspci
+modprobe
+lsusb
+lsmod
+```
+
+### システムのブートシーケンス
+
+```bash
+/proc/cmdline
+/var/log/dmesg
+dmesg
+```
+
+initプロセス
+BIOS
+UEFI
+MBR
+カーネル
+ブートローダ
+initramfs
+SysV init
+systemd
+
+### ブートローダの設定
+
+```bash
+menu
+lst
+grub.cfg
+grub.conf
+grub-mkconfig
+grub-install
+GRUB
+GRUB2
+```
+
+### ランレベル/ブートターゲットの変更とシステムのシャットダウンまたはリブート
+
+```bash
+/etc/inittab
+/usr/lib/systemd
+/etc/systemd
+telinit
+init
+systemctl
+runlevel
+shutdown
+wall
+```
+
+ランレベル
+シングルユーザ
+マルチユーザ
+停止
+再起動
