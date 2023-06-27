@@ -296,8 +296,7 @@ lsmod
 /proc/cmdline
 /var/log/dmesg
 dmesg
-```
-
+journalctl
 initプロセス
 BIOS
 UEFI
@@ -307,6 +306,7 @@ MBR
 initramfs
 SysV init
 systemd
+```
 
 ### ブートローダの設定
 
