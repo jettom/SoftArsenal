@@ -334,6 +334,25 @@ runlevel
 shutdown
 wall
 ```
+sample
+```bash 
+systemctl
+    multi-user.target
+    graphical.target
+    poweroff.targer
+    rescue.target
+    reboot.target 
+systemctl get-default
+systemctl set-default multi-user.target
+systemctl set-default graphical.target
+systemctl isolate poweroff.targer
+systemctl status
+systemctl is-active
+systemctl disable
+systemctl enable
+systemctl start
+systemctl stop
+```
 
 ランレベル
 シングルユーザ
