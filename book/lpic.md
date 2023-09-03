@@ -359,3 +359,18 @@ systemctl stop
 マルチユーザ
 停止
 再起動
+
+# URL
+## 範囲
+https://linuc.org/linuc1/range/
+https://www.lpi.org/our-certifications/lpic-1-overview
+https://wiki.lpi.org/wiki/LPIC-1_Objectives_V5.0
+## 未経験がLPIC Level1に28日で合格！勉強方法や難易度を解説
+https://infra-note.net/lpic-level1/
+# 試験申込
+https://www.pearsonvue.co.jp/lpi
+https://www.lpi.org/our-certifications/lpic-1-overview/
+https://jp.lpimarketplace.com/shop/lpic-1
+https://jp.lpimarketplace.com/lpi-level-1-exam-101-voucher/p/LPI-101        <-★★★
+https://www.lpi.org/exam-pricing/
+essentials/pro
