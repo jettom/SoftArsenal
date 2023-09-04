@@ -1,3 +1,4 @@
+# curl
 ```
 curl http://d1ilncjhg2cjw.cloudfront.net/hub/assets/FULL_DROP_JAN_2015/large/SONY_FULL_DROP_05_[00000-10000].jpg -o ".\download\pic#1.jpg"
 
@@ -13,7 +14,7 @@ for file in $(curl -s http://www.ime.usp.br/~coelho/mac0122-2013/ep2/esqueleto/ 
 done
 
 ```
-
+# curl wget
 ```
 # get all pages 
 curl 'http://domain.com/id/[1-151468]' -o '#1.html' 
@@ -24,7 +25,7 @@ grep -oh 'http://pics.domain.com/pics/original/.*jpg' *.html >urls.txt
 # download all images 
 sort -u urls.txt | wget -i-
 ```
-
+# wget
 ```
 wget --mirror --no-parent http://www.cycustom.com/large/
 ```
