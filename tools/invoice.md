@@ -10,6 +10,7 @@ chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://www.nta.go.jp/taxes/
 https://www.nta.go.jp/taxes/tetsuzuki/shinsei/annai/hojin/annai/invoice_01.htm
 ## 松戸税務署
 https://www.nta.go.jp/about/organization/tokyo/location/chiba/matsudo/index.htm
+
 ```
 所在地
 〒271-8533
@@ -20,6 +21,7 @@ https://www.nta.go.jp/about/organization/tokyo/location/chiba/matsudo/index.htm
 ```
 ## 郵送による提出先のご案内
 https://www.nta.go.jp/taxes/shiraberu/zeimokubetsu/shohi/keigenzeiritsu/invoice_yuso.htm
+
 ```
 東京国税局
 インボイス登録センター	262-8514	千葉市花見川区武石町１丁目520番地	043-306-5635
