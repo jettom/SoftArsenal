@@ -33,3 +33,7 @@ anchor run test
 
 anchor test ---skip-local-validator
 ```
+
+## install anchor in windows
+https://stackoverflow.com/questions/72037340/install-anchor-cli-on-windows-using-cargo
+
