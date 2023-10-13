@@ -6,3 +6,6 @@ https://vector-ium.com/postgresql-start/
 https://go-journey.club/archives/category/postgresql
 # vscode
 https://www.javadrive.jp/vscode/
+# copy
+
+https://qiita.com/nakamasato/items/16945848d47659c7c2c9

@@ -8,14 +8,49 @@ About:
 This is an Introduction lecture to the Autumn School of Solana 2023. We will introduce the speakers, and the curriculum structure, set up a local development environment, and talk about the basics of Solana CLI to get you all set up.
 
 # Useful links: 
-Ackee Solana Handbook:
+## Ackee Solana Handbook:
 https://ackeeblockchain.com/solana-handbook.pdf
-Development tools :
-Rust: https://www.rust-lang.org/
-Rust Analyzer: https://rust-analyzer.github.io/
-Solana CLI: https://docs.solana.com/cli/install-solana-cli-tools
-Anchor: https://www.anchor-lang.com/docs/installation
+## Development tools :
+### Rust: https://www.rust-lang.org/
+### Rust Analyzer: https://rust-analyzer.github.io/
+### Solana CLI: https://docs.solana.com/cli/install-solana-cli-tools
 
+linux
+```
+sh -c "$(curl -sSfL https://release.solana.com/v1.17.1/install)"
+solana --version
+
+tar jxf solana-release-x86_64-unknown-linux-gnu.tar.bz2
+cd solana-release/
+export PATH=$PWD/bin:$PATH
+```
+
+windows
+```
+
+cmd /c "curl https://release.solana.com/v1.17.1/solana-install-init-x86_64-pc-windows-msvc.exe --output C:\solana-install-tmp\solana-install-init.exe --create-dirs"
+
+C:\solana-install-tmp\solana-install-init.exe v1.17.1
+
+solana --version
+
+
+
+
+```
+### Anchor: https://www.anchor-lang.com/docs/installation
+
+```
+cargo install --git https://github.com/coral-xyz/anchor avm --locked --force
+
+sudo apt-get update && sudo apt-get upgrade && sudo apt-get install -y pkg-config build-essential libudev-dev libssl-dev
+
+avm install latest
+avm use latest
+
+anchor --version
+
+```
 # log
 
 ```
@@ -135,3 +170,77 @@ RPC URL: https://api.mainnet-beta.solana.com
 WebSocket URL: wss://api.mainnet-beta.solana.com/ (computed)
 Keypair Path: /Users/toukyou/.config/solana/id.json 
 Commitment: confirmed 
+
+```
+solana config set --url https://api.devnet.solana.com
+```
+
+```
+solana-keygen --version
+
+solana-keygen new
+
+solana-keygen new --help
+solana-keygen pubkey
+
+```
+
+
+
+Wrote new keypair to /home/jt/.config/solana/id.json
+=========================================================================
+pubkey: XXXX
+=========================================================================
+Save this seed phrase and your BIP39 passphrase to recover your new keypair:
+own decorate sorry curve kitten void roof phone pulp pledge primary abuse
+=========================================================================
+
+```
+solana balance
+solana airdrop 0.5
+solana transfer XXXX 0.2
+solana transfer XXXX 0.2  --allow-unfunded-recipient
+
+```
+
+```
+cargo install spl-token-cli
+```
+
+```
+spl-token create-token
+spl-token supply YYYYYY
+```
+Creating token YYYYYY under program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA
+
+Address:  YYYYYY
+Decimals:  9
+
+Signature: 59ruFp6j9uAb5ZmLnNizLwuBTjWR4gbAcN2QwyciXQEatTspFMa2RgGTkqprCSH1pXpVFjhb5yY9YUf9W7V18wDV
+
+```
+spl-token create-account YYYYYY
+```
+Creating account ZZZZZ
+
+Signature: jJmiKubLr6aDixNh5jCoQmJu4DPJddUbJNDqMpLZUQFaBHPsd4uxBvtUtGnDa2cprT7JTNgNEuVcM3VqxcVRGya
+
+```
+spl-token balance YYYYYY
+spl-token mint YYYYYY 1000
+```
+(base) jt@jt-PC-VN770HS6W:~/project/solana-release/solana-release$ spl-token mint YYYYYY 1000
+Minting 1000 tokens
+  Token: YYYYYY
+  Recipient: ZZZZZ
+
+Signature: gCoZbcRpRFAZJBRpb73y8nwD4sJDtvPzCgt6VTUKxB7FSpJrsp2GEtVY9yDpXToxHdc41kquV2LjSXrNAj48ALi
+
+```
+spl-token accounts
+spl-token transfer YYYYYY 50 ZZZZZ
+```
+
+```
+solana program deploy
+```

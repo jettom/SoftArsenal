@@ -6,6 +6,12 @@ We will set up our first project in Anchor, write our first simple calculator pr
 Recommended content to read: https://solanacookbook.com/
 Sample code: https://github.com/Ackee-Blockchain/wsos-calculator
 
+## solana wiki
+https://solana.wiki/zh-cn/docs/account-model/
+## anchor doc
+https://docs.rs/anchor-lang/latest/anchor_lang/derive.Accounts.html
+## Solana Development Course
+https://www.soldev.app/course
 
 ```
 mkdir solanaProject
@@ -37,3 +43,7 @@ anchor test ---skip-local-validator
 ## install anchor in windows
 https://stackoverflow.com/questions/72037340/install-anchor-cli-on-windows-using-cargo
 
+error: package `solana-program v1.16.15` cannot be built because it requires rustc 1.68.0 or newer, while the currently active rustc version is 1.62.0-dev
+```
+solana-install update
+```
