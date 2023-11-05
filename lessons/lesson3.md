@@ -49,6 +49,7 @@ solana-install update
 ```
 
 # 文字起こし
+```
 0:01
 hey everyone welcome to the lecture 3 of winter School of Solana today we'll be talking about Solana programming model
 0:09
@@ -1766,3 +1767,4 @@ Solana 编程模型，希望下周见到大家，如果您对我们有任何反�
 讲座请不要忘记使用我们的 Google 表单提交，再次感谢您，下次再见
 45:46
 谢谢
+```
