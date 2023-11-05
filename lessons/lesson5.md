@@ -8,6 +8,7 @@ Sample repository: https://github.com/Ackee-Blockchain/sos-debugging-lecture/
 GitHub workflow example: https://github.com/Ackee-Blockchain/sos-debugging-lecture/blob/master/.github/workflows/ci.yml
 
 # 文字起こし
+```
 0:01
 hello everyone and welcome to the next lecture of school of Solana and uh today
 0:06
@@ -1083,3 +1084,4 @@ highly recommend it so thank you for today's lecture I hope that now you will be
 1:00:17
 during the development and uh see you next time
 
+```
