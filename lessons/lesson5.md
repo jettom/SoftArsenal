@@ -7,6 +7,10 @@ In this lecture, we will show you some best development practices and give you t
 Sample repository: https://github.com/Ackee-Blockchain/sos-debugging-lecture/
 GitHub workflow example: https://github.com/Ackee-Blockchain/sos-debugging-lecture/blob/master/.github/workflows/ci.yml
 
+git branch
+anchore test
+https://docs.rs/solana-program/latest/solana_program/index.html
+
 # 文字起こし
 ```
 0:01
