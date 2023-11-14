@@ -2,10 +2,19 @@ Where: https://youtu.be/CH4nsqgrqzI?feature=shared
 
 Wen: Today, November 2, 6PM UTC  (you can watch anytime after the premiere)
 
-This lecture will introduce common vulnerability issues in Solana programs, how they can be exploited and most importantly how you can avoid them.
+This lecture will introd uce common vulnerability issues in Solana programs, how they can be exploited and most importantly how you can avoid them.
 Useful links:
 https://www.anchor-lang.com/docs/security-exploits
 https://www.soldev.app/course (Module 5 - Solana Program Security)
+
+We have been considering adding a security task, but:
+
+1. A task with a/b/c/d question structure would not be valuable, as you need hands-on experience with security, not just answering theoretical questions.
+2. You should watch a security lecture and apply those tips within your final dApp. (To compensate for the task, if we find a critical vulnerability in your dApp - instant 0 points for the final task, <= Joke, of course! :D, however try to do your apps as secure as possible)
+3. We are exhausted from Breakpoint shipping the best content.
+
+Of course, if you have literally ANY question regarding the security, feel free to DM us !
+Of course, we are still here to help you with your dApps and implementations, so feel free to DM us !
 
 # 文字起こし
 ```
