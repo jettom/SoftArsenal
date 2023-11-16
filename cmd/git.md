@@ -18,6 +18,8 @@ git status
 
 git add [ファイル名]
 git add .
+git add [folder]/*
+git add -f [folder]/*
 git status
 
 git commit
@@ -58,10 +60,11 @@ git remote add origin git@github.com:UserName/ProjectName
 git push -u origin master
 
 ## ssh-keygen
-ssh-keygen -t ed25519 -C "your_email@example.com"
+```
 ssh-add -K ~/.ssh/id_ed25519
 $ eval $(ssh-agent -s)
 $ ssh-add ~/.ssh/id_ed25519
+```
 
 # local ssh key
 $cd ~/.ssh
@@ -74,3 +77,4 @@ $ clip < ~/.ssh/id_rsa.pub (Windows)
 $ ssh -T git@github.com
 
 git remote set-url origin git@github.com:XXXX/XXXXX.git
+
