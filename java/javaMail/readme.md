@@ -7,7 +7,7 @@ cd FaceSMTP
 mvn package -Dmaven.test.skip
 
 ## run
-java -jar fakeSMTP-2.1-SNAPSHOT.jar -p 2525 -a 127.0.0.1 -o c:\temp\mail
+java -jar fakeSMTP-2.1-SNAPSHOT.jar -p 2525 -a 192.168.0.88 -o c:\temp\mail
 ```
 
 # java mail
