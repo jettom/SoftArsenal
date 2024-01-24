@@ -1,4 +1,4 @@
-package com.example
+package com.example;
 
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -9,32 +9,32 @@ public class SendEmail {
 
     public static void main(String[] args) {
 
-        // ?’u?Œ•?Ší
+        // ?ï¿½u?ï¿½ï¿½ï¿½ï¿½?ï¿½ï¿½
         Properties properties = new Properties();
-        properties.put("mail.smtp.host", "localhost");
-        properties.put("mail.smtp.port", "2525"); // ˆ½FakeSMTP”z’u“I‘´‘¼’[Œû
+        properties.put("mail.smtp.host", "192.168.0.88");
+        properties.put("mail.smtp.port", "2525"); // ï¿½ï¿½FakeSMTPï¿½zï¿½uï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½
 
-        // ?Œš‰ï?
+        // ?ï¿½ï¿½ï¿½ï¿½?
         Session session = Session.getDefaultInstance(properties);
 
         try {
-            // ?Œšˆê˜¢àÒ?“IMimeMessage?Û
+            // ?ï¿½ï¿½ï¿½ê˜¢ï¿½ï¿½?ï¿½IMimeMessage?ï¿½ï¿½
             Message message = new MimeMessage(session);
 
-            // ?’u From: header field
+            // ?ï¿½u From: header field
             message.setFrom(new InternetAddress("your-email@example.com"));
 
-            // ?’u To: header field
+            // ?ï¿½u To: header field
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse("recipient@example.com"));
 
-            // ?’u Subject: header field
+            // ?ï¿½u Subject: header field
             message.setSubject("Test Mail from Java Program");
 
-            // ?’uÁ‘§‘Ì
+            // ?ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             message.setText("This is a test mail from Java program using FakeSMTP!");
 
-            // ?‘—Á‘§
+            // ?ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             Transport.send(message);
 
             System.out.println("Sent message successfully....");
