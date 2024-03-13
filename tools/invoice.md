@@ -46,3 +46,18 @@ https://www.ambiru.co.jp/newsletter_61831.html
 # 請求書の基礎知識
 ## インボイス制度後も免税事業者のままだとどうなる？影響や課税事業者になるメリットについて解説
 https://www.freee.co.jp/kb/kb-invoice/invoice_tax_exempt_business/
+
+
+# 消費税申告方法
+## 【個人事業主向け2割特例消費税申告書の書き方完全解説】by 女性税理士
+https://youtu.be/ItwE6aBIcSQ?si=FBN5lswi6mIyC-0s
+
+# 申告
+
+https://www.keisan.nta.go.jp/kyoutu/ky/smsp/top#bsctrl
+
+## ２割特例用
+https://www.nta.go.jp/publication/pamph/pdf/0023008-043.pdf
+
+## 納税に関する総合案内
+https://www.nta.go.jp/taxes/nozei/annai/index.htm#a07
