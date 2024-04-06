@@ -7,7 +7,8 @@ https://youtube.com/playlist?list=PLwHD-0zGkLc1EbHsLLLE-RvhBqzq5cm3m&si=bRyrTOm4
 ## （2024)为什么你在交易中赚不到钱的9大原因（第五集）
 
 # 价格行为交易技术@路肖南
-https://youtube.com/playlist?list=PLtg6itcQx4p2uPLUTcI4m_ogQ-LjsUmDI&si=Kf3CkSO87vVgwfUO
+[价格行为交易技术@路肖南](https://youtube.com/playlist?list=PLtg6itcQx4p2uPLUTcI4m_ogQ-LjsUmDI&si=Kf3CkSO87vVgwfUO)
 
 # 专业价格行为分析和教学视频
 [专业价格行为分析和教学视频](https://youtube.com/playlist?list=PL7WPLNsdMyYeE84KVcxKJjtoxqKZnW2kb&si=VoToeFMiFJJimdUA)
+
