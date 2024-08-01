@@ -192,3 +192,156 @@ service mysql status
 /etc/init.d/mysqld stop
 /etc/init.d/mysqld restart
 
+```sql
+# localhostのMySQLサーバに接続する場合
+$ mysql -u [ユーザー名] -p
+
+# localhostのMySQLサーバに接続する場合（ワンラインでパスワードまで渡す）
+$ mysql -u [ユーザー名] -p[パスワード ※ 平文で渡すとコマンド履歴にパスワードが載ってしまうので避けましょう]
+
+# 外部MySQLサーバに接続する場合
+$ mysql -u [ユーザー名] -p -h [host名] -P [ポート番号]
+```
+
+```
+mysql > \q
+mysql > quit
+mysql > exit
+```
+
+```
+mysql > SELECT Host, User, Password FROM mysql.user;
++------------------+------+----------+
+| Host             | User | Password |
++------------------+------+----------+
+| localhost        | root |          |
+| 127.0.0.1        | root |          |
+| ::1              | root |          |
+| localhost        |      |          |
++------------------+------+----------+
+4 rows in set (0.00 sec)
+```
+
+```
+mysql > create user `testuser`@`localhost` IDENTIFIED BY 'password';
+```
+
+```
+mysql > grant all privileges on test_db.* to testuser@localhost IDENTIFIED BY 'password';
+```
+
+```
+mysql > set password = password('hogehoge123');
+```
+
+```
+mysql > set password for 'testuser'@'localhost' = password('hogehoge123');
+```
+
+
+```
+mysql > show databases;
+mysql > create database test_db;
+mysql > use test_db;
+```
+
+
+```
+mysql > show tables;
+mysql > show table status;
+mysql > SELECT table_name, column_name FROM information_schema.columns WHERE column_name = [検索条件];
+
+mysql > CREATE TABLE [テーブル名] (
+  [フィールド名] [データ型] [オプション]
+) ENGINE=[InnoDB/MyISAM] DEFAULT CHARSET=[文字コード];
+mysql > CREATE TABLE `m_users` (
+          `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT "ID",
+          `user_name` VARCHAR(100) NOT NULL COMMENT "ユーザー名",
+          `mail_address` VARCHAR(200) NOT NULL COMMENT "メールアドレス",
+          `password` VARCHAR(100) NOT NULL COMMENT "パスワード",
+          `created` datetime DEFAULT NULL COMMENT "登録日",
+          `modified` datetime DEFAULT NULL COMMENT "更新日"
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+mysql > DROP TABLE [テーブル名]
+mysql > DROP TABLE IF EXISTS [テーブル名]
+
+mysql > ALTER TABLE [旧テーブル名] RENAME [新テーブル名]
+mysql > ALTER TABLE [テーブル名] ADD [追加カラム名] [型] [必要であればオプション等];
+
+# 例(動作確認してないのであやふやですがこんな感じ)
+#  users に tel という int型のカラム を デフォルトNULL で定義し、コメントには 電話番号 といれておき、 mail_addressカラムの後ろ に追加する
+mysql > ALTER TABLE users ADD tel int DEFAULT NULL COMMENT "電話番号"  AFTER mail_address
+
+mysql > desc [テーブル名]
++------------------+--------------+------+-----+---------+----------------+
+| Field            | Type         | Null | Key | Default | Extra          |
++------------------+--------------+------+-----+---------+----------------+
+| id               | int(11)      | NO   | PRI | NULL    | auto_increment |
+| user_name        | varchar(100) | NO   |     | NULL    |                |
+| mail_address     | varchar(200) | NO   |     | NULL    |                |
+| password         | varchar(100) | NO   |     | NULL    |                |
+| created          | datetime     | YES  |     | NULL    |                |
+| modified         | datetime     | YES  |     | NULL    |                |
++------------------+--------------+------+-----+---------+----------------+
+
+mysql > SHOW FULL COLUMNS FROM [テーブル名];
++------------------+--------------+-----------------+------+-----+---------+----------------+---------------------------------+----------------+
+| Field            | Type         | Collation       | Null | Key | Default | Extra          | Privileges                      | Comment        |
++------------------+--------------+-----------------+------+-----+---------+----------------+---------------------------------+----------------+
+| id               | int(11)      | NULL            | NO   | PRI | NULL    | auto_increment | select,insert,update,references | ID             |
+| user_name        | varchar(100) | utf8_general_ci | NO   |     | NULL    |                | select,insert,update,references | ユーザー名     |
+| mail_address     | varchar(200) | utf8_general_ci | NO   |     | NULL    |                | select,insert,update,references | メールアドレス |
+| password         | varchar(100) | utf8_general_ci | NO   |     | NULL    |                | select,insert,update,references | パスワード     |
+| created          | datetime     | NULL            | YES  |     | NULL    |                | select,insert,update,references | 登録日         |
+| modified         | datetime     | NULL            | YES  |     | NULL    |                | select,insert,update,references | 更新日         |
++------------------+--------------+-----------------+------+-----+---------+----------------+---------------------------------+----------------+
+```
+
+```
+mysql > INSERT INTO [テーブル名] [フィールド名] VALUES [値]
+mysql > INSERT INTO m_users (user_name, mail_address, password, created, modified)
+          VALUES ("Qii Taro", "qiitaro@hoge.com", "123123", now(), now())
+
+mysql > UPDATE [テーブル名] SET [フィールド名]=[値] WHERE [条件式]
+mysql > UPDATE m_users SET user_name="Qii Takao", mail_address="qiitakao@hoge.com" WHERE id = 5;
+
+mysql > DELETE FROM [テーブル名]
+mysql > DELETE FROM [テーブル名] WHERE [条件式]
+mysql > DELETE FROM m_users WHERE id > 5 AND del_flg = 1;
+```
+
+```
+mysql > START TRANSACTION;
+mysql > UPDATE m_users SET user_name="Huga Hogeo", mail_address="huga@hoge.com" WHERE id = 5;
+mysql > UPDATE m_users SET user_name="Hoge Hugao", mail_address="hoge@huga.com" WHERE id = 6;
+mysql > SELECT * FROM m_users WHERE id IN(5,6);
+# ここで状態確認をしたりする
+mysql > COMMIT;
+
+mysql > ROLLBACK;
+```
+
+```
+$ mysqldump -u [ユーザー名] -p -x --all-databases > [出力ファイル名]
+$ mysqldump -u [ユーザー名] -p -x test_db > [出力ファイル名]
+$ mysqldump -u [ユーザー名] -p -x test_db users > [出力ファイル名]
+$ mysqldump -u [ユーザー名] -p -x test_db users --where="id < 5" > [出力ファイル名]
+```
+
+```
+$ mysql -u[ユーザー名] -p new_db < [ダンプファイル名]
+
+mysql> \R \d(\U) >\_
+PROMPT set to '\d(\U) >\_'
+test_db(root@localhost) >
+
+mysql> pager less -S
+PAGER set to 'less -S'
+mysql>
+
+
+$ mysql -uroot -p -e "select * from users" test_db > /tmp/mysql.txt
+
+```
+*
