@@ -9,3 +9,20 @@ https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit&WT.m
 ```
 dotnet --version
 ```
+
+http://owin.org/
+
+
+https://twitter.com/despos
+https://instagram.com/desposofficial
+https://facebook.com/desposofficial
+
+https://twitter.com/chack411
+https://facebook.com/chack411
+http://aka.ms/chack
+https://akirainoue411.wordpress.com/
+
+http://www.quipu.co.jp
+
+
+
