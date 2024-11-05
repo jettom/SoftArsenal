@@ -7,9 +7,11 @@ import java.util.*;
 
 public class LogFileStatistics {
 
-    // 支持的时间格式
+    // 支持的时间和日期格式
     private static final DateTimeFormatter formatterWithMillis = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
     private static final DateTimeFormatter formatterWithoutMillis = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final DateTimeFormatter dateFormatterDash = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter dateFormatterSlash = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 
     public static void main(String[] args) {
         // 日志文件目录
@@ -67,7 +69,7 @@ public class LogFileStatistics {
             // 获取文件更新日期
             Path filePath = file.toPath();
             BasicFileAttributes attrs = Files.readAttributes(filePath, BasicFileAttributes.class);
-            LocalDate lastModifiedDate = Instant.ofEpochMilli(attrs.lastModifiedTime().toMillis()).atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate lastModifiedDate = parseDate(Instant.ofEpochMilli(attrs.lastModifiedTime().toMillis()).atZone(ZoneId.systemDefault()).toLocalDate().toString());
 
             BufferedReader br = new BufferedReader(new FileReader(file));
             String firstLine = br.readLine();
@@ -111,6 +113,21 @@ public class LogFileStatistics {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    private static LocalDate parseDate(String dateString) {
+        try {
+            // 尝试使用 yyyy-MM-dd 格式解析
+            return LocalDate.parse(dateString, dateFormatterDash);
+        } catch (Exception e) {
+            try {
+                // 如果解析失败，尝试使用 yyyy/MM/dd 格式解析
+                return LocalDate.parse(dateString, dateFormatterSlash);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                return null;
+            }
         }
     }
 }
