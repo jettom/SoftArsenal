@@ -71,17 +71,16 @@ public class LogFileStatistics {
             BasicFileAttributes attrs = Files.readAttributes(filePath, BasicFileAttributes.class);
             LocalDate lastModifiedDate = parseDate(Instant.ofEpochMilli(attrs.lastModifiedTime().toMillis()).atZone(ZoneId.systemDefault()).toLocalDate().toString());
 
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String firstLine = br.readLine();
+            // 使用 BufferedReader 读取文件的第一行和最后一行
+            String firstLine = null;
             String lastLine = null;
-            String currentLine;
-
-            // 读取最后一行
-            while ((currentLine = br.readLine()) != null) {
-                lastLine = currentLine;
+            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                firstLine = br.readLine(); // 读取第一行
+                String currentLine;
+                while ((currentLine = br.readLine()) != null) {
+                    lastLine = currentLine; // 循环读取，直到最后一行
+                }
             }
-
-            br.close();
 
             if (firstLine != null && lastLine != null) {
                 LocalDateTime startTime = parseTimeFromLog(firstLine);
@@ -103,7 +102,7 @@ public class LogFileStatistics {
         try {
             // 假设时间在每行的前19或23个字符内
             String timeString = logLine.substring(0, Math.min(23, logLine.length()));
-            
+
             // 提取日期部分并进行格式判断
             String datePart = timeString.substring(0, 10); // 日期部分是前10个字符
             String timePart = timeString.substring(11);    // 时间部分是剩余的部分
