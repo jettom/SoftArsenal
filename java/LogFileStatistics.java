@@ -100,14 +100,13 @@ public class LogFileStatistics {
     private static LocalDateTime parseTimeFromLog(String logLine) {
         try {
             // 假设时间在每行的前19或23个字符内
-            String timeString = logLine.length() >= 23 ? logLine.substring(0, 23) : logLine.substring(0, 19);
+            String timeString = logLine.substring(0, Math.min(23, logLine.length()));
 
-            try {
-                // 尝试解析精确到毫秒的时间格式
+            // 使用 '.' 判断格式
+            if (timeString.contains(".")) {
                 return LocalDateTime.parse(timeString, formatterWithMillis);
-            } catch (Exception e) {
-                // 如果解析失败，尝试解析精确到秒的时间格式
-                return LocalDateTime.parse(timeString, formatterWithoutMillis);
+            } else {
+                return LocalDateTime.parse(timeString.substring(0, 19), formatterWithoutMillis);
             }
         } catch (Exception e) {
             e.printStackTrace();
