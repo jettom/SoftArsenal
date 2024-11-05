@@ -16,47 +16,50 @@ public class LogFileStatistics {
     public static void main(String[] args) {
         // 日志文件目录
         String logDirPath = "path/to/your/log/files";  // 替换为你的日志文件路径
-        String outputCsvFile = "log_statistics.csv";   // 输出CSV文件名
-
-        List<LogFileInfo> logFileInfoList = new ArrayList<>();
 
         try {
             File folder = new File(logDirPath);
             File[] logFiles = folder.listFiles();
 
             if (logFiles != null) {
+                // 按最后修改日期分组的结果
+                Map<LocalDate, List<LogFileInfo>> logInfoMap = new HashMap<>();
+
                 for (File file : logFiles) {
                     if (file.isFile() && file.getName().endsWith(".log")) {
                         LogFileInfo logFileInfo = processLogFile(file);
                         if (logFileInfo != null) {
-                            logFileInfoList.add(logFileInfo);
+                            logInfoMap.computeIfAbsent(logFileInfo.getLastModifiedDate(), k -> new ArrayList<>()).add(logFileInfo);
                         }
                     }
                 }
-            }
 
-            // 按文件更新日期排序
-            logFileInfoList.sort(Comparator.comparing(LogFileInfo::getLastModifiedDate));
+                // 输出结果到不同的 CSV 文件
+                for (Map.Entry<LocalDate, List<LogFileInfo>> entry : logInfoMap.entrySet()) {
+                    LocalDate date = entry.getKey();
+                    List<LogFileInfo> infoList = entry.getValue();
+                    String outputCsvFile = "log_statistics_" + date.format(DateTimeFormatter.ofPattern("yyyyMMdd")) + ".csv"; // 根据日期创建文件名
 
-            // 输出结果到CSV文件
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputCsvFile))) {
-                // 写入CSV文件的表头
-                writer.write("Last Modified Date,File Name,Start Time,End Time,Duration (s)");
-                writer.newLine();
+                    try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputCsvFile))) {
+                        // 写入CSV文件的表头
+                        writer.write("Last Modified Date,File Name,Start Time,End Time,Duration (s)");
+                        writer.newLine();
 
-                // 写入每个日志文件的信息
-                for (LogFileInfo info : logFileInfoList) {
-                    String line = String.format("%s,%s,%s,%s,%d",
-                            info.getLastModifiedDate(),
-                            info.getFileName(),
-                            info.getStartTime().format(formatterWithMillis),
-                            info.getEndTime().format(formatterWithMillis),
-                            info.getDuration());
-                    writer.write(line);
-                    writer.newLine();
+                        // 写入每个日志文件的信息
+                        for (LogFileInfo info : infoList) {
+                            String line = String.format("%s,%s,%s,%s,%d",
+                                    info.getLastModifiedDate(),
+                                    info.getFileName(),
+                                    info.getStartTime().format(formatterWithMillis),
+                                    info.getEndTime().format(formatterWithMillis),
+                                    info.getDuration());
+                            writer.write(line);
+                            writer.newLine();
+                        }
+
+                        System.out.println("结果已成功写入到 " + outputCsvFile);
+                    }
                 }
-
-                System.out.println("结果已成功写入到 " + outputCsvFile);
             }
 
         } catch (Exception e) {
