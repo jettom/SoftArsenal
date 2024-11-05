@@ -103,12 +103,23 @@ public class LogFileStatistics {
         try {
             // 假设时间在每行的前19或23个字符内
             String timeString = logLine.substring(0, Math.min(23, logLine.length()));
+            
+            // 提取日期部分并进行格式判断
+            String datePart = timeString.substring(0, 10); // 日期部分是前10个字符
+            String timePart = timeString.substring(11);    // 时间部分是剩余的部分
 
-            // 使用 '.' 判断格式
-            if (timeString.contains(".")) {
-                return LocalDateTime.parse(timeString, formatterWithMillis);
+            LocalDate date;
+            if (datePart.contains("/")) {
+                date = LocalDate.parse(datePart, dateFormatterSlash);
             } else {
-                return LocalDateTime.parse(timeString.substring(0, 19), formatterWithoutMillis);
+                date = LocalDate.parse(datePart, dateFormatterDash);
+            }
+
+            // 解析时间部分
+            if (timePart.contains(".")) {
+                return LocalDateTime.of(date, LocalTime.parse(timePart, formatterWithMillis));
+            } else {
+                return LocalDateTime.of(date, LocalTime.parse(timePart.substring(0, 8), formatterWithoutMillis));
             }
         } catch (Exception e) {
             e.printStackTrace();
