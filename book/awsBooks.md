@@ -166,3 +166,13 @@ https://pragprog.com/titles/apapps/serverless-apps-on-cloudflare/
 ```
 ./sspa server
 ```
+
+
+# 動かして学ぶ！Pythonサーバレスアプリ開発入門
+https://github.com/chaingng/shoeisha_serverless_python_tutorial
+
+「[動かして学ぶ！Pythonサーバレスアプリ開発入門](https://www.shoeisha.co.jp/book/detail/9784798169729)」のサンプルコードです。
+
+<p align="center">
+  <img src="https://m.media-amazon.com/images/I/51QnCB0lrdL.jpg" alt="動かして学ぶ！Pythonサーバレスアプリ開発入門"/>
+</p>
