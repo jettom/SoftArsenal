@@ -38,6 +38,10 @@ public class LogFileStatistics {
                 for (Map.Entry<LocalDate, List<LogFileInfo>> entry : logInfoMap.entrySet()) {
                     LocalDate date = entry.getKey();
                     List<LogFileInfo> infoList = entry.getValue();
+                    
+                    // 按开始时间排序
+                    infoList.sort(Comparator.comparing(LogFileInfo::getStartTime));
+
                     String outputCsvFile = "log_statistics_" + date.format(DateTimeFormatter.ofPattern("yyyyMMdd")) + ".csv"; // 根据日期创建文件名
 
                     try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputCsvFile))) {
