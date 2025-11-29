@@ -1,4 +1,8 @@
-Pythonで作るゲームSNS
+# Pythonで作るゲームSNS
+
+<p align="center">
+  <img src="https://www.c-r.com/book/images/l/86354-364-5_l.jpg" alt="Pythonで作るゲームSNS"/>
+</p>
 
 https://www.c-r.com/book/detail/1421
 
