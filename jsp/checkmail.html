@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Mail Regex Test</title>
+</head>
+<body>
+    <h3>Mail Regex Test</h3>
+    <p>按 F12 打开 Console 看结果</p>
+
+    <script>
+        function isValidMailAddress(mail) {
+            if (mail == null || mail === "") {
+                return false;
+            }
+
+            var mailRegexStr = "^(?!.*\\.\\.)[A-Za-z0-9%_+-]+(?:\\.[A-Za-z0-9%_+-]+)*@(?=[A-Za-z0-9%_+.\\-]*\\.)[A-Za-z0-9%_+](?:[A-Za-z0-9%_+.\\-]*[A-Za-z0-9%_+])?$";
+            var mailRegex = new RegExp(mailRegexStr);
+
+            return mail.match(mailRegex) != null;
+        }
+
+        function testMailAddress() {
+            var testList = [
+                { mail: "abc@test.com", expected: true },
+                { mail: "abc.def@test.com", expected: true },
+                { mail: "abc+def@test.co.jp", expected: true },
+
+                { mail: "", expected: false },
+                { mail: null, expected: false },
+                { mail: "abc@@test.com", expected: false },
+                { mail: ".abc@test.com", expected: false },
+                { mail: "abc.@test.com", expected: false },
+                { mail: "abc..def@test.com", expected: false },
+                { mail: "abc@test", expected: false },
+                { mail: "abc@.test.com", expected: false },
+                { mail: "abc@test.com.", expected: false },
+                { mail: "abc@-test.com", expected: false },
+                { mail: "abc@test.com-", expected: false }
+            ];
+
+            for (var i = 0; i < testList.length; i++) {
+                var test = testList[i];
+                var actual = isValidMailAddress(test.mail);
+
+                if (actual === test.expected) {
+                    console.log("OK : " + test.mail + " => " + actual);
+                } else {
+                    console.log("NG : " + test.mail + " => actual=" + actual + ", expected=" + test.expected);
+                }
+            }
+        }
+
+        testMailAddress();
+    </script>
+</body>
+</html>
